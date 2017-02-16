@@ -1,0 +1,33 @@
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">Dircont</a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/profile']" [routerLinkActive]="['active']">Личные данные</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/employees']" [routerLinkActive]="['active']">Сотрудники</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/map']" [routerLinkActive]="['active']">Карта компетенций</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/black-white-list']" [routerLinkActive]="['active']">Черно-белый список поставщиков</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/tariffs']" [routerLinkActive]="['active']">Тарифы, реестр сделок, оплата</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/faq']" [routerLinkActive]="['active']">ЧаВо</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="inner-outlet">
+  <router-outlet></router-outlet>
+</div>
+
