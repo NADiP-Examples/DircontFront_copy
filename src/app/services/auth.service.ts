@@ -15,13 +15,19 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post(`${environment.api_url}/auth/login`, { email: email, password: password })
+    return this.http.post(`${environment.api_url}/auth/login`, { email, password })
       .map(res => res.json())
       .map((res) => {
         Cookie.set('Authentication-Token', res.auth_token);
         this.loggedIn = true;
         return res;
       })
+      .catch((error) => Observable.throw(error.json()));
+  }
+
+  register(full_name: string, email: string, password: string): Observable<any> {
+    return this.http.post(`${environment.api_url}/users`, { email, password, full_name })
+      .map(res => res.json())
       .catch((error) => Observable.throw(error.json()));
   }
 

@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://localhost/api/v1'
+  api_url: 'http://localhost/api/v1',
+  google_captcha_key: '6LfiKRYUAAAAACWKK7SFCa5FDSclf7ORoJXt6ulN'
 };

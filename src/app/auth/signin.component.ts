@@ -18,13 +18,16 @@ export class SigninComponent {
 
   login(): void {
     this.errors = Validation.ValidateLogin(this.email, this.password);
-
     if (!_.isEmpty(this.errors)) return;
 
     this.AuthService.login(this.email, this.password)
       .subscribe(
         () => this.router.navigate(['']),
-        (error) => {} // TODO Need add error fields and notify for show error type "error.description"
+        (error) => {
+          // TODO Need add error fields and notify for show error type "error.description"
+          if (error.errors) this.errors = error.errors;
+          if (error.description !== '') console.log(error.description);
+        }
       )
   }
 }

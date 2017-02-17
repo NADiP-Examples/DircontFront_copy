@@ -8,6 +8,8 @@ import 'rxjs/Rx'; // Not delete!! It's need for correct work with Observable
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes'
 
+import { ReCaptchaModule } from '../../node_modules/angular2-recaptcha';
+
 import { AppComponent } from './app.component';
 import { CommonComponent } from './common/common.component';
 import { SigninComponent } from './auth/signin.component';
@@ -31,6 +33,7 @@ import { isLoggedIn, isLoggedOut }   from './services/guard.service';
     BrowserModule,
     FormsModule,
     HttpModule,
+    ReCaptchaModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [AuthService, isLoggedIn, isLoggedOut],
