@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import 'rxjs/Rx'; // Not delete!! It's need for correct work with Observable
+
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes'
 
@@ -12,6 +14,8 @@ import { SigninComponent } from './auth/signin.component';
 import { SignupComponent } from './auth/signup.component';
 import { NotFoundComponent } from './not-found/not-found.comnponent';
 import { ProfileComponent } from './profile/profile.comnponent';
+import { AuthService } from './services/auth.service';
+import { isLoggedIn, isLoggedOut }   from './services/guard.service';
 
 
 @NgModule({
@@ -29,7 +33,7 @@ import { ProfileComponent } from './profile/profile.comnponent';
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [AuthService, isLoggedIn, isLoggedOut],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
