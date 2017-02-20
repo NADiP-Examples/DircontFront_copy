@@ -1,3 +1,5 @@
+import { environment } from '../../environments/environment';
+
 const email_regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 export class Validation {
@@ -39,7 +41,7 @@ export class Validation {
     return errors
   }
 
-  static ValidateRegister(full_name: string, email: string, password: string, password_double: string, isCaptcha: boolean): Object {
+  static ValidateRegister(full_name: string, email: string, password: string, password_double: string, captcha_token: string): Object {
     let errors = <any>{};
     let email_errors = Validation.validateEmail(email);
     let pass_errors = Validation.validatePassword(password);
@@ -50,7 +52,7 @@ export class Validation {
     if (pass_errors.length) errors.password = pass_errors;
     if (pass_equals_errors.length) errors.password_double = pass_equals_errors;
     if (full_name_errors.length) errors.full_name = full_name_errors;
-    if (!isCaptcha) errors.captcha = 'Необходимо разгадать капчу';
+    if (!environment.skip_captcha && !captcha_token) errors.captcha = 'Необходимо разгадать капчу';
 
     return errors
   }
