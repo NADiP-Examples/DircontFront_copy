@@ -25,8 +25,8 @@ export class AuthService {
       .catch((error) => Observable.throw(error.json()));
   }
 
-  register(full_name: string, email: string, password: string): Observable<any> {
-    return this.http.post(`${environment.api_url}/users`, { email, password, full_name })
+  register(full_name: string, email: string, password: string, captcha: string): Observable<any> {
+    return this.http.post(`${environment.api_url}/users`, { email, password, full_name, 'g-recaptcha-response': captcha })
       .map(res => res.json())
       .catch((error) => Observable.throw(error.json()));
   }

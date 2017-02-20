@@ -1,9 +1,11 @@
-import { Component} from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Validation } from '../services/validation.service';
 import * as _ from "lodash";
 import { environment } from '../../environments/environment';
+
+import { ReCaptchaComponent } from 'angular2-recaptcha/lib/captcha.component';
 
 @Component({
   selector: 'signup',
@@ -16,20 +18,22 @@ export class SignupComponent {
   private password_double = '';
   private full_name = '';
   private errors = {};
-  private isCaptcha = false;
+  private captcha_token;
   private env = environment;
+
+  @ViewChild(ReCaptchaComponent) captcha:ReCaptchaComponent;
 
   constructor(private AuthService: AuthService, private router: Router) {}
 
   handleCorrectCaptcha(): void {
-    this.isCaptcha = true;
+    this.captcha_token = this.captcha.getResponse();
   }
 
   register(): void {
-    this.errors = Validation.ValidateRegister(this.full_name, this.email, this.password, this.password_double, this.isCaptcha);
+    this.errors = Validation.ValidateRegister(this.full_name, this.email, this.password, this.password_double, this.captcha_token);
     if (!_.isEmpty(this.errors)) return;
 
-    this.AuthService.register(this.full_name, this.email, this.password)
+    this.AuthService.register(this.full_name, this.email, this.password, this.captcha_token)
       .subscribe(
         () => this.router.navigate(['signin']),
         (error) => {
