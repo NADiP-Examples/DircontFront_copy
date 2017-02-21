@@ -1,5 +1,4 @@
 import { Component} from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Validation } from '../services/validation.service';
 import * as _ from "lodash";
@@ -14,7 +13,7 @@ export class SigninComponent {
   private password = '';
   private errors = {};
 
-  constructor(private AuthService: AuthService, private router: Router) {}
+  constructor(private AuthService: AuthService) {}
 
   login(): void {
     this.errors = Validation.ValidateLogin(this.email, this.password);
@@ -22,7 +21,7 @@ export class SigninComponent {
 
     this.AuthService.login(this.email, this.password)
       .subscribe(
-        () => this.router.navigate(['']),
+        () => {},
         (error) => {
           // TODO Need add error fields and notify for show error type "error.description"
           if (error.errors) this.errors = error.errors;

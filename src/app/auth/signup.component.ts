@@ -35,7 +35,7 @@ export class SignupComponent {
 
     this.AuthService.register(this.full_name, this.email, this.password, this.captcha_token)
       .subscribe(
-        () => this.router.navigate(['signin']),
+        () => {},
         (error) => {
           // TODO Need add error fields and notify for show error type "error.description"
           if (error.errors) this.errors = error.errors;

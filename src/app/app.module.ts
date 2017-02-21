@@ -16,8 +16,9 @@ import { SigninComponent } from './auth/signin.component';
 import { SignupComponent } from './auth/signup.component';
 import { NotFoundComponent } from './not-found/not-found.comnponent';
 import { ProfileComponent } from './profile/profile.comnponent';
+import { ConfirmComponent } from './auth/confirm.component';
 import { AuthService } from './services/auth.service';
-import { isLoggedIn, isLoggedOut }   from './services/guard.service';
+import { isLoggedIn, isLoggedOut, isUserInactive, isUserActive }   from './services/guard.service';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { isLoggedIn, isLoggedOut }   from './services/guard.service';
     SignupComponent,
     NotFoundComponent,
     CommonComponent,
-    ProfileComponent
+    ProfileComponent,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,13 @@ import { isLoggedIn, isLoggedOut }   from './services/guard.service';
     ReCaptchaModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [AuthService, isLoggedIn, isLoggedOut],
+  providers: [
+    AuthService,
+    isLoggedIn,
+    isLoggedOut,
+    isUserInactive,
+    isUserActive
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
