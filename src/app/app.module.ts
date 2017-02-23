@@ -14,11 +14,13 @@ import { AppComponent } from './app.component';
 import { CommonComponent } from './common/common.component';
 import { SigninComponent } from './auth/signin.component';
 import { SignupComponent } from './auth/signup.component';
+import { ResetPassComponent } from './auth/resetpass.component';
+import { ConfirmResetPassComponent } from './auth/confirm_resetpass.component';
 import { NotFoundComponent } from './not-found/not-found.comnponent';
 import { ProfileComponent } from './profile/profile.comnponent';
-import { ConfirmComponent } from './auth/confirm.component';
+import { ActivateComponent } from './auth/activate.component'
 import { AuthService } from './services/auth.service';
-import { isLoggedIn, isLoggedOut, isUserInactive, isUserActive }   from './services/guard.service';
+import { isLoggedIn, isLoggedOut }   from './services/guard.service';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { isLoggedIn, isLoggedOut, isUserInactive, isUserActive }   from './servi
     NotFoundComponent,
     CommonComponent,
     ProfileComponent,
-    ConfirmComponent
+    ActivateComponent,
+    ResetPassComponent,
+    ConfirmResetPassComponent
   ],
   imports: [
     BrowserModule,
@@ -41,9 +45,7 @@ import { isLoggedIn, isLoggedOut, isUserInactive, isUserActive }   from './servi
   providers: [
     AuthService,
     isLoggedIn,
-    isLoggedOut,
-    isUserInactive,
-    isUserActive
+    isLoggedOut
   ],
   bootstrap: [AppComponent]
 })

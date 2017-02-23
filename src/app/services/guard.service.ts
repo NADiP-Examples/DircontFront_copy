@@ -31,31 +31,3 @@ export class isLoggedOut implements CanActivate {
     return true;
   }
 }
-
-@Injectable()
-export class isUserActive implements CanActivate {
-
-  constructor (private router: Router, private AuthService: AuthService) {}
-
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> | boolean {
-    if (!this.AuthService.isUserActive()) {
-      this.router.navigate(['confirmation']);
-      return false;
-    }
-    return true;
-  }
-}
-
-@Injectable()
-export class isUserInactive implements CanActivate {
-
-  constructor (private router: Router, private AuthService: AuthService) {}
-
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> | boolean {
-    if (this.AuthService.isUserActive()) {
-      this.router.navigate(['']);
-      return false;
-    }
-    return true;
-  }
-}

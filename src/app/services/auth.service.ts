@@ -7,10 +7,13 @@ import { Headers } from '@angular/http'
 
 import { environment } from '../../environments/environment';
 
+function errorHandler(error) {
+  return Observable.throw(error.json ? error.json() : error)
+}
+
 @Injectable()
 export class AuthService {
   private loggedIn = false;
-  private isActive = false;
   private headers = new Headers();
 
   constructor(private http: Http, private router: Router) {
@@ -29,7 +32,13 @@ export class AuthService {
       .flatMap(() => this.getSelf())
       .map(() => this.router.navigate(['profile']))
       .map(() => result)
-      .catch((error) => Observable.throw(error.json()));
+      .catch((error) => {
+        let err = errorHandler(error);
+        if (error.message === 'User is inactive') this.activateUser(email)
+          .subscribe(() => console.log('Юзер неактиный! К вам на почту отправлено письмо с ссылкой на активацию.'));
+        //TODO it need change to notify message!
+        return err
+      });
   }
 
   getSelf(): Observable<any> {
@@ -37,47 +46,77 @@ export class AuthService {
     let user_id = Cookie.get('user_id');
 
     if (!token) {
-      this.isActive = false;
       this.loggedIn = false;
       return
     }
     this.headers.append('Authentication-Token', token);
     this.loggedIn = true;
 
-    return this.http.get(`${environment.api_url}/user/${user_id}`, {headers :this.headers})
+    return this.http.get(`${environment.api_url}/user/${user_id}`, { headers :this.headers })
       .map(res => res.json())
-      .map(res => this.isActive = res.is_active);
+      .catch((error) => {
+        this.logout();
+        return errorHandler(error)
+      });
   }
 
   register(full_name: string, email: string, password: string, captcha: string): Observable<any> {
     let result = {};
     return this.http.post(`${environment.api_url}/users`, { email, password, full_name, 'g-recaptcha-response': captcha })
       .map(res => res.json())
-      .flatMap(() => this.login(email,password))
-      .flatMap(() => this.sendConfirmEmail())
+      .flatMap(() => this.activateUser(email))
       .map(() => result)
-      .catch((error) => Observable.throw(error.json()));
+      .catch((error) => errorHandler(error));
   }
 
-  sendConfirmEmail(): Observable<any> {
-    return this.http.post(`${environment.api_url}/auth/send_confirmation`, {}, {headers :this.headers})
+  activateUser(email: string): Observable<any> {
+    let callback = `${environment.callback_url}/activate`;
+    return this.http.post(`${environment.api_url}/auth/activate_user`, {email, callback}, {headers :this.headers})
       .map(res => res.json())
-      .catch((error) => Observable.throw(error.json()));
+      .catch((error) => errorHandler(error));
+  }
+
+  activateConfirmUser(email: string, key: string): Observable<any> {
+    return this.http.post(`${environment.api_url}/auth/activate_user/confirm`, {email, key}, {headers :this.headers})
+      .map(res => res.json())
+      .map((res) => {
+        Cookie.set('Authentication-Token', res.auth_token);
+        Cookie.set('user_id', res.user_id);
+      })
+      .flatMap(() => this.getSelf())
+      .map(() => this.router.navigate(['profile']))
+      .catch((error) => errorHandler(error));
+  }
+
+  resetPass(email: string): Observable<any> {
+    let callback = `${environment.callback_url}/confirm_reset_pass`;
+    return this.http.post(`${environment.api_url}/auth/reset_password`, {email, callback}, {headers :this.headers})
+      .map(res => res.json())
+      .catch((error) => errorHandler(error));
+  }
+
+  resetPassConform(email: string, key: string): Observable<any> {
+    return this.http.post(`${environment.api_url}/auth/reset_password/confirm`, {email, key}, {headers :this.headers})
+      .map(res => res.json())
+      .map((res) => {
+        Cookie.set('Authentication-Token', res.auth_token);
+        Cookie.set('user_id', res.user_id);
+      })
+      .flatMap(() => this.getSelf())
+      .map(() => this.router.navigate(['profile']))
+      .catch((error) => errorHandler(error));
   }
 
   logout(): void {
     Cookie.delete('Authentication-Token');
+    Cookie.delete('user_id');
+    this.headers.delete('Authentication-Token');
     this.loggedIn = false;
-    this.isActive = false;
     this.router.navigate(['signin'])
   }
 
   isLoggedIn(): boolean {
     return this.loggedIn;
-  }
-
-  isUserActive(): boolean {
-    return this.isActive;
   }
 
 }

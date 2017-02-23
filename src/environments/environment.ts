@@ -7,5 +7,6 @@ export const environment = {
   production: false,
   api_url: 'http://localhost/api/v1',
   google_captcha_key: '6LfiKRYUAAAAACWKK7SFCa5FDSclf7ORoJXt6ulN',
-  skip_captcha: true
+  skip_captcha: true,
+  callback_url: 'http://localhost:4200'
 };

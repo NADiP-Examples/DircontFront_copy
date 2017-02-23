@@ -1,5 +1,4 @@
 import { Component, ViewChild} from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Validation } from '../services/validation.service';
 import * as _ from "lodash";
@@ -23,7 +22,7 @@ export class SignupComponent {
 
   @ViewChild(ReCaptchaComponent) captcha:ReCaptchaComponent;
 
-  constructor(private AuthService: AuthService, private router: Router) {}
+  constructor(private AuthService: AuthService) {}
 
   handleCorrectCaptcha(): void {
     this.captcha_token = this.captcha.getResponse();
@@ -37,9 +36,9 @@ export class SignupComponent {
       .subscribe(
         () => {},
         (error) => {
-          // TODO Need add error fields and notify for show error type "error.description"
+          // TODO Need add error fields and notify for show error type "error.message"
           if (error.errors) this.errors = error.errors;
-          if (error.description !== '') console.log(error.description);
+          if (error.message !== '') console.log(error.message);
         }
       )
   }

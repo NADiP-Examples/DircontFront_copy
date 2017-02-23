@@ -1,25 +1,27 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Validation } from '../services/validation.service';
 import * as _ from "lodash";
 
 @Component({
-  selector: 'signin',
-  templateUrl: `./signin.component.html`,
-  styleUrls: ['./auth.component.css']
+  selector: 'resetpass',
+  templateUrl: `./resetpass.component.html`,
+  styleUrls: ['./auth.component.sass'],
 })
-export class SigninComponent {
+export class ResetPassComponent {
   private email = '';
-  private password = '';
-  private errors = {};
+  private errors = <any>{};
 
   constructor(private AuthService: AuthService) {}
 
-  login(): void {
-    this.errors = Validation.ValidateLogin(this.email, this.password);
+  reset(): void {
+    this.errors = {};
+
+    let mail_error = Validation.validateEmail(this.email);
+    if (mail_error.length) this.errors.email = mail_error;
     if (!_.isEmpty(this.errors)) return;
 
-    this.AuthService.login(this.email, this.password)
+    this.AuthService.resetPass(this.email)
       .subscribe(
         () => {},
         (error) => {
