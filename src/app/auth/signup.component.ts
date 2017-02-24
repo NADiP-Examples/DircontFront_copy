@@ -1,6 +1,8 @@
 import { Component, ViewChild} from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Validation } from '../services/validation.service';
+import { NotificationsService } from 'angular2-notifications';
+import { Router } from '@angular/router';
 import * as _ from "lodash";
 import { environment } from '../../environments/environment';
 
@@ -22,7 +24,7 @@ export class SignupComponent {
 
   @ViewChild(ReCaptchaComponent) captcha:ReCaptchaComponent;
 
-  constructor(private AuthService: AuthService) {}
+  constructor(private AuthService: AuthService, private notify: NotificationsService, private router: Router) {}
 
   handleCorrectCaptcha(): void {
     this.captcha_token = this.captcha.getResponse();
@@ -34,11 +36,13 @@ export class SignupComponent {
 
     this.AuthService.register(this.full_name, this.email, this.password, this.captcha_token)
       .subscribe(
-        () => {},
+        () => {
+          this.notify.success('Успешно!', 'Вы успешно зарегестрировались. Вам на почту отправлено письмо с подтверждением!')
+          this.router.navigate(['signin'])
+        },
         (error) => {
-          // TODO Need add error fields and notify for show error type "error.message"
           if (error.errors) this.errors = error.errors;
-          if (error.message !== '') console.log(error.message);
+          if (error.message !== 'Validation failed') this.notify.error('Ошибка!', error.message);
         }
       )
   }

@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { Cookie } from 'ng2-cookies';
 import { Observable } from 'rxjs/Rx';
 import { Headers } from '@angular/http'
+import { NotificationsService } from 'angular2-notifications';
 
 import { environment } from '../../environments/environment';
 
@@ -16,7 +17,7 @@ export class AuthService {
   private loggedIn = false;
   private headers = new Headers();
 
-  constructor(private http: Http, private router: Router) {
+  constructor(private http: Http, private router: Router, private notify: NotificationsService) {
     this.loggedIn = !!Cookie.get('Authentication-Token');
   }
 
@@ -32,13 +33,7 @@ export class AuthService {
       .flatMap(() => this.getSelf())
       .map(() => this.router.navigate(['profile']))
       .map(() => result)
-      .catch((error) => {
-        let err = errorHandler(error);
-        if (error.message === 'User is inactive') this.activateUser(email)
-          .subscribe(() => console.log('Юзер неактиный! К вам на почту отправлено письмо с ссылкой на активацию.'));
-        //TODO it need change to notify message!
-        return err
-      });
+      .catch((error) => errorHandler(error));
   }
 
   getSelf(): Observable<any> {
