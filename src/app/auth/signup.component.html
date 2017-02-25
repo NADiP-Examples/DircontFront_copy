@@ -21,6 +21,13 @@
             <input type="password" name="password_double" [(ngModel)]="password_double" class="form-control input-lg" placeholder="Repeat your password" />
             <div class="form-control-feedback">{{ errors.password_double }}</div>
           </div>
+          <label class="control-label input-group">Тип пользователя:</label>
+          <div class="justify-content-between">
+            <div class="btn-group btn-group-lg btn-block">
+              <button type="button" class="btn btn-block btn-secondary" (click)="role = 'admins_of_user'" [ngClass]="{'active': role === 'admins_of_user'}">АП</button>
+              <button type="button" class="btn btn-block btn-secondary" (click)="role = 'partners'" [ngClass]="{'active': role === 'partners'}">Партнер</button>
+            </div>
+          </div>
           <div class="form-group" [ngClass]="{'has-danger': errors.captcha}">
             <re-captcha (captchaResponse)="handleCorrectCaptcha($event)" site_key="{{ env.google_captcha_key }}"></re-captcha>
             <div class="form-control-feedback">{{ errors.captcha }}</div>
