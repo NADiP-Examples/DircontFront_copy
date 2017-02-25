@@ -55,9 +55,10 @@ export class AuthService {
       });
   }
 
-  register(full_name: string, email: string, password: string, captcha: string): Observable<any> {
+  register(full_name: string, email: string, password: string, type: string, captcha: string): Observable<any> {
     let result = {};
-    return this.http.post(`${environment.api_url}/users`, { email, password, full_name, 'g-recaptcha-response': captcha })
+    let params = { email, password, full_name, type, 'g-recaptcha-response': captcha };
+    return this.http.post(`${environment.api_url}/users`, params)
       .map(res => res.json())
       .flatMap(() => this.activateUser(email))
       .map(() => result)

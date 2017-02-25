@@ -16,7 +16,11 @@ export const appRoutes: Routes = [
     { path: 'profile', component: ProfileComponent },
   ] },
   { path: 'signin', canActivate: [isLoggedOut], component: SigninComponent },
-  { path: 'signup', canActivate: [isLoggedOut], component: SignupComponent },
+  { path: 'signup', canActivate: [isLoggedOut], children: [
+    { path: '', redirectTo: '/signup/admins_of_user', pathMatch: 'full' },
+    { path: 'admins_of_user', component: SignupComponent, data: {role: 'admins_of_user'} },
+    { path: 'partners', component: SignupComponent, data: {role: 'partners'} },
+  ] },
   { path: 'activate', canActivate: [isLoggedOut], component: ActivateComponent },
   { path: 'reset_pass', canActivate: [isLoggedOut], component: ResetPassComponent },
   { path: 'confirm_reset_pass', canActivate: [isLoggedOut], component: ConfirmResetPassComponent },
