@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes'
 
 import { ReCaptchaModule } from 'angular2-recaptcha';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { AppComponent } from './app.component';
 import { CommonComponent } from './common/common.component';
@@ -46,6 +47,7 @@ import { ProfileViewComponent } from './profile/profile-view/profile-view.compon
     FormsModule,
     HttpModule,
     ReCaptchaModule,
+    SimpleNotificationsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
   ],
