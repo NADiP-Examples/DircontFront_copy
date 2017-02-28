@@ -16,7 +16,7 @@ import { isLoggedIn, isLoggedOut }   from './services/guard.service';
 
 export const appRoutes: Routes = [
   {
-    path: '', component: CommonComponent, children: [
+    path: '', component: CommonComponent, canActivate: [isLoggedIn], children: [
     { path: '', redirectTo: '/profile', pathMatch: 'full' },
     {
       path: 'profile', component: ProfileComponent, children: [
