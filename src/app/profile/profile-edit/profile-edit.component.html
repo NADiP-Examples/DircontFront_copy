@@ -1,0 +1,505 @@
+<div class="row">
+  <div class="col-12">
+    <div class="select-block">
+      <header>Резиденство</header>
+      <div class="row">
+        <div class="col-12">
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary" [ngClass]="{active: residency=='russian_resident'}">
+              <input type="radio" name="residency" [(ngModel)]="residency" value="russian_resident">Резидент РФ
+            </label>
+            <label class="btn btn-primary" [ngClass]="{active: residency=='other'}">
+              <input disabled type="radio" name="residency" [(ngModel)]="residency" value="other">Иное
+            </label>
+          </div>
+          <!--<label class="mod-align-center radio-label">-->
+          <!--<input name="residency" class="custom-radio" type="radio" value="russian_resident" checked>-->
+          <!--&nbsp; Резидент РФ-->
+          <!--</label>-->
+        </div>
+      </div>
+      <header>Юридический статус</header>
+      <div class="row">
+        <div class="col-12">
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary" [ngClass]="{active: legalStatus=='individual'}">
+              <input type="radio" name="legalStatus" [(ngModel)]="legalStatus" value="individual">Физическое лицо
+            </label>
+            <label class="btn btn-primary" [ngClass]="{active: legalStatus=='entity'}">
+              <input type="radio" name="legalStatus" [(ngModel)]="legalStatus" value="entity">Индивидуальный
+              предприниматель
+            </label>
+            <label class="btn btn-primary" [ngClass]="{active: legalStatus=='employed'}">
+              <input type="radio" name="legalStatus" [(ngModel)]="legalStatus" value="employed">Юридическое лицо
+            </label>
+          </div>
+
+          <!--<label class="mod-align-center radio-label">-->
+          <!--<input type="radio" [(ngModel)]="legalStatus" name="legalStatus" class="custom-radio" value="individual">-->
+          <!--&nbsp; Физическое лицо-->
+          <!--</label>-->
+          <!--<label style="white-space: nowrap" class="mod-align-center radio-label">-->
+          <!--<input type="radio" [(ngModel)]="legalStatus" name="legalStatus" class="custom-radio" value="entity">-->
+          <!--&nbsp; Индивидуальный предприниматель-->
+          <!--</label>-->
+          <!--<label class="mod-align-center radio-label">-->
+          <!--<input type="radio" [(ngModel)]="legalStatus" name="legalStatus" class="custom-radio" value="employed">-->
+          <!--&nbsp; Юридическое лицо-->
+          <!--</label>-->
+        </div>
+      </div>
+    </div>
+    <div [ngSwitch]="legalStatus">
+
+      <!--ФОРМА Физ.лицо-->
+      <form *ngSwitchCase="'individual'">
+        <div class="row">
+          <label class="col-4">
+            Фамилия
+            <input class="simple-input" type="text" placeholder="Иванов">
+          </label>
+          <label class="col-4">
+            Имя
+            <input class="simple-input" type="text" placeholder="Иван">
+          </label>
+          <label class="col-4">
+            Отчество
+            <input class="simple-input" type="text" placeholder="Иванович">
+          </label>
+        </div>
+        <div class="row">
+          <label class="col-3">
+            Серия паспорта
+            <input class="simple-input" type="text" placeholder="1234">
+          </label>
+          <label class="col-3">
+            Номер паспорта
+            <input class="simple-input" type="text" placeholder="567890">
+          </label>
+          <label class="col-3">
+            Код подразделения
+            <input class="simple-input" type="text" placeholder="321-654">
+          </label>
+          <label class="col-3">
+            Дата выдачи
+            <input class="simple-input" type="text" placeholder="20.10.2000">
+          </label>
+        </div>
+        <div class="row">
+          <!--<div class="col-12">-->
+          <label class="col-12">
+            Кем выдан
+            <input class="simple-input" type="text" placeholder="УВД Центрального района Кемеровской области">
+          </label>
+          <!--</div>-->
+        </div>
+        <div class="row">
+          <label class="col-4">
+            Дата рождения
+            <input class="simple-input" type="text" placeholder="10.02.1945">
+          </label>
+          <label class="col-8">
+            Место рождения
+            <input class="simple-input" type="text" placeholder="г. Новокузнецк Кемеровской области">
+          </label>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="border"></div>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-4">
+            Телефон
+            <input class="simple-input" type="text" placeholder="+7(923)600-12-12">
+          </label>
+          <label class="col-4">
+            Skype
+            <input class="simple-input" type="text" placeholder="skype id">
+          </label>
+          <label class="col-4">
+            Сайт
+            <input class="simple-input" type="text" placeholder="example.com">
+          </label>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="border"></div>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-6">
+            ИНН
+            <input class="simple-input" type="text" placeholder="12345678912">
+          </label>
+          <label class="col-6">
+            Номер банковской карты
+            <input class="simple-input" type="text" placeholder="4444-4444-4444-4448-444">
+          </label>
+        </div>
+      </form>
+
+      <!--ФОРМА ИП-->
+      <form *ngSwitchCase="'entity'">
+        <div class="personal-data">
+          <div class="position-select mod-align-center">
+            <header style="padding-right: 10px">Должность</header>
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-primary" [ngClass]="{active: position=='employee'}">
+                <input type="radio" name="position" [(ngModel)]="position" value="employee" autocomplete="off">Сотрудник
+              </label>
+              <label class="btn btn-primary" [ngClass]="{active: position=='director'}">
+                <input type="radio" name="position" [(ngModel)]="position" value="director" autocomplete="off">Руководитель
+              </label>
+            </div>
+            <div class="border" style="display: inline-block; margin-left: 10px"></div>
+          </div>
+
+          <div *ngIf="position=='employee'" class="employee-data">
+            <div class="header mod-align-center">
+              Ваши данные
+              <div class="border" style="display: inline-block; margin-left: 10px"></div>
+            </div>
+            <div class="row">
+              <label class="col-4">
+                Фамилия
+                <input class="simple-input" type="text" placeholder="Иванов">
+              </label>
+              <label class="col-4">
+                Имя
+                <input class="simple-input" type="text" placeholder="Иван">
+              </label>
+              <label class="col-4">
+                Отчество
+                <input class="simple-input" type="text" placeholder="Иванович">
+              </label>
+            </div>
+            <div class="row">
+              <label class="col-4">
+                Телефон
+                <input class="simple-input" type="text" placeholder="+7(923)600-12-12">
+              </label>
+              <label class="col-4">
+                Skype
+                <input class="simple-input" type="text" placeholder="skype id">
+              </label>
+            </div>
+          </div>
+
+          <div class="director-data">
+            <div class="header mod-align-center">
+              {{position=='employee'?'Данные руководителя':'Ваши данные'}}
+              <div class="border" style="display: inline-block; margin-left: 10px"></div>
+            </div>
+            <div class="row">
+              <label class="col-4">
+                Фамилия
+                <input class="simple-input" type="text" placeholder="Иванов">
+              </label>
+              <label class="col-4">
+                Имя
+                <input class="simple-input" type="text" placeholder="Иван">
+              </label>
+              <label class="col-4">
+                Отчество
+                <input class="simple-input" type="text" placeholder="Иванович">
+              </label>
+            </div>
+            <div class="row">
+              <label class="col-3">
+                Серия паспорта
+                <input class="simple-input" type="text" placeholder="1234">
+              </label>
+              <label class="col-3">
+                Номер паспорта
+                <input class="simple-input" type="text" placeholder="567890">
+              </label>
+              <label class="col-3">
+                Код подразделения
+                <input class="simple-input" type="text" placeholder="321-654">
+              </label>
+              <label class="col-3">
+                Дата выдачи
+                <input class="simple-input" type="text" placeholder="20.10.2000">
+              </label>
+            </div>
+            <div class="row">
+              <!--<div class="col-12">-->
+              <label class="col-12">
+                Кем выдан
+                <input class="simple-input" type="text" placeholder="УВД Центрального района Кемеровской области">
+              </label>
+              <!--</div>-->
+            </div>
+            <div class="row">
+              <label class="col-4">
+                Дата рождения
+                <input class="simple-input" type="text" placeholder="10.02.1945">
+              </label>
+              <label class="col-8">
+                Место рождения
+                <input class="simple-input" type="text" placeholder="г. Новокузнецк Кемеровской области">
+              </label>
+            </div>
+          </div>
+        </div> <!--end personal-data -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="border"></div>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-12">
+            Адрес регистрации
+            <input class="simple-input" type="text"
+                   placeholder="654000, РФ, Кемеровская область, Центральный район, г. Новокузнецк, пр.Кирова,д.1, оф.12">
+          </label>
+        </div>
+        <div class="row">
+          <label class="col-12">
+            Дата государственной регистрации
+            <input class="simple-input" type="text" placeholder="10.01.2000">
+          </label>
+        </div>
+        <div class="row">
+          <label class="col-4">
+            ИНН
+            <input class="simple-input" type="text" placeholder="12345678912">
+          </label>
+          <label class="col-4">
+            КПП
+            <input class="simple-input" type="text" placeholder="123456789">
+          </label>
+          <label class="col-4">
+            ОГРНИП
+            <input class="simple-input" type="text" placeholder="106501702522678">
+          </label>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="payment-select mod-align-center">
+              <header style="padding-right: 10px">Оплата</header>
+              <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary" [ngClass]="{active: paymentType=='bank'}">
+                  <input type="radio" name="options" [(ngModel)]="paymentType" value="bank" autocomplete="off">БАНК
+                </label>
+                <label class="btn btn-primary" [ngClass]="{active: paymentType=='card'}">
+                  <input type="radio" name="options" [(ngModel)]="paymentType" value="card" autocomplete="off">КАРТА
+                </label>
+              </div>
+              <div class="border" style="display: inline-block; margin-left: 10px"></div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="paymentType=='card'" class="payment-block">
+          <label class="col-6">
+            Номер банковской карты
+            <input class="simple-input" type="text" placeholder="4444-4444-4444-4448-444">
+          </label>
+        </div>
+        <div *ngIf="paymentType=='bank'" class="payment-block">
+          <div class="row">
+            <label class="col-6">
+              Название банка
+              <input class="simple-input" type="text" placeholder="АО «Альфа-Банк», г. Москва">
+            </label>
+            <label class="col-6">
+              БИК банка
+              <input class="simple-input" type="text" placeholder="044525593">
+            </label>
+          </div>
+          <div class="row">
+            <label class="col-6">
+              Корреспондентский счет
+              <input class="simple-input" type="text" placeholder="30101810900000000181">
+            </label>
+            <label class="col-6">
+              Расчетный счет
+              <input class="simple-input" type="text" placeholder="11234567891234567890">
+            </label>
+          </div>
+        </div>
+      </form>
+
+      <!--ФОРМА Юр.лицл-->
+      <form *ngSwitchCase="'employed'">
+        <div class="personal-data">
+          <div class="position-select mod-align-center">
+            <header style="padding-right: 10px">Должность</header>
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-primary" [ngClass]="{active: position=='employee'}">
+                <input type="radio" name="position" [(ngModel)]="position" value="employee" autocomplete="off">Сотрудник
+              </label>
+              <label class="btn btn-primary" [ngClass]="{active: position=='director'}">
+                <input type="radio" name="position" [(ngModel)]="position" value="director" autocomplete="off">Руководитель
+              </label>
+            </div>
+            <div class="border" style="display: inline-block; margin-left: 10px"></div>
+          </div>
+
+          <div *ngIf="position=='employee'" class="employee-data">
+            <div class="header mod-align-center">
+              Ваши данные
+              <div class="border" style="display: inline-block; margin-left: 10px"></div>
+            </div>
+            <div class="row">
+              <label class="col-4">
+                Фамилия
+                <input class="simple-input" type="text" placeholder="Иванов">
+              </label>
+              <label class="col-4">
+                Имя
+                <input class="simple-input" type="text" placeholder="Иван">
+              </label>
+              <label class="col-4">
+                Отчество
+                <input class="simple-input" type="text" placeholder="Иванович">
+              </label>
+            </div>
+            <div class="row">
+              <label class="col-4">
+                Телефон
+                <input class="simple-input" type="text" placeholder="+7(923)600-12-12">
+              </label>
+              <label class="col-4">
+                Skype
+                <input class="simple-input" type="text" placeholder="skype id">
+              </label>
+            </div>
+          </div>
+
+          <div class="director-data">
+            <div class="header mod-align-center">
+              {{position=='employee'?'Данные руководителя':'Ваши данные'}}
+              <div class="border" style="display: inline-block; margin-left: 10px"></div>
+            </div>
+            <div class="row">
+              <label class="col-4">
+                Фамилия
+                <input class="simple-input" type="text" placeholder="Иванов">
+              </label>
+              <label class="col-4">
+                Имя
+                <input class="simple-input" type="text" placeholder="Иван">
+              </label>
+              <label class="col-4">
+                Отчество
+                <input class="simple-input" type="text" placeholder="Иванович">
+              </label>
+            </div>
+            <div class="row">
+              <label class="col-3">
+                Серия паспорта
+                <input class="simple-input" type="text" placeholder="1234">
+              </label>
+              <label class="col-3">
+                Номер паспорта
+                <input class="simple-input" type="text" placeholder="567890">
+              </label>
+              <label class="col-3">
+                Код подразделения
+                <input class="simple-input" type="text" placeholder="321-654">
+              </label>
+              <label class="col-3">
+                Дата выдачи
+                <input class="simple-input" type="text" placeholder="20.10.2000">
+              </label>
+            </div>
+            <div class="row">
+              <!--<div class="col-12">-->
+              <label class="col-12">
+                Кем выдан
+                <input class="simple-input" type="text" placeholder="УВД Центрального района Кемеровской области">
+              </label>
+              <!--</div>-->
+            </div>
+            <div class="row">
+              <label class="col-4">
+                Дата рождения
+                <input class="simple-input" type="text" placeholder="10.02.1945">
+              </label>
+              <label class="col-8">
+                Место рождения
+                <input class="simple-input" type="text" placeholder="г. Новокузнецк Кемеровской области">
+              </label>
+            </div>
+          </div>
+        </div> <!--end personal-data -->
+        <div class="row">
+          <div class="col-12">
+            <div class="border"></div>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-12">
+            Название организации
+            <input class="simple-input" type="text" placeholder="ИП 'СтройКопай'">
+          </label>
+        </div>
+        <div class="row">
+          <label class="col-12">
+            Юридический адрес
+            <input class="simple-input" type="text"
+                   placeholder="654000, РФ, Кемеровская область, Центральный район, г. Новокузнецк, пр.Кирова,д.1, оф.12">
+          </label>
+        </div>
+        <div class="row">
+          <label class="col-12">
+            Почтовый адрес
+            <input class="simple-input" type="text"
+                   placeholder="654000, РФ, Кемеровская область, Центральный район, г. Новокузнецк, пр.Кирова,д.1, оф.12">
+          </label>
+        </div>
+        <div class="row">
+          <label class="col-12">
+            Дата государственной регистрации
+            <input class="simple-input" type="text" placeholder="10.01.2000">
+          </label>
+        </div>
+        <div class="row">
+          <label class="col-4">
+            ИНН
+            <input class="simple-input" type="text" placeholder="12345678912">
+          </label>
+          <label class="col-4">
+            КПП
+            <input class="simple-input" type="text" placeholder="123456789">
+          </label>
+          <label class="col-4">
+            ОГРН
+            <input class="simple-input" type="text" placeholder="106501702522678">
+          </label>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="border"></div>
+          </div>
+        </div>
+        <div class="payment-block">
+          <div class="row">
+            <label class="col-6">
+              Название банка
+              <input class="simple-input" type="text" placeholder="АО «Альфа-Банк», г. Москва">
+            </label>
+            <label class="col-6">
+              БИК банка
+              <input class="simple-input" type="text" placeholder="044525593">
+            </label>
+          </div>
+          <div class="row">
+            <label class="col-6">
+              Корреспондентский счет
+              <input class="simple-input" type="text" placeholder="30101810900000000181">
+            </label>
+            <label class="col-6">
+              Расчетный счет
+              <input class="simple-input" type="text" placeholder="11234567891234567890">
+            </label>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

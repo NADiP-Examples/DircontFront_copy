@@ -1,11 +1,13 @@
 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" [routerLink]="['']">Dircont</a>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="nav nav-pills nav-fill top-menu">
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/profile']" [routerLinkActive]="['active']">Личные данные</a>
       </li>
@@ -16,10 +18,12 @@
         <a class="nav-link" [routerLink]="['/map']" [routerLinkActive]="['active']">Карта компетенций</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/black-white-list']" [routerLinkActive]="['active']">Черно-белый список поставщиков</a>
+        <a class="nav-link" [routerLink]="['/black-white-list']" [routerLinkActive]="['active']">Черно-белый список
+          поставщиков</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/tariffs']" [routerLinkActive]="['active']">Тарифы, реестр сделок, оплата</a>
+        <a class="nav-link" [routerLink]="['/tariffs']" [routerLinkActive]="['active']">Тарифы, реестр сделок,
+          оплата</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/faq']" [routerLinkActive]="['active']">ЧаВо</a>
@@ -30,7 +34,37 @@
     </button>
   </div>
 </nav>
-<div class="inner-outlet">
-  <router-outlet></router-outlet>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-2">
+      <ul class="nav flex-column left-menu">
+        <li class="nav-item header">
+          Реестры:
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Клиентов</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Партнеров</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Поступлений и выплат</a>
+        </li>
+        <!--<li class="nav-item">-->
+          <!--<a class="nav-link disabled" href="#">Disabled</a>-->
+        <!--</li>-->
+      </ul>
+    </div>
+    <div class="col-10">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
+
 
