@@ -23,10 +23,17 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 Для продакшина: `environments/environment.prod.ts`  
 
 ## Build/Deployment
-1. `git pull origin master` - все изменения для prod всегда будут в master ветке
-2. `npm install` - скачивание зависимостей
-3. `ng build --env=stage` - сборка для STAGE сервера в папку `dist/`  
-`ng build --env=prod` - сборка для PROD в папку `dist/`
+### For Stage-server
+1. `git checkout develop` - develop ветка для STAGE
+2. `git pull origin develop`
+3. `npm install` - скачивание зависимостей
+4. `ng build --env=stage` - сборка для STAGE сервера в папку `dist/`  
+
+### For Prod-server
+1. `git checkout master` - master ветка для PROD
+2. `git pull origin master`
+3. `npm install` - скачивание зависимостей
+4. `ng build --env=prod` - сборка для PROD в папку `dist/`
 
 ## Running unit tests(тесты временно отключены)
 
