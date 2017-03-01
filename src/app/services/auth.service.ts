@@ -4,7 +4,6 @@ import { Http } from '@angular/http';
 import { Cookie } from 'ng2-cookies';
 import { Observable } from 'rxjs/Rx';
 import { Headers } from '@angular/http'
-import { NotificationsService } from 'angular2-notifications';
 
 import { environment } from '../../environments/environment';
 
@@ -17,7 +16,7 @@ export class AuthService {
   private loggedIn = false;
   private headers = new Headers();
 
-  constructor(private http: Http, private router: Router, private notify: NotificationsService) {
+  constructor(private http: Http, private router: Router) {
     this.loggedIn = !!Cookie.get('Authentication-Token');
   }
 
@@ -85,15 +84,14 @@ export class AuthService {
   }
 
   resetPass(email: string): Observable<any> {
-    console.log('environment.callback_url = ', environment.callback_url);
     let callback = `${environment.callback_url}/confirm_reset_pass`;
     return this.http.post(`${environment.api_url}/auth/reset_password`, {email, callback}, {headers :this.headers})
       .map(res => res.json())
       .catch((error) => errorHandler(error));
   }
 
-  resetPassConform(email: string, key: string): Observable<any> {
-    return this.http.post(`${environment.api_url}/auth/reset_password/confirm`, {email, key}, {headers :this.headers})
+  resetPassConform(email: string, key: string, password: string): Observable<any> {
+    return this.http.post(`${environment.api_url}/auth/reset_password/confirm`, {email, key, password}, {headers :this.headers})
       .map(res => res.json())
       .map((res) => {
         Cookie.set('Authentication-Token', res.auth_token);

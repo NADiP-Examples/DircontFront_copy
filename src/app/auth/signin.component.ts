@@ -25,10 +25,10 @@ export class SigninComponent {
         () => this.notify.success('Успешно!', 'Добро пожаловать!'),
         (error) => {
           if (error.errors) this.errors = error.errors;
-          if (error.message !== 'Validation failed' || error.message !== 'User is inactive')
+          if (!(error.message === 'Validation failed' || error.message === 'User is inactive'))
             this.notify.error('Ошибка!', error.message);
           if (error.message === 'User is inactive') this.AuthService.activateUser(this.email)
-            .subscribe(() => this.notify.error('Ошибка!', 'Юзер неактиный! К вам на почту отправлено письмо с ссылкой на активацию.'));
+            .subscribe(() => this.notify.error('Ошибка!', 'Юзер неактиный! К вам на почту отправлено письмо со ссылкой на активацию.'));
         }
       )
   }
