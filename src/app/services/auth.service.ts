@@ -84,6 +84,7 @@ export class AuthService {
   }
 
   resetPass(email: string): Observable<any> {
+    console.log('environment.callback_url = ', environment.callback_url);
     let callback = `${environment.callback_url}/confirm_reset_pass`;
     return this.http.post(`${environment.api_url}/auth/reset_password`, {email, callback}, {headers :this.headers})
       .map(res => res.json())
