@@ -22,14 +22,6 @@ export class Validation {
     return password !== password_double ? ["Пароли не совпадают."] : []
   }
 
-  static validateFullname(full_name: string = ''): Array<string> {
-    let errors = [];
-    if (full_name.length < 1) errors.push("Поле full name не должно быть пустое.");
-    if (full_name.length > 255) errors.push("Поле full name не должно превышать 255 симполов.");
-
-    return errors
-  }
-
   static ValidateLogin(email: string, password: string): Object {
     let errors = <any>{};
     let email_errors = Validation.validateEmail(email);
@@ -41,17 +33,15 @@ export class Validation {
     return errors
   }
 
-  static ValidateRegister(full_name: string, email: string, password: string, password_double: string, captcha_token: string): Object {
+  static ValidateRegister(email: string, password: string, password_double: string, captcha_token: string): Object {
     let errors = <any>{};
     let email_errors = Validation.validateEmail(email);
     let pass_errors = Validation.validatePassword(password);
     let pass_equals_errors = Validation.equalsPasswords(password, password_double);
-    let full_name_errors = Validation.validateFullname(full_name);
 
     if (email_errors.length) errors.email = email_errors;
     if (pass_errors.length) errors.password = pass_errors;
     if (pass_equals_errors.length) errors.password_double = pass_equals_errors;
-    if (full_name_errors.length) errors.full_name = full_name_errors;
     if (!environment.skip_captcha && !captcha_token) errors.captcha = 'Необходимо разгадать капчу';
 
     return errors

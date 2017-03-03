@@ -4,11 +4,7 @@
     <div class="col-md-4">
       <section class="auth-form">
         <form role="auth"  novalidate>
-          <h3>Зарегистрироваться</h3>
-          <div class="form-group" [ngClass]="{'has-danger': errors.full_name}">
-            <input type="text" [(ngModel)]="full_name" name="full_name" placeholder="Full Name" class="form-control input-lg" />
-            <div class="form-control-feedback">{{ errors.full_name }}</div>
-          </div>
+          <h3>{{ role === 'admins_of_user' ? 'Зарегистрироваться' : 'Регистрация агента' }}</h3>
           <div class="form-group" [ngClass]="{'has-danger': errors.email}">
             <input type="email" [(ngModel)]="email" placeholder="Email" name="email" class="form-control input-lg" />
             <div class="form-control-feedback">{{ errors.email }}</div>
@@ -20,13 +16,6 @@
           <div class="form-group" [ngClass]="{'has-danger': errors.password_double}">
             <input type="password" name="password_double" [(ngModel)]="password_double" class="form-control input-lg" placeholder="Repeat your password" />
             <div class="form-control-feedback">{{ errors.password_double }}</div>
-          </div>
-          <label class="control-label input-group">Тип пользователя:</label>
-          <div class="justify-content-between">
-            <div class="btn-group btn-group-lg btn-block">
-              <button type="button" class="btn btn-block btn-secondary" (click)="role = 'admins_of_user'" [ngClass]="{'active': role === 'admins_of_user'}">АП</button>
-              <button type="button" class="btn btn-block btn-secondary" (click)="role = 'partners'" [ngClass]="{'active': role === 'partners'}">Партнер</button>
-            </div>
           </div>
           <div class="form-group" [ngClass]="{'has-danger': errors.captcha}">
             <re-captcha (captchaResponse)="handleCorrectCaptcha($event)" site_key="{{ env.google_captcha_key }}"></re-captcha>
