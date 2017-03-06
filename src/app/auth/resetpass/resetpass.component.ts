@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { Validation } from '../services/validation.service';
+import { AuthService } from 'app/services/auth.service';
+import { Validation } from 'app/services/validation.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import * as _ from "lodash";
@@ -8,7 +8,7 @@ import * as _ from "lodash";
 @Component({
   selector: 'resetpass',
   templateUrl: `./resetpass.component.html`,
-  styleUrls: ['./auth.component.sass'],
+  styleUrls: ['../auth.component.sass'],
 })
 export class ResetPassComponent {
   private email = '';

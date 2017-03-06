@@ -1,13 +1,13 @@
 import { Component} from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { Validation } from '../services/validation.service';
+import { AuthService } from 'app/services/auth.service';
+import { Validation } from 'app/services/validation.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as _ from "lodash";
 
 @Component({
   selector: 'signin',
   templateUrl: `./signin.component.html`,
-  styleUrls: ['./auth.component.css']
+  styleUrls: ['../auth.component.css']
 })
 export class SigninComponent {
   private email = '';
