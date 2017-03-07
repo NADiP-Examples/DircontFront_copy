@@ -1,6 +1,6 @@
 {
   "User is inactive": "Юзер неактиный! К вам на почту отправлено письмо со ссылкой на активацию.",
-  "Same email already exists": "Такой email уже занят.",
+  "Same email already exists.": "Такой email уже занят.",
   "Validation failed": "Ошибка валидации!",
   "Authentication failed": "Ошибка авторизации!",
   "Account does not require confirmation": "Ваш аккаунт не подтвержден!",
