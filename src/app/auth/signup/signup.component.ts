@@ -3,6 +3,7 @@ import { AuthService } from 'app/services/auth.service';
 import { Validation } from 'app/services/validation.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from 'ng2-translate';
 import * as _ from "lodash";
 import { environment } from 'environments/environment';
 
@@ -24,8 +25,8 @@ export class SignupComponent {
 
   @ViewChild(ReCaptchaComponent) captcha:ReCaptchaComponent;
 
-  constructor(private AuthService: AuthService, private notify: NotificationsService,
-              private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private AuthService: AuthService, private notify: NotificationsService, private router: Router,
+              private activatedRoute: ActivatedRoute, private translate: TranslateService) {
     this.role = this.activatedRoute.snapshot.data['role'];
   }
 
@@ -45,7 +46,7 @@ export class SignupComponent {
         },
         (error) => {
           if (error.errors) this.errors = error.errors;
-          if (error.message !== 'Validation failed') this.notify.error('Ошибка!', error.message);
+          if (error.message !== 'Validation failed') this.notify.error('Ошибка!', this.translate.instant(error.message));
         }
       )
   }

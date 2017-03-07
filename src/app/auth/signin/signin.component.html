@@ -7,11 +7,11 @@
           <h3>Dircont</h3>
           <div class="form-group" [ngClass]="{'has-danger': errors.email}">
             <input type="email" name="email" [(ngModel)]="email" placeholder="Email" class="form-control input-lg"/>
-            <div class="form-control-feedback">{{ errors.email }}</div>
+            <div class="form-control-feedback" *ngFor="let err of errors.email">{{ err | translate }}</div>
           </div>
           <div class="form-group" [ngClass]="{'has-danger': errors.password}">
             <input type="password" name="password" [(ngModel)]="password" class="form-control input-lg" placeholder="Password" />
-            <div class="form-control-feedback">{{ errors.password }}</div>
+            <div class="form-control-feedback" *ngFor="let err of errors.password">{{ err | translate }}</div>
           </div>
           <button type="submit" (click)="login()" class="btn btn-lg btn-primary btn-block">Войти</button>
           <div>
