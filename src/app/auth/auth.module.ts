@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ReCaptchaModule } from 'angular2-recaptcha';
+import { TranslateModule } from 'ng2-translate';
 
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
@@ -18,6 +19,7 @@ import { authRoutes }   from './auth.routes';
     FormsModule,
     ReCaptchaModule,
     RouterModule.forChild(authRoutes),
+    TranslateModule
   ],
   declarations: [
     SigninComponent,

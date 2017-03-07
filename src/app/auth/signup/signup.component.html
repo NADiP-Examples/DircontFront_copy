@@ -7,19 +7,19 @@
           <h3>{{ role === 'admins_of_user' ? 'Зарегистрироваться' : 'Регистрация агента' }}</h3>
           <div class="form-group" [ngClass]="{'has-danger': errors.email}">
             <input type="email" [(ngModel)]="email" placeholder="Email" name="email" class="form-control input-lg" />
-            <div class="form-control-feedback">{{ errors.email }}</div>
+            <div class="form-control-feedback" *ngFor="let err of errors.email">{{ err | translate }}</div>
           </div>
           <div class="form-group" [ngClass]="{'has-danger': errors.password || errors.password_double}">
             <input type="password" name="password" [(ngModel)]="password" class="form-control input-lg" placeholder="Password" />
-            <div class="form-control-feedback">{{ errors.password }}</div>
+            <div class="form-control-feedback" *ngFor="let err of errors.password">{{ err | translate }}</div>
           </div>
           <div class="form-group" [ngClass]="{'has-danger': errors.password_double}">
             <input type="password" name="password_double" [(ngModel)]="password_double" class="form-control input-lg" placeholder="Repeat your password" />
-            <div class="form-control-feedback">{{ errors.password_double }}</div>
+            <div class="form-control-feedback" *ngFor="let err of errors.password_double">{{ err | translate }}</div>
           </div>
           <div class="form-group" [ngClass]="{'has-danger': errors.captcha}">
             <re-captcha (captchaResponse)="handleCorrectCaptcha($event)" site_key="{{ env.google_captcha_key }}"></re-captcha>
-            <div class="form-control-feedback">{{ errors.captcha }}</div>
+            <div class="form-control-feedback" *ngFor="let err of errors.captcha">{{ err | translate }}</div>
           </div>
           <button type="submit" (click)="register()" class="btn btn-lg btn-primary btn-block">Зарегистрироваться</button>
           <button type="button" [routerLink]="['/signin']" class="btn btn-lg btn-primary btn-block">Вход</button>

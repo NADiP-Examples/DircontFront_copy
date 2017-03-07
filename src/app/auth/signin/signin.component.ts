@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { AuthService } from 'app/services/auth.service';
 import { Validation } from 'app/services/validation.service';
 import { NotificationsService } from 'angular2-notifications';
+import { TranslateService } from 'ng2-translate';
 import * as _ from "lodash";
 
 @Component({
@@ -14,7 +15,8 @@ export class SigninComponent {
   private password = '';
   private errors = {};
 
-  constructor(private AuthService: AuthService, private notify: NotificationsService) {}
+  constructor(private AuthService: AuthService, private notify: NotificationsService,
+              private translate: TranslateService) {}
 
   login(): void {
     this.errors = Validation.ValidateLogin(this.email, this.password);
@@ -26,9 +28,9 @@ export class SigninComponent {
         (error) => {
           if (error.errors) this.errors = error.errors;
           if (!(error.message === 'Validation failed' || error.message === 'User is inactive'))
-            this.notify.error('Ошибка!', error.message);
+            this.notify.error('Ошибка!', this.translate.instant(error.message));
           if (error.message === 'User is inactive') this.AuthService.activateUser(this.email)
-            .subscribe(() => this.notify.error('Ошибка!', 'Юзер неактиный! К вам на почту отправлено письмо со ссылкой на активацию.'));
+            .subscribe(() => this.notify.error('Ошибка!', this.translate.instant(error.message)));
         }
       )
   }

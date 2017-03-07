@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from 'app/services/auth.service';
 import { Validation } from 'app/services/validation.service';
 import { NotificationsService } from 'angular2-notifications';
+import { TranslateService } from 'ng2-translate';
 import { Router } from '@angular/router';
 import * as _ from "lodash";
 
@@ -14,7 +15,8 @@ export class ResetPassComponent {
   private email = '';
   private errors = <any>{};
 
-  constructor(private AuthService: AuthService, private notify: NotificationsService, private router: Router) {}
+  constructor(private AuthService: AuthService, private notify: NotificationsService, private router: Router,
+              private translate: TranslateService) {}
 
   reset(): void {
     this.errors = {};
@@ -31,7 +33,7 @@ export class ResetPassComponent {
         },
         (error) => {
           if (error.errors) this.errors = error.errors;
-          if (error.message !== 'Validation failed') this.notify.error('Ошибка!', error.message);
+          if (error.message !== 'Validation failed') this.notify.error('Ошибка!', this.translate.instant(error.message));
         }
       )
   }

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from 'ng2-translate';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { AuthModule } from './auth/auth.module';
 
@@ -36,6 +37,7 @@ import { isLoggedIn, isLoggedOut }   from './services/guard.service';
     FormsModule,
     HttpModule,
     AuthModule,
+    TranslateModule.forRoot(),
     SimpleNotificationsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot()
