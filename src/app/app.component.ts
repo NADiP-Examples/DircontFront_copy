@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { TranslateService } from 'ng2-translate';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,11 @@ export class AppComponent {
     showProgressBar: false
   };
 
-  constructor(private AuthService: AuthService) {
-    AuthService.getSelf()
+  constructor(private AuthService: AuthService, private translate: TranslateService) {
+    AuthService.getSelf();
+
+    translate.setDefaultLang('ru');
+    translate.use('ru');
+
   }
 }

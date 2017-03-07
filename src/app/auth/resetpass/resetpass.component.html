@@ -7,7 +7,7 @@
           <h3>Восстановить пароль</h3>
           <div class="form-group" [ngClass]="{'has-danger': errors.email}">
             <input type="email" [(ngModel)]="email" placeholder="Email" name="email" class="form-control input-lg" />
-            <div class="form-control-feedback">{{ errors.email }}</div>
+            <div class="form-control-feedback" *ngFor="let err of errors.email">{{ err | translate }}</div>
           </div>
           <button type="submit" (click)="reset()" class="btn btn-lg btn-primary btn-block">Восстановить</button>
           <button type="button" [routerLink]="['/signin']" class="btn btn-lg btn-primary btn-block">Вход</button>
