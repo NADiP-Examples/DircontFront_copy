@@ -42,7 +42,7 @@ export class Validation {
     if (email_errors.length) errors.email = email_errors;
     if (pass_errors.length) errors.password = pass_errors;
     if (pass_equals_errors.length) errors.password_double = pass_equals_errors;
-    if (!environment.skip_captcha && !captcha_token) errors.captcha = 'Необходимо разгадать капчу';
+    if (!environment.skip_captcha && !captcha_token) errors.captcha = ['Необходимо разгадать капчу'];
 
     return errors
   }
