@@ -45,7 +45,7 @@ export class AuthService {
 
     if (!token) {
       this.loggedIn = false;
-      return
+      return Observable.throw('У Вас нет доступа для выполнения этого действия!')
     }
     this.headers.append('Authentication-Token', token);
     this.loggedIn = true;

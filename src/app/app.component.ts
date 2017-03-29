@@ -16,7 +16,7 @@ export class AppComponent {
   };
 
   constructor(private AuthService: AuthService, private translate: TranslateService) {
-    AuthService.getSelf();
+    AuthService.getSelf().subscribe(()=>{}, ()=>{});
 
     translate.setDefaultLang('ru');
     translate.use('ru');
