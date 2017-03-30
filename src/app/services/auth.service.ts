@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { Cookie } from 'ng2-cookies';
 import { Observable } from 'rxjs/Rx';
 import { Headers } from '@angular/http'
+import * as _ from "lodash";
 
 import { environment } from '../../environments/environment';
 
@@ -14,7 +15,15 @@ function errorHandler(error) {
 @Injectable()
 export class AuthService {
   private loggedIn = false;
-  public headers = new Headers();
+  private _headers = new Headers();
+
+  get headers(){
+    if (_.isEmpty(this._headers.toJSON())){
+      let token = Cookie.get('Authentication-Token');
+      this._headers.append('Authentication-Token', token);
+    }
+    return this._headers
+  }
 
   constructor(private http: Http, private router: Router) {
     this.loggedIn = !!Cookie.get('Authentication-Token');
@@ -40,6 +49,7 @@ export class AuthService {
   }
 
   getSelf(): Observable<any> {
+    console.log('Auth getSelf');
     let token = Cookie.get('Authentication-Token');
     let user_id = Cookie.get('user_id');
 
@@ -47,11 +57,10 @@ export class AuthService {
       this.loggedIn = false;
       return Observable.throw('У Вас нет доступа для выполнения этого действия!')
     }
-    this.headers.append('Authentication-Token', token);
     this.loggedIn = true;
 
     return this.http.get(`${environment.api_url}/user/${user_id}`, { headers :this.headers })
-      .map(res => res.json())
+      .map(res => {res.json()})
       .catch((error) => {
         this.logout();
         return errorHandler(error)

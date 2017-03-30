@@ -16,11 +16,9 @@ export class PersonalDataService {
   constructor(private http: Http, private authService: AuthService, private router: Router) {
   }
 
-  get() {
+  getSelf():Observable<any> {
     let user_id = Cookie.get('user_id');
     let headers = this.authService.getHeaders();
-    this.http.get(`${environment.api_url}/user/${user_id}`, { headers })
-      .subscribe(user => console.log('user = ', user.json()));
+    return this.http.get(`${environment.api_url}/user/${user_id}`, { headers }).map(user => user.json())
   }
-
 }

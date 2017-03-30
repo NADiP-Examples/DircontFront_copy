@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { DateModel } from 'ng2-datepicker'
+import { Http, Response } from '@angular/http'
+import { environment } from 'environments/environment';
+import { Cookie } from 'ng2-cookies';
+
+import { AuthService } from 'app/services/auth.service'
 
 import { UserDataComponent } from '../shared/user-data/user-data.component'
 import { ContractDataNPComponent } from '../shared/contract-data-n-p/contract-data-n-p.component'
@@ -55,7 +60,6 @@ export class PersonalDataEditComponent implements OnInit {
     residency: RESIDENCES[0].value,
   };
 
-  // Данные блока "Ваши данные"
   personal_data = {
     second_name: '',
     first_name: '',
@@ -166,16 +170,18 @@ export class PersonalDataEditComponent implements OnInit {
 
   //TODO: Заменить заглушку реальными данными
   // Данные аккаунта
-  user_data = {
-    email: 'user@mail.ru',
-  };
+  user_data: Object = {};
 
   confirm_rules: boolean = false;
 
-  constructor() {
+  constructor(private authService: AuthService, private http: Http) {
   }
 
   ngOnInit() {
+    let user_id = Cookie.get('user_id');
+    let headers = this.authService.getHeaders();
+    this.http.get(`${environment.api_url}/user/${user_id}`, { headers })
+      .subscribe(user => this.user_data = user.json());
   }
 
   showRules(event) {
@@ -277,12 +283,19 @@ export class PersonalDataEditComponent implements OnInit {
 
   save() {
     if (this.userDataComponent.validate() && this.contractDataNPComponent.validate()) {
-      console.log("Save personal data")
+      console.log("Save personal data");
+      let headers = this.authService.getHeaders();
+      let data = this.convertData();
+      console.log("DATA = ", data);
+      this.http.put(
+        `${environment.api_url}/user/${this.user_data['id']}/profile/${this.status.residency}/${this.status.legal_status}`,
+        data, { headers })
+        // .catch((error) => {console.log(error);return this})
+        .subscribe(res => console.log("Response -->", res));
     } else {
       console.log("Errors!!!")
     }
-    let data = this.convertData();
-    console.log("DATA = ", data);
+
   }
 
 }

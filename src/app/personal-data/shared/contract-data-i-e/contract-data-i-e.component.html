@@ -46,33 +46,15 @@
     <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" placeholder="Индекс"
            [(ngModel)]="contract_data.registration_address.postcode">
   </label>
-  <label class="col-3">
-    &nbsp;
-    <select class="simple-select">
-      <option [selected]="true">Россия</option>
-      <option>Украина</option>
-      <option>Германия</option>
-    </select>
-  </label>
-  <label class="col-3">
-    &nbsp;
-    <select class="simple-select">
-      <option [selected]="true">Московская обл.</option>
-      <option>Новосибирская обл.</option>
-      <option>Кемеровская обл.</option>
-      <option>Республика Коми</option>
-      <option>Алтайский край</option>
-    </select>
-  </label>
-  <label class="col-3">
-    &nbsp;
-    <select class="simple-select">
-      <option [selected]="true">г.Москва</option>
-      <option>г.Киров</option>
-      <option>г.Архангельск</option>
-      <option>г.Новокузнецк</option>
-    </select>
-  </label>
+  <div class="col-9">
+    <location
+      (countryOut)="contract_data.registration_address.country = $event"
+      (regionOut)="contract_data.registration_address.region = $event"
+      (cityOut)="contract_data.registration_address.city = $event"
+      [country]="contract_data.registration_address.country"
+      [region]="contract_data.registration_address.region"
+      [city]="contract_data.registration_address.city"></location>
+  </div>
   <label class="col-3">
     <input class="simple-input" type="text" placeholder="ул. Кирова д.2 кв.4"
            [(ngModel)]="contract_data.registration_address.street">
@@ -84,33 +66,15 @@
     <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" placeholder="Индекс"
            [(ngModel)]="contract_data.postal_address.postcode">
   </label>
-  <label class="col-3">
-    &nbsp;
-    <select class="simple-select">
-      <option [selected]="true">Россия</option>
-      <option>Украина</option>
-      <option>Германия</option>
-    </select>
-  </label>
-  <label class="col-3">
-    &nbsp;
-    <select class="simple-select">
-      <option [selected]="true">Московская обл.</option>
-      <option>Новосибирская обл.</option>
-      <option>Кемеровская обл.</option>
-      <option>Республика Коми</option>
-      <option>Алтайский край</option>
-    </select>
-  </label>
-  <label class="col-3">
-    &nbsp;
-    <select class="simple-select">
-      <option [selected]="true">г.Москва</option>
-      <option>г.Киров</option>
-      <option>г.Архангельск</option>
-      <option>г.Новокузнецк</option>
-    </select>
-  </label>
+  <div class="col-9">
+    <location
+      (countryOut)="contract_data.postal_address.country = $event"
+      (regionOut)="contract_data.postal_address.region = $event"
+      (cityOut)="contract_data.postal_address.city = $event"
+      [country]="contract_data.postal_address.country"
+      [region]="contract_data.postal_address.region"
+      [city]="contract_data.postal_address.city"></location>
+  </div>
   <label class="col-3">
     <input class="simple-input" type="text" placeholder="ул. Кирова д.2 кв.4"
            [(ngModel)]="contract_data.postal_address.street">

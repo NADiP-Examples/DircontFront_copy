@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router'
+
 import { AuthService } from 'app/services/auth.service';
 import { PersonalDataService } from 'app/services/personal-data.service'
 
@@ -9,7 +11,5 @@ import { PersonalDataService } from 'app/services/personal-data.service'
 })
 export class CommonComponent {
   constructor(private authService: AuthService, private personalDataService: PersonalDataService) {
-    authService.getSelf()
-      .subscribe(user => console.log('user = ', user))
   }
 }

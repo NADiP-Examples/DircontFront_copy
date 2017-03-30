@@ -7,6 +7,13 @@ import { Angular2FontAwesomeModule } from 'angular2-font-awesome/angular2-font-a
 import { TextMaskModule } from 'angular2-text-mask'
 import { DatePickerModule } from 'ng2-datepicker'
 
+//custom Services
+import { PersonalDataService } from 'app/services/personal-data.service'
+import { personalDataRoutes } from './personal-data-routing';
+
+//custom Directives
+import { RequiredFieldDirective } from '../directives/required-field.directive';
+
 //custom Components
 import { PersonalDataEditComponent } from './personal-data-edit/personal-data-edit.component'
 import { PersonalDataViewComponent } from './personal-data-view/personal-data-view.component'
@@ -18,13 +25,6 @@ import { ContractDataNPComponent } from './shared/contract-data-n-p/contract-dat
 import { ContractDataIEComponent } from './shared/contract-data-i-e/contract-data-i-e.component';
 import { ContractDataLEComponent } from './shared/contract-data-l-e/contract-data-l-e.component';
 import { BankDataComponent } from './shared/bank-data/bank-data.component'
-
-//custom Services
-import { PersonalDataService } from 'app/services/personal-data.service'
-import { personalDataRoutes } from './personal-data-routing';
-
-//custom Directives
-import { RequiredFieldDirective } from '../directives/required-field.directive';
 
 @NgModule({
   imports: [
@@ -46,7 +46,7 @@ import { RequiredFieldDirective } from '../directives/required-field.directive';
     ContractDataLEComponent,
     BankDataComponent,
     SpoilerBlockComponent,
-    LocationComponent
+    LocationComponent,
   ],
   providers: [
     PersonalDataService
