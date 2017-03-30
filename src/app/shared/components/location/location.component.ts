@@ -14,7 +14,7 @@ import { environment } from 'environments/environment';
 
 @Component({
   selector: 'location',
-  templateUrl: './location.component.html',
+  templateUrl: 'location.component.html',
 })
 export class LocationComponent {
   private headers: Headers;

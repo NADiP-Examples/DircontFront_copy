@@ -1,0 +1,22 @@
+<div class="row">
+  <label class="col-4">
+    Страна
+    <select class="simple-select" [(ngModel)]="_country" (change)="changeCountry()">
+      <option *ngFor="let country of _countries" data="country" [ngValue]="country.id">{{country.title}}</option>
+    </select>
+  </label>
+  <label class="col-4">
+    Регион
+    <select class="simple-select" [(ngModel)]="_region" (change)="changeRegion()"
+            [disabled]="!_country || !_hasRegions">
+      <option *ngFor="let region of _regions" [ngValue]="region.id">{{region.title}}</option>
+    </select>
+  </label>
+  <label class="col-4">
+    Город
+    <select class="simple-select" [(ngModel)]="_city" (change)="changeCity()"
+            [disabled]="!_country || (_hasRegions && !_region)">
+      <option *ngFor="let city of _cities" [ngValue]="city.id">{{city.title}}</option>
+    </select>
+  </label>
+</div>

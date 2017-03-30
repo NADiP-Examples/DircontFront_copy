@@ -1,5 +1,10 @@
 import {Directive, ElementRef} from '@angular/core';
 
+/*
+ПОка нигде не применяется.
+В разработке...
+ */
+
 @Directive({
   selector: '[required-field]'
 })

@@ -8,21 +8,19 @@ import 'rxjs/add/operator/toPromise'
 
 import { AuthService } from './auth.service'
 
-import { environment } from '../../environments/environment';
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class PersonalDataService {
 
-  constructor(private http: Http, private authService: AuthService) {
+  constructor(private http: Http, private authService: AuthService, private router: Router) {
   }
 
-  hasId() {
+  get() {
     let user_id = Cookie.get('user_id');
-    let headers = this.authService.headers;
-    let user = this.http.get(`${environment.api_url}/user/${user_id}`, { headers })
-      .toPromise()
-      .then(res => res.json());
-    console.log(user);
+    let headers = this.authService.getHeaders();
+    this.http.get(`${environment.api_url}/user/${user_id}`, { headers })
+      .subscribe(user => console.log('user = ', user.json()));
   }
 
 }

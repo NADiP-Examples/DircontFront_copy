@@ -21,7 +21,6 @@ import { NotFoundComponent } from './not-found/not-found.comnponent';
 
 import { AuthService } from './services/auth.service';
 import { isLoggedIn, isLoggedOut }   from './services/guard.service';
-import { PersonalDataService } from './services/personal-data.service'
 
 
 @NgModule({
@@ -50,7 +49,6 @@ import { PersonalDataService } from './services/personal-data.service'
     AuthService,
     isLoggedIn,
     isLoggedOut,
-    PersonalDataService
   ],
   // Корневой компонент, который вызывается по умолчанию при загрузке приложения
   bootstrap: [AppComponent]
