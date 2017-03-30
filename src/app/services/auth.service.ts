@@ -20,6 +20,10 @@ export class AuthService {
     this.loggedIn = !!Cookie.get('Authentication-Token');
   }
 
+  public getHeaders(): Headers {
+    return this.headers
+  }
+
   login(email: string, password: string): Observable<any> {
     let result = {};
     return this.http.post(`${environment.api_url}/auth/login`, { email, password })
@@ -41,7 +45,7 @@ export class AuthService {
 
     if (!token) {
       this.loggedIn = false;
-      return
+      return Observable.throw('У Вас нет доступа для выполнения этого действия!')
     }
     this.headers.append('Authentication-Token', token);
     this.loggedIn = true;
