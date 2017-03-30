@@ -1,0 +1,83 @@
+<div class="row">
+  <label class="col-4">
+    Фамилия
+    <input class="simple-input" type="text" placeholder="Иванов"
+           [(ngModel)]="personal_data.second_name" [ngClass]="{'has-danger': errors.second_name}">
+    <div class="form-control-feedback error" *ngFor="let err of errors.second_name">{{ err }}</div>
+  </label>
+  <label class="col-4">
+    Имя
+    <input class="simple-input" type="text" placeholder="Иван"
+           [ngClass]="{'has-danger': errors.first_name}" [(ngModel)]="personal_data.first_name">
+    <div class="form-control-feedback error" *ngFor="let err of errors.first_name">{{ err }}</div>
+  </label>
+  <label class="col-4">
+    Отчество
+    <input class="simple-input" type="text" placeholder="Иванович"
+           [ngClass]="{'has-danger': errors.patronymic}" [(ngModel)]="personal_data.patronymic">
+    <div class="form-control-feedback error" *ngFor="let err of errors.patronymic">{{ err }}</div>
+  </label>
+</div>
+<div class="row">
+  <label class="col-4">
+    email
+    <input disabled #emailField class="simple-input" type="email" placeholder="example@mail.ru"
+           [value]="user_data.email">
+  </label>
+  <label class="col-4 ignore-label-events">
+    &nbsp;
+    <input type="button" class="btn btn-secondary simple-button" value="Изменить" #emailChangeButton
+           (click)="changeEmail(emailField, emailChangeButton, emailConfirmButton)">
+    <input hidden type="button" class="btn btn-secondary simple-button" value="Подтвердить" #emailConfirmButton
+           (click)="confirmEmail(emailField, emailChangeButton, emailConfirmButton)">
+  </label>
+</div>
+<!--Password-->
+<div class="row" #passwordBlock>
+  <label class="col-4">
+    Пароль
+    <input disabled class="simple-input" type="password" value="******">
+  </label>
+  <label class="col-4 ignore-label-events">
+    &nbsp;
+    <input type="button" class="btn btn-secondary simple-button" value="Изменить"
+           (click)="changePassword(passwordBlock, changePasswordBlock)">
+  </label>
+</div>
+<div class="row" hidden #changePasswordBlock>
+  <label class="col-3">
+    Смена пароля
+    <input #oldPasswordField class="simple-input" type="password" placeholder="старый пароль">
+  </label>
+  <label class="col-3">
+    &nbsp;
+    <input #newPasswordField class="simple-input" type="password" placeholder="новый пароль">
+  </label>
+  <label class="col-3">
+    &nbsp;
+    <input #confirmPasswordField class="simple-input" type="password" placeholder="подтвердите пароль">
+  </label>
+  <label class="col-3">
+    &nbsp;
+    <input type="button" class="btn btn-secondary simple-button" value="Подтвердить" #passwordConfirmButton
+           (click)="confirmPassword(passwordBlock, changePasswordBlock, oldPasswordField, newPasswordField, confirmPasswordField)">
+  </label>
+</div>
+<!--End Password-->
+<div class="row">
+  <label class="col-3">
+    Сайт
+    <input [(ngModel)]="personal_data.site" class="simple-input" type="text" placeholder="example.com">
+  </label>
+  <label *ngFor="let phone of personal_data.phones;let i = index;trackBy:customTrackBy" style="position: relative"
+         class="col-3">
+    {{i==0 ? 'Телефоны': '&nbsp;'}}
+    <input [textMask]="{mask: MASKS.phone, guide: false}" class="simple-input" type="text"
+           placeholder="+7(923)600-11-12" [(ngModel)]="personal_data.phones[i]">
+    <fa *ngIf="i!=0" class="ico-close" name="times" (click)="removePhone(i)"></fa>
+  </label>
+  <label class="col-3">
+    &nbsp;
+    <fa class="ico-add" name="plus-square-o" (click)="addPhone()"></fa>
+  </label>
+</div>

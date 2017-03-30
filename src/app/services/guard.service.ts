@@ -25,7 +25,7 @@ export class isLoggedOut implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> | boolean {
     if (this.AuthService.isLoggedIn()) {
-      this.router.navigate(['profile']);
+      this.router.navigate(['personal_data']);
       return false;
     }
     return true;

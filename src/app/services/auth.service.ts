@@ -14,7 +14,7 @@ function errorHandler(error) {
 @Injectable()
 export class AuthService {
   private loggedIn = false;
-  private headers = new Headers();
+  public headers = new Headers();
 
   constructor(private http: Http, private router: Router) {
     this.loggedIn = !!Cookie.get('Authentication-Token');
@@ -30,7 +30,7 @@ export class AuthService {
         result = res
       })
       .flatMap(() => this.getSelf())
-      .map(() => this.router.navigate(['profile']))
+      .map(() => this.router.navigate(['personal_data']))
       .map(() => result)
       .catch((error) => errorHandler(error));
   }
@@ -79,7 +79,7 @@ export class AuthService {
         Cookie.set('user_id', res.user_id);
       })
       .flatMap(() => this.getSelf())
-      .map(() => this.router.navigate(['profile']))
+      .map(() => this.router.navigate(['personal_data']))
       .catch((error) => errorHandler(error));
   }
 
@@ -98,7 +98,7 @@ export class AuthService {
         Cookie.set('user_id', res.user_id);
       })
       .flatMap(() => this.getSelf())
-      .map(() => this.router.navigate(['profile']))
+      .map(() => this.router.navigate(['personal_data']))
       .catch((error) => errorHandler(error));
   }
 

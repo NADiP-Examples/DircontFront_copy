@@ -12,6 +12,11 @@
         "favicon.ico",
         "i18n"
       ],
+      "stylePreprocessorOptions": {
+        "includePaths": [
+          ""
+        ]
+      },
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -19,7 +24,8 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
-        "styles.sass"
+        "styles.sass",
+        "../node_modules/font-awesome/css/font-awesome.css"
       ],
       "scripts": [],
       "environments": {

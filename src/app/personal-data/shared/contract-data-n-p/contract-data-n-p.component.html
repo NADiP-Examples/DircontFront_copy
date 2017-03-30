@@ -1,0 +1,131 @@
+<div class="row">
+  <label class="col-4">
+    Фамилия
+    <input disabled class="simple-input" type="text" placeholder="Иванов" [(ngModel)]="personal_data.second_name">
+  </label>
+  <label class="col-4">
+    Имя
+    <input disabled class="simple-input" type="text" placeholder="Иван" [(ngModel)]="personal_data.first_name">
+  </label>
+  <label class="col-4">
+    Отчество
+    <input disabled class="simple-input" type="text" placeholder="Иванович" [(ngModel)]="personal_data.patronymic">
+  </label>
+</div>
+<div class="row">
+  <label class="col-3">
+    Серия паспорта
+    <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input"
+           type="text" placeholder="1234" [(ngModel)]="contract_data.passport.series">
+  </label>
+  <label class="col-3">
+    Номер паспорта
+    <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input"
+           type="text" placeholder="567890" [(ngModel)]="contract_data.passport.number">
+  </label>
+  <label class="col-3">
+    Дата выдачи
+    <ng2-datepicker [options]="options" [(ngModel)]="contract_data.passport.date"></ng2-datepicker>
+    <!--<input class="simple-input" type="text" placeholder="20.10.1980" [(ngModel)]="contract_data.passport.date">-->
+  </label>
+  <label class="col-3">
+    Код подразделения
+    <input [textMask]="{mask: MASKS.passport_division_code, guide: false}" class="simple-input"
+           type="text" placeholder="321-654" [(ngModel)]="contract_data.passport.division_code">
+  </label>
+</div>
+<div class="row">
+  <label class="col-12">
+    Кем выдан
+    <input class="simple-input" type="text" placeholder="УВД Центрального района Кемеровской области"
+           [(ngModel)]="contract_data.passport.issued_by">
+  </label>
+</div>
+<div class="row">
+  <label class="col-3">
+    Адрес регистрации
+    <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" placeholder="Индекс"
+           [(ngModel)]="contract_data.registration_address.postcode">
+  </label>
+  <label class="col-3">
+    &nbsp;
+    <select class="simple-select">
+      <option [selected]="true">Россия</option>
+      <option>Украина</option>
+      <option>Германия</option>
+    </select>
+  </label>
+  <label class="col-3">
+    &nbsp;
+    <select class="simple-select">
+      <option [selected]="true">Московская обл.</option>
+      <option>Новосибирская обл.</option>
+      <option>Кемеровская обл.</option>
+      <option>Республика Коми</option>
+      <option>Алтайский край</option>
+    </select>
+  </label>
+  <label class="col-3">
+    &nbsp;
+    <select class="simple-select">
+      <option [selected]="true">г.Москва</option>
+      <option>г.Киров</option>
+      <option>г.Архангельск</option>
+      <option>г.Новокузнецк</option>
+    </select>
+  </label>
+  <label class="col-3">
+    <input class="simple-input" type="text" placeholder="ул. Кирова д.2 кв.4"
+           [(ngModel)]="contract_data.registration_address.street">
+  </label>
+</div>
+<div class="row">
+  <label class="col-3">
+    Почтовый адрес <fa class="ico-duplicate" name="angle-double-down"></fa>
+    <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" placeholder="Индекс"
+           [(ngModel)]="contract_data.postal_address.postcode">
+  </label>
+  <label class="col-3">
+    &nbsp;
+    <select class="simple-select">
+      <option [selected]="true">Россия</option>
+      <option>Украина</option>
+      <option>Германия</option>
+    </select>
+  </label>
+  <label class="col-3">
+    &nbsp;
+    <select class="simple-select">
+      <option [selected]="true">Московская обл.</option>
+      <option>Новосибирская обл.</option>
+      <option>Кемеровская обл.</option>
+      <option>Республика Коми</option>
+      <option>Алтайский край</option>
+    </select>
+  </label>
+  <label class="col-3">
+    &nbsp;
+    <select class="simple-select">
+      <option [selected]="true">г.Москва</option>
+      <option>г.Киров</option>
+      <option>г.Архангельск</option>
+      <option>г.Новокузнецк</option>
+    </select>
+  </label>
+  <label class="col-3">
+    <input class="simple-input" type="text" placeholder="ул. Кирова д.2 кв.4"
+           [(ngModel)]="contract_data.postal_address.street">
+  </label>
+</div>
+<div class="row">
+  <label class="col-5">
+    ИНН
+    <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" placeholder="12345678912"
+           [(ngModel)]="contract_data.itn">
+  </label>
+  <label class="col-5">
+    Номер банковской карты
+    <input [textMask]="{mask: MASKS.card, guide: false}" class="simple-input" type="text"
+           placeholder="4444-4444-4444-4446-444" [(ngModel)]="contract_data.bankcard_number">
+  </label>
+</div>

@@ -1,0 +1,10 @@
+<div class="spoiler">
+  <div class="header mod-align-center">
+    <fa class="toggle" [name]="toggleClass" (click)="toggle()"></fa>
+    <div class="text">{{header}}</div>
+    <div class="border"></div>
+  </div>
+  <div class="body" [@spoilerState]="state">
+    <ng-content></ng-content>
+  </div>
+</div>
