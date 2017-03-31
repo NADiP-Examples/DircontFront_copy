@@ -3,6 +3,7 @@ import { DateModel } from 'ng2-datepicker'
 
 import { AuthService } from 'app/services/auth.service'
 import { PersonalDataService } from 'app/services/personal-data.service'
+import * as _ from "lodash";
 
 import { UserDataComponent } from '../shared/user-data/user-data.component'
 import { ContractDataNPComponent } from '../shared/contract-data-n-p/contract-data-n-p.component'
@@ -83,11 +84,11 @@ export class PersonalDataEditComponent implements OnInit {
     this.personalDataService.getSelf()
       .subscribe(user => {
         this.user_data = user;
-        this.status.legal_status = user['legal_status'];
-        this.status.residency = user['residency'];
+        this.status.legal_status = user['legal_status'] || LEGAL_STATUSES[0].value;
+        this.status.residency = user['residency'] || RESIDENCES[0].value;
       });
     this.personalDataService.getPersonalData()
-      .subscribe(personal_data => this.personal_data = personal_data);
+      .subscribe(personal_data => {if(!_.isEmpty(personal_data))this.personal_data = personal_data});
   }
 
   showRules(event) {

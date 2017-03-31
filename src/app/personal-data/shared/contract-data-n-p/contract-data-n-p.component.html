@@ -58,26 +58,26 @@
               (countryOut)="personal_data.registration_address_country_id = $event"
               (regionOut)="personal_data.registration_address_region_id = $event"
               (cityOut)="personal_data.registration_address_city_id = $event"
-              [country]="personal_data.registration_address_country.id"
-              [region]="personal_data.registration_address_region.id"
-              [city]="personal_data.registration_address_city.id"></location>
+              [country]="personal_data.registration_address_country ? personal_data.registration_address_country.id: ''"
+              [region]="personal_data.registration_address_region ? personal_data.registration_address_region.id: ''"
+              [city]="personal_data.registration_address_city ? personal_data.registration_address_city.id: ''"></location>
   </div>
   <div class="col-9" *ngIf="form_view">
     <div class="row">
       <label class="col-4">
         Страна
         <input disabled class="simple-input" type="text"
-               [(ngModel)]="personal_data.registration_address_country.title">
+               [ngModel]="personal_data.registration_address_country ? personal_data.registration_address_country.title: ''">
       </label>
       <label class="col-4">
         Регион
         <input disabled class="simple-input" type="text"
-               [(ngModel)]="personal_data.registration_address_region.title">
+               [ngModel]="personal_data.registration_address_region ? personal_data.registration_address_region.title: ''">
       </label>
       <label class="col-4">
         Город
         <input disabled class="simple-input" type="text"
-               [(ngModel)]="personal_data.registration_address_city.title">
+               [ngModel]="personal_data.registration_address_city ? personal_data.registration_address_city.title: ''">
       </label>
     </div>
   </div>
@@ -99,26 +99,26 @@
               (countryOut)="personal_data.postal_address_country_id = $event"
               (regionOut)="personal_data.postal_address_region_id = $event"
               (cityOut)="personal_data.postal_address_city_id = $event"
-              [country]="personal_data.postal_address_country.id"
-              [region]="personal_data.postal_address_region.id"
-              [city]="personal_data.postal_address_city.id"></location>
+              [country]="personal_data.postal_address_country ? personal_data.postal_address_country.id: ''"
+              [region]="personal_data.postal_address_region ? personal_data.postal_address_region.id: ''"
+              [city]="personal_data.postal_address_city ? personal_data.postal_address_city.id: ''"></location>
   </div>
   <div class="col-9" *ngIf="form_view">
     <div class="row">
       <label class="col-4">
         Страна
         <input disabled class="simple-input" type="text"
-               [(ngModel)]="personal_data.postal_address_country.title">
+               [ngModel]="personal_data.postal_address_country ? personal_data.postal_address_country.title: ''">
       </label>
       <label class="col-4">
         Регион
         <input disabled class="simple-input" type="text"
-               [(ngModel)]="personal_data.postal_address_region.title">
+               [ngModel]="personal_data.postal_address_region ? personal_data.postal_address_region.title: ''">
       </label>
       <label class="col-4">
         Город
         <input disabled class="simple-input" type="text"
-               [(ngModel)]="personal_data.postal_address_city.title">
+               [ngModel]="personal_data.postal_address_city ? personal_data.postal_address_city.title: ''">
       </label>
     </div>
   </div>

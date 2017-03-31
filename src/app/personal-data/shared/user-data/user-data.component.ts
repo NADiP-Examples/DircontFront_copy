@@ -47,7 +47,7 @@ export class UserDataComponent implements OnInit {
     let error_text = 'Поле неможет быть пустое.';
     this.errors = {};
     for (let field_name of this.required_fields){
-      if (this.personal_data[field_name].length == 0){
+      if (!this.personal_data[field_name]){
         // console.log(`field ${field_name} is empty`);
         // if (!this.errors[field_name]){
           this.errors[field_name]= [error_text];
