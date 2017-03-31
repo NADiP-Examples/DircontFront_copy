@@ -6,7 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./bank-data.component.sass']
 })
 export class BankDataComponent implements OnInit {
-  @Input() bank_data;
+  @Input() personal_data;
+  @Input() form_view: Object;
 
   constructor() { }
 

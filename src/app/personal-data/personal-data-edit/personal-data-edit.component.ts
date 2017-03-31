@@ -1,15 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { DateModel } from 'ng2-datepicker'
-import { Http, Response } from '@angular/http'
-import { environment } from 'environments/environment';
-import { Cookie } from 'ng2-cookies';
 
 import { AuthService } from 'app/services/auth.service'
+import { PersonalDataService } from 'app/services/personal-data.service'
 
 import { UserDataComponent } from '../shared/user-data/user-data.component'
 import { ContractDataNPComponent } from '../shared/contract-data-n-p/contract-data-n-p.component'
 import { ContractDataIEComponent } from '../shared/contract-data-i-e/contract-data-i-e.component'
 import { ContractDataLEComponent } from '../shared/contract-data-l-e/contract-data-l-e.component'
+import { Router } from "@angular/router";
 
 export let LEGAL_STATUSES = [
   {
@@ -60,128 +59,36 @@ export class PersonalDataEditComponent implements OnInit {
     residency: RESIDENCES[0].value,
   };
 
-  personal_data = {
-    second_name: '',
-    first_name: '',
-    patronymic: '',
-    phones: ['',],
-    site: ''
+  personal_data: Object = {
+    phones: [''],
+    postal_address_country:'',
+    postal_address_region:'',
+    postal_address_city:'',
+    registration_address_country:'',
+    registration_address_region:'',
+    registration_address_city:'',
   };
 
-  // Данные блока "Данные для договора физ.лица"
-  contract_data_np = {
-    passport: {
-      series: '',
-      number: '',
-      date: DateModel,
-      division_code: '',
-      issued_by: '',
-    },
-    registration_address: {
-      postcode: '',
-      country: '',
-      region: '',
-      city: '',
-      street: ''
-    },
-    postal_address: {
-      postcode: '',
-      country: '',
-      region: '',
-      city: '',
-      street: ''
-    },
-    bankcard_number: '',
-    itn: '',
-  };
-  // Данные блока "Данные для договора ИП"
-  contract_data_ie = {
-    second_name: '',
-    first_name: '',
-    patronymic: '',
-    passport: {
-      series: '',
-      number: '',
-      date: DateModel,
-      division_code: '',
-      issued_by: '',
-    },
-    registration_address: {
-      postcode: '',
-      country: '',
-      region: '',
-      city: '',
-      street: ''
-    },
-    postal_address: {
-      postcode: '',
-      country: '',
-      region: '',
-      city: '',
-      street: ''
-    },
-    certificate_number: '',
-    certificate_date: DateModel,
-    itn: '', // ИНН
-    iec: '', // КПП
-    psrnsp: '', // ОГРНИП
-  };
-  // Данные блока "Данные для договора юр.лицо"
-  contract_data_le = {
-    organization: {
-      name: '',
-      type: ''
-    },
-    certificate_number: '',
-    certificate_date: DateModel,
-    itn: '', // ИНН
-    iec: '', // КПП
-    psrn: '', // ОГРН
-    second_name: '',
-    first_name: '',
-    patronymic: '',
-    position: '', // Должность
-    authority_basis: '', // Основание полномочий
-    registration_address: {
-      postcode: '',
-      country: '',
-      region: '',
-      city: '',
-      street: ''
-    },
-    postal_address: {
-      postcode: '',
-      country: '',
-      region: '',
-      city: '',
-      street: ''
-    },
-
-  };
-
-  // Данные блока "Банковские реквизиты"
-  bank_data = {
-    name: '',
-    bic: '',
-    corresponding_account: '',
-    current_account: ''
-
-  };
-
-  //TODO: Заменить заглушку реальными данными
   // Данные аккаунта
   user_data: Object = {};
 
   confirm_rules: boolean = false;
 
-  constructor(private authService: AuthService, private http: Http) {
+  constructor(private authService: AuthService,
+              private personalDataService: PersonalDataService,
+              private router: Router) {
   }
 
   ngOnInit() {
-    let user_id = Cookie.get('user_id');
-    let headers = this.authService.getHeaders();
-    this.http.get(`${environment.api_url}/user/${user_id}`, { headers })
-      .subscribe(user => this.user_data = user.json());
+    this.personalDataService.getSelf()
+      .subscribe(user => {
+        this.user_data = user;
+        this.status.legal_status = user['legal_status'];
+        this.status.residency = user['residency'];
+      });
+    this.personalDataService.getPersonalData()
+      .map(personal_data => {personal_data['phones'] = ['']; return personal_data})
+      .subscribe(personal_data => this.personal_data = personal_data);
   }
 
   showRules(event) {
@@ -189,109 +96,14 @@ export class PersonalDataEditComponent implements OnInit {
     console.log("Show Rules here");
   }
 
-  convertData() {
-    let converters = {
-      'russian_federation-natural_person': {
-        "bankcard_number": this.contract_data_np.bankcard_number,
-        "first_name": this.personal_data.first_name,
-        "itn": this.contract_data_np.itn,
-        "passport_date": this.contract_data_np.passport.date,
-        "passport_division_code": this.contract_data_np.passport.division_code,
-        "passport_issued_by": this.contract_data_np.passport.issued_by,
-        "passport_number": this.contract_data_np.passport.number,
-        "passport_series": this.contract_data_np.passport.series,
-        "patronymic": this.personal_data.patronymic,
-        "phones": this.personal_data.phones,
-        "postal_address_city_id": this.contract_data_np.postal_address.city,
-        "postal_address_country_id": this.contract_data_np.postal_address.country,
-        "postal_address_postcode": this.contract_data_np.postal_address.postcode,
-        "postal_address_region_id": this.contract_data_np.postal_address.region,
-        "postal_address_street": this.contract_data_np.postal_address.street,
-        "registration_address_city_id": this.contract_data_np.registration_address.city,
-        "registration_address_country_id": this.contract_data_np.registration_address.country,
-        "registration_address_postcode": this.contract_data_np.registration_address.postcode,
-        "registration_address_region_id": this.contract_data_np.registration_address.region,
-        "registration_address_street": this.contract_data_np.registration_address.street,
-        "second_name": this.personal_data.second_name,
-        "site": this.personal_data.site
-      },
-      'russian_federation-individual_entrepreneur': {
-        "bank_bic": this.bank_data.bic,
-        "bank_corresponding_account": this.bank_data.corresponding_account,
-        "bank_current_account": this.bank_data.current_account,
-        "bank_name": this.bank_data.name,
-        "certificate_date": this.contract_data_ie.certificate_date,
-        "certificate_number": this.contract_data_ie.certificate_number,
-        "contract_first_name": this.contract_data_ie.first_name,
-        "contract_patronymic": this.contract_data_ie.patronymic,
-        "contract_second_name": this.contract_data_ie.second_name,
-        "first_name": this.personal_data.first_name,
-        "iec": this.contract_data_ie.iec,
-        "itn": this.contract_data_ie.itn,
-        "passport_date": this.contract_data_ie.passport.date,
-        "passport_division_code": this.contract_data_ie.passport.division_code,
-        "passport_issued_by": this.contract_data_ie.passport.issued_by,
-        "passport_number": this.contract_data_ie.passport.number,
-        "passport_series": this.contract_data_ie.passport.series,
-        "patronymic": this.personal_data.patronymic,
-        "phones": this.personal_data.phones,
-        "psrnsp": "string",
-        "postal_address_city_id": this.contract_data_ie.postal_address.city,
-        "postal_address_country_id": this.contract_data_ie.postal_address.country,
-        "postal_address_postcode": this.contract_data_ie.postal_address.postcode,
-        "postal_address_region_id": this.contract_data_ie.postal_address.region,
-        "postal_address_street": this.contract_data_ie.postal_address.street,
-        "registration_address_city_id": this.contract_data_ie.registration_address.city,
-        "registration_address_country_id": this.contract_data_ie.registration_address.country,
-        "registration_address_postcode": this.contract_data_ie.registration_address.postcode,
-        "registration_address_region_id": this.contract_data_ie.registration_address.region,
-        "registration_address_street": this.contract_data_ie.registration_address.street,
-        "second_name": this.personal_data.second_name,
-        "site": this.personal_data.site
-      },
-      'russian_federation-legal_entity': {
-        "authority_basis": this.contract_data_le.authority_basis,
-        "contract_first_name": this.contract_data_le.first_name,
-        "contract_patronymic": this.contract_data_le.patronymic,
-        "contract_second_name": this.contract_data_le.second_name,
-        "first_name": this.personal_data.first_name,
-        "iec": this.contract_data_le.iec,
-        "itn": this.contract_data_le.itn,
-        "organization_name": this.contract_data_le.organization.name,
-        "organization_type": this.contract_data_le.organization.type,
-        "patronymic": this.personal_data.patronymic,
-        "phones": this.personal_data.phones,
-        "position": this.contract_data_le.position,
-        "psrn": this.contract_data_le.psrn,
-        "postal_address_city_id": this.contract_data_le.postal_address.city,
-        "postal_address_country_id": this.contract_data_le.postal_address.country,
-        "postal_address_postcode": this.contract_data_le.postal_address.postcode,
-        "postal_address_region_id": this.contract_data_le.postal_address.region,
-        "postal_address_street": this.contract_data_le.postal_address.street,
-        "registration_address_city_id": this.contract_data_le.registration_address.city,
-        "registration_address_country_id": this.contract_data_le.registration_address.country,
-        "registration_address_postcode": this.contract_data_le.registration_address.postcode,
-        "registration_address_region_id": this.contract_data_le.registration_address.region,
-        "registration_address_street": this.contract_data_le.registration_address.street,
-        "second_name": this.personal_data.second_name,
-        "site": this.personal_data.site
-      },
-
-    };
-    return converters[`${this.status.residency}-${this.status.legal_status}`]
-  }
-
   save() {
     if (this.userDataComponent.validate() && this.contractDataNPComponent.validate()) {
       console.log("Save personal data");
-      let headers = this.authService.getHeaders();
-      let data = this.convertData();
-      console.log("DATA = ", data);
-      this.http.put(
-        `${environment.api_url}/user/${this.user_data['id']}/profile/${this.status.residency}/${this.status.legal_status}`,
-        data, { headers })
-        // .catch((error) => {console.log(error);return this})
-        .subscribe(res => console.log("Response -->", res));
+      this.personalDataService.setPersonalData(this.personal_data, this.status)
+        .subscribe(res => {
+          console.log("Response success send -->", res);
+          this.router.navigate(['personal_data'])
+        });
     } else {
       console.log("Errors!!!")
     }

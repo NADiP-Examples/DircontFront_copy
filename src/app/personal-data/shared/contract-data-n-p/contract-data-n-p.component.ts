@@ -10,8 +10,8 @@ import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.c
 })
 
 export class ContractDataNPComponent implements OnInit {
-  @Input() contract_data: Object;
   @Input() personal_data: Object;
+  @Input() form_view: Object;
 
   MASKS = MASKS;
 
@@ -31,9 +31,6 @@ export class ContractDataNPComponent implements OnInit {
   }
 
   validate(){
-    this.contract_data['first_name'] = this.personal_data['first_name'];
-    this.contract_data['second_name'] = this.personal_data['second_name'];
-    this.contract_data['patronymic'] = this.personal_data['patronymic'];
     return true
   }
 

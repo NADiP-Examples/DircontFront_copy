@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { Http, Response } from '@angular/http'
+import { Router } from '@angular/router'
 import { environment } from 'environments/environment';
 import { Cookie } from 'ng2-cookies';
 
 import { AuthService } from 'app/services/auth.service'
+import { PersonalDataService } from 'app/services/personal-data.service'
 
 @Component({
   // selector: 'app-profile-view',
@@ -15,12 +17,14 @@ export class PersonalDataViewComponent implements OnInit {
   user_data: Object = {};
 
 
-  personal_data = {
-    second_name: '',
-    first_name: '',
-    patronymic: '',
-    phones: ['',],
-    site: ''
+  personal_data: Object = {
+    phones: [],
+    postal_address_country:'',
+    postal_address_region:'',
+    postal_address_city:'',
+    registration_address_country:'',
+    registration_address_region:'',
+    registration_address_city:'',
   };
 
   status = {
@@ -29,17 +33,29 @@ export class PersonalDataViewComponent implements OnInit {
   };
 
   get full_name() {
-    return `${this.personal_data.second_name} ${this.personal_data.first_name} ${this.personal_data.patronymic}`
+    return `${this.personal_data['second_name']} ${this.personal_data['first_name']} ${this.personal_data['patronymic']}`
   }
 
-  constructor(private authService: AuthService, private http: Http) {
+  constructor(private authService: AuthService, private personalDataService: PersonalDataService, private http: Http, private router: Router) {
   }
 
   ngOnInit() {
-    let user_id = Cookie.get('user_id');
-    let headers = this.authService.getHeaders();
-    this.http.get(`${environment.api_url}/user/${user_id}`, { headers })
-      .subscribe(user => this.user_data = user.json());
+    this.personalDataService.getSelf()
+      .subscribe(user => {
+        this.user_data = user;
+        this.status.legal_status = user['legal_status'];
+        this.status.residency = user['residency'];
+      });
+    this.personalDataService.getPersonalData()
+      .map(personal_data => {personal_data['phones'] = []; return personal_data})
+      .subscribe(personal_data => {
+        this.personal_data = personal_data;
+        console.log();
+      });
+  }
+
+  edit() {
+    this.router.navigate(['personal_data', 'edit'])
   }
 
 }

@@ -16,44 +16,40 @@
 <div class="row">
   <div class="col-12">
     <spoiler-block [header]="'Ваши данные'">
-      <user-data [user_data]="user_data" [personal_data]="personal_data"></user-data>
+      <user-data [user_data]="user_data" [personal_data]="personal_data" [form_view]="true"></user-data>
     </spoiler-block>
   </div>
 </div>
-<!--<div class="row" *ngIf="status.residency == 'russian_federation' || status.legal_status=='legal_entity'">-->
-  <!--<div class="col-12">-->
-    <!--<spoiler-block [header]="'Данные для договора'">-->
-      <!--<div [ngSwitch]="status.legal_status">-->
-        <!--<contract-data-np *ngSwitchCase="'natural_person'"-->
-                          <!--[contract_data]="contract_data_np"-->
-                          <!--[personal_data]="personal_data"></contract-data-np>-->
-        <!--<contract-data-ie *ngSwitchCase="'individual_entrepreneur'"-->
-                          <!--[contract_data]="contract_data_ie"-->
-                          <!--[personal_data]="personal_data"></contract-data-ie>-->
-        <!--<contract-data-le *ngSwitchCase="'legal_entity'"-->
-                          <!--[status]="status"-->
-                          <!--[contract_data]="contract_data_le"-->
-                          <!--[personal_data]="personal_data"></contract-data-le>-->
-      <!--</div>-->
-    <!--</spoiler-block>-->
-  <!--</div>-->
-<!--</div>-->
-<!--<div *ngIf="status.residency == 'russian_federation' &&-->
-<!--(status.legal_status == 'individual_entrepreneur' || status.legal_status == 'legal_entity')"-->
-     <!--class="row">-->
-  <!--<div class="col-12">-->
-    <!--<spoiler-block [header]="'Банковские реквизиты'">-->
-      <!--<bank-data [bank_data]="bank_data"></bank-data>-->
-    <!--</spoiler-block>-->
-  <!--</div>-->
-<!--</div>-->
-<!--<div class="row">-->
-  <!--<div class="col-12">-->
-    <!--<div class="float-right" style="padding: 15px">-->
-      <!--<input [(ngModel)]="confirm_rules" type="checkbox" class="simple-checkbox"> Я соглашаюсь с <a href="#"-->
-                                                                                                    <!--(click)="showRules($event)">правилами</a>-->
-      <!--<input type="submit" class="btn btn-secondary simple-button" style="display: inline-block" value="Сохранить"-->
-             <!--(click)="save()">-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
+<div class="row" *ngIf="status.residency == 'russian_federation' || status.legal_status=='legal_entity'">
+  <div class="col-12">
+    <spoiler-block [header]="'Данные для договора'">
+      <div [ngSwitch]="status.legal_status">
+        <contract-data-np *ngSwitchCase="'natural_person'" [form_view]="true"
+                          [personal_data]="personal_data"></contract-data-np>
+        <contract-data-ie *ngSwitchCase="'individual_entrepreneur'" [form_view]="true"
+                          [personal_data]="personal_data"></contract-data-ie>
+        <contract-data-le *ngSwitchCase="'legal_entity'" [form_view]="true"
+                          [status]="status"
+                          [personal_data]="personal_data"></contract-data-le>
+      </div>
+
+    </spoiler-block>
+  </div>
+</div>
+<div *ngIf="status.residency == 'russian_federation' &&
+(status.legal_status == 'individual_entrepreneur' || status.legal_status == 'legal_entity')"
+     class="row">
+  <div class="col-12">
+    <spoiler-block [header]="'Банковские реквизиты'">
+      <bank-data [personal_data]="personal_data" [form_view]="true"></bank-data>
+    </spoiler-block>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="float-right" style="padding: 15px">
+      <input type="submit" class="btn btn-secondary simple-button" style="display: inline-block" value="Редактировать"
+             (click)="edit()">
+    </div>
+  </div>
+</div>

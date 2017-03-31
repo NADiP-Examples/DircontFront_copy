@@ -13,12 +13,30 @@ import { environment } from 'environments/environment';
 @Injectable()
 export class PersonalDataService {
 
+  public _user_id:String;
+
+  get user_id():String {
+    if (!this._user_id) this._user_id = Cookie.get('user_id');
+    return this._user_id
+  }
+
   constructor(private http: Http, private authService: AuthService, private router: Router) {
   }
 
   getSelf():Observable<any> {
-    let user_id = Cookie.get('user_id');
     let headers = this.authService.getHeaders();
-    return this.http.get(`${environment.api_url}/user/${user_id}`, { headers }).map(user => user.json())
+    return this.http.get(`${environment.api_url}/user/${this.user_id}`, { headers }).map(data => data.json())
+  }
+
+  getPersonalData():Observable<any> {
+    let headers = this.authService.getHeaders();
+    return this.http.get(`${environment.api_url}/user/${this.user_id}/profile`, { headers }).map(data => data.json())
+  }
+
+  setPersonalData(data, status):Observable<any> {
+    let headers = this.authService.getHeaders();
+    return this.http.put(
+      `${environment.api_url}/user/${this.user_id}/profile/${status.residency}/${status.legal_status}`,
+      data, { headers })
   }
 }

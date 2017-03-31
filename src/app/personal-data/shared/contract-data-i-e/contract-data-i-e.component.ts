@@ -9,8 +9,8 @@ import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.c
   styleUrls: ['./contract-data-i-e.component.sass']
 })
 export class ContractDataIEComponent implements OnInit {
-  @Input() contract_data: Object;
   @Input() personal_data: Object;
+  @Input() form_view: Object;
 
   options: DatePickerOptions;
   MASKS = MASKS;

@@ -26,7 +26,7 @@ import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.c
 export class UserDataComponent implements OnInit {
   @Input() user_data: Object;
   @Input() personal_data: Object;
-  @ViewChild('phoneTemplate') phoneTemplate;
+  @Input() form_view:Boolean;
   // TODO: Create class ValidateErrors
   errors = {};
 
@@ -62,7 +62,6 @@ export class UserDataComponent implements OnInit {
 
   addPhone() {
     this.personal_data['phones'].push('');
-    // this.container.createEmbeddedView(this.phoneTemplate);
   }
 
   customTrackBy(index: number, obj: any): any {

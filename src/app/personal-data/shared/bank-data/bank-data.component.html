@@ -1,18 +1,18 @@
 <div class="row">
   <label class="col-6">
     Название банка
-    <input [(ngModel)]="bank_data.name" class="simple-input" type="text" placeholder="АО «Альфа-Банк», г. Москва">
+    <input  [(ngModel)]="personal_data.bank_name" [disabled]="form_view" class="simple-input" type="text" placeholder="АО «Альфа-Банк», г. Москва">
   </label>
   <label class="col-6">
     БИК банка
-    <input [(ngModel)]="bank_data.bic" class="simple-input" type="text" placeholder="044525593">
+    <input [(ngModel)]="personal_data.bank_bic" [disabled]="form_view" class="simple-input" type="text" placeholder="044525593">
   </label>
   <label class="col-6">
     Корреспондентский счет
-    <input [(ngModel)]="bank_data.corresponding_account" class="simple-input" type="text" placeholder="30101810900000000181">
+    <input [(ngModel)]="personal_data.bank_corresponding_account" [disabled]="form_view" class="simple-input" type="text" placeholder="30101810900000000181">
   </label>
   <label class="col-6">
     Расчетный счет
-    <input [(ngModel)]="bank_data.current_account" class="simple-input" type="text" placeholder="11234567891234567890">
+    <input [(ngModel)]="personal_data.bank_current_account" [disabled]="form_view" class="simple-input" type="text" placeholder="11234567891234567890">
   </label>
 </div>

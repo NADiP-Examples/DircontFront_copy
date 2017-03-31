@@ -13,85 +13,130 @@
   </label>
 </div>
 <div class="row">
-  <label class="col-3">
+  <label *ngIf="!form_view || personal_data.passport_series" class="col-3">
     Серия паспорта
-    <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input"
-           type="text" placeholder="1234" [(ngModel)]="contract_data.passport.series">
+    <input [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input"
+           type="text" placeholder="1234" [(ngModel)]="personal_data.passport_series">
   </label>
-  <label class="col-3">
+  <label *ngIf="!form_view || personal_data.passport_number" class="col-3">
     Номер паспорта
-    <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input"
-           type="text" placeholder="567890" [(ngModel)]="contract_data.passport.number">
+    <input [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input"
+           type="text" placeholder="567890" [(ngModel)]="personal_data.passport_number">
   </label>
-  <label class="col-3">
+  <label *ngIf="!form_view" class="col-3">
     Дата выдачи
-    <ng2-datepicker [options]="options" [(ngModel)]="contract_data.passport.date"></ng2-datepicker>
-    <!--<input class="simple-input" type="text" placeholder="20.10.1980" [(ngModel)]="contract_data.passport.date">-->
+    <ng2-datepicker [options]="options" [(ngModel)]="personal_data.passport_date"></ng2-datepicker>
+    <!--<input class="simple-input" type="text" placeholder="20.10.1980" [(ngModel)]="personal_data.passport.date">-->
   </label>
-  <label class="col-3">
+  <label *ngIf="form_view && personal_data.passport_date" class="col-3">
+    Дата выдачи
+    <input disabled class="simple-input" type="text" [(ngModel)]="personal_data.passport_date">
+  </label>
+  <label *ngIf="!form_view || personal_data.passport_division_code" class="col-3">
     Код подразделения
-    <input [textMask]="{mask: MASKS.passport_division_code, guide: false}" class="simple-input"
-           type="text" placeholder="321-654" [(ngModel)]="contract_data.passport.division_code">
+    <input [disabled]="form_view" [textMask]="{mask: MASKS.passport_division_code, guide: false}" class="simple-input"
+           type="text" placeholder="321-654" [(ngModel)]="personal_data.passport_division_code">
   </label>
 </div>
 <div class="row">
-  <label class="col-12">
+  <label *ngIf="!form_view || personal_data.passport_issued_by" class="col-12">
     Кем выдан
-    <input class="simple-input" type="text" placeholder="УВД Центрального района Кемеровской области"
-           [(ngModel)]="contract_data.passport.issued_by">
+    <input [disabled]="form_view" class="simple-input" type="text"
+           placeholder="УВД Центрального района Кемеровской области"
+           [(ngModel)]="personal_data.passport_issued_by">
   </label>
 </div>
 <div class="row">
   <label class="col-3">
     Адрес регистрации
-    <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" placeholder="Индекс"
-           [(ngModel)]="contract_data.registration_address.postcode">
+    <input [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text"
+           placeholder="Индекс"
+           [(ngModel)]="personal_data.registration_address_postcode">
   </label>
-  <div class="col-9">
+  <div class="col-9" *ngIf="!form_view">
     <location
-      (countryOut)="contract_data.registration_address.country = $event"
-      (regionOut)="contract_data.registration_address.region = $event"
-      (cityOut)="contract_data.registration_address.city = $event"
-      [country]="contract_data.registration_address.country"
-      [region]="contract_data.registration_address.region"
-      [city]="contract_data.registration_address.city"></location>
+              (countryOut)="personal_data.registration_address_country_id = $event"
+              (regionOut)="personal_data.registration_address_region_id = $event"
+              (cityOut)="personal_data.registration_address_city_id = $event"
+              [country]="personal_data.registration_address_country.id"
+              [region]="personal_data.registration_address_region.id"
+              [city]="personal_data.registration_address_city.id"></location>
+  </div>
+  <div class="col-9" *ngIf="form_view">
+    <div class="row">
+      <label class="col-4">
+        Страна
+        <input disabled class="simple-input" type="text"
+               [(ngModel)]="personal_data.registration_address_country.title">
+      </label>
+      <label class="col-4">
+        Регион
+        <input disabled class="simple-input" type="text"
+               [(ngModel)]="personal_data.registration_address_region.title">
+      </label>
+      <label class="col-4">
+        Город
+        <input disabled class="simple-input" type="text"
+               [(ngModel)]="personal_data.registration_address_city.title">
+      </label>
+    </div>
   </div>
   <label class="col-3">
-    <input class="simple-input" type="text" placeholder="ул. Кирова д.2 кв.4"
-           [(ngModel)]="contract_data.registration_address.street">
+    <input [disabled]="form_view" class="simple-input" type="text" placeholder="ул. Кирова д.2 кв.4"
+           [(ngModel)]="personal_data.registration_address_street">
   </label>
 </div>
 <div class="row">
   <label class="col-3">
     Почтовый адрес
     <fa class="ico-duplicate" name="angle-double-down"></fa>
-    <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" placeholder="Индекс"
-           [(ngModel)]="contract_data.postal_address.postcode">
+    <input [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text"
+           placeholder="Индекс"
+           [(ngModel)]="personal_data.postal_address_postcode">
   </label>
-  <div class="col-9">
+  <div *ngIf="!form_view" class="col-9">
     <location
-      (countryOut)="contract_data.postal_address.country = $event"
-      (regionOut)="contract_data.postal_address.region = $event"
-      (cityOut)="contract_data.postal_address.city = $event"
-      [country]="contract_data.postal_address.country"
-      [region]="contract_data.postal_address.region"
-      [city]="contract_data.postal_address.city"></location>
+              (countryOut)="personal_data.postal_address_country_id = $event"
+              (regionOut)="personal_data.postal_address_region_id = $event"
+              (cityOut)="personal_data.postal_address_city_id = $event"
+              [country]="personal_data.postal_address_country.id"
+              [region]="personal_data.postal_address_region.id"
+              [city]="personal_data.postal_address_city.id"></location>
+  </div>
+  <div class="col-9" *ngIf="form_view">
+    <div class="row">
+      <label class="col-4">
+        Страна
+        <input disabled class="simple-input" type="text"
+               [(ngModel)]="personal_data.postal_address_country.title">
+      </label>
+      <label class="col-4">
+        Регион
+        <input disabled class="simple-input" type="text"
+               [(ngModel)]="personal_data.postal_address_region.title">
+      </label>
+      <label class="col-4">
+        Город
+        <input disabled class="simple-input" type="text"
+               [(ngModel)]="personal_data.postal_address_city.title">
+      </label>
+    </div>
   </div>
   <label class="col-3">
-    <input class="simple-input" type="text" placeholder="ул. Кирова д.2 кв.4"
-           [(ngModel)]="contract_data.postal_address.street">
+    <input [disabled]="form_view" class="simple-input" type="text" placeholder="ул. Кирова д.2 кв.4"
+           [(ngModel)]="personal_data.postal_address_street">
   </label>
 </div>
 <div class="row">
   <label class="col-5">
     ИНН
-    <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text"
+    <input [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text"
            placeholder="12345678912"
-           [(ngModel)]="contract_data.itn">
+           [(ngModel)]="personal_data.itn">
   </label>
   <label class="col-5">
     Номер банковской карты
-    <input [textMask]="{mask: MASKS.card, guide: false}" class="simple-input" type="text"
-           placeholder="4444-4444-4444-4446-444" [(ngModel)]="contract_data.bankcard_number">
+    <input [disabled]="form_view" [textMask]="{mask: MASKS.card, guide: false}" class="simple-input" type="text"
+           placeholder="4444-4444-4444-4446-444" [(ngModel)]="personal_data.bankcard_number">
   </label>
 </div>

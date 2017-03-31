@@ -1,11 +1,11 @@
 <div class="row">
   <label class="col-6">
     Название организации
-    <input class="simple-input" type="text" placeholder="ОАО" [(ngModel)]="contract_data.organization.type">
+    <input class="simple-input" type="text" placeholder="ОАО" [(ngModel)]="personal_data.organization_type">
   </label>
   <label class="col-6">
     &nbsp;
-    <input class="simple-input" type="text" placeholder="СтройКопай" [(ngModel)]="contract_data.organization.type">
+    <input class="simple-input" type="text" placeholder="СтройКопай" [(ngModel)]="personal_data.organization_name">
   </label>
 </div>
 <div class="header mod-align-center">
@@ -15,25 +15,25 @@
 <div class="row">
   <label class="col-4">
     Фамилия <fa class="ico-duplicate" name="angle-double-down"></fa>
-    <input class="simple-input" type="text" placeholder="Иванов" [(ngModel)]="contract_data.second_name">
+    <input class="simple-input" type="text" placeholder="Иванов" [(ngModel)]="personal_data.contract_second_name">
   </label>
   <label class="col-4">
     Имя
-    <input class="simple-input" type="text" placeholder="Иван" [(ngModel)]="contract_data.first_name">
+    <input class="simple-input" type="text" placeholder="Иван" [(ngModel)]="personal_data.contract_first_name">
   </label>
   <label class="col-4">
     Отчество
-    <input class="simple-input" type="text" placeholder="Иванович" [(ngModel)]="contract_data.patronymic">
+    <input class="simple-input" type="text" placeholder="Иванович" [(ngModel)]="personal_data.contract_patronymic">
   </label>
 </div>
 <div class="row">
   <label class="col-6">
     Должность
-    <input class="simple-input" type="text" placeholder="Директор" [(ngModel)]="contract_data.position">
+    <input class="simple-input" type="text" placeholder="Директор" [(ngModel)]="personal_data.position">
   </label>
   <label class="col-6">
     Основание полномочий
-    <input class="simple-input" type="text" placeholder="Устав №123 от 10.01.2005" [(ngModel)]="contract_data.authority_basis">
+    <input class="simple-input" type="text" placeholder="Устав №123 от 10.01.2005" [(ngModel)]="personal_data.authority_basis">
   </label>
 </div>
 <div class="header mod-align-center">
@@ -44,74 +44,74 @@
   <label class="col-3">
     Адрес регистрации
     <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" placeholder="Индекс"
-           [(ngModel)]="contract_data.registration_address.postcode">
+           [(ngModel)]="personal_data.registration_address_postcode">
   </label>
   <div class="col-9">
     <location
-      (countryOut)="contract_data.registration_address.country = $event"
-      (regionOut)="contract_data.registration_address.region = $event"
-      (cityOut)="contract_data.registration_address.city = $event"
-      [country]="contract_data.registration_address.country"
-      [region]="contract_data.registration_address.region"
-      [city]="contract_data.registration_address.city"></location>
+      (countryOut)="personal_data.registration_address_country_id = $event"
+      (regionOut)="personal_data.registration_address_region_id = $event"
+      (cityOut)="personal_data.registration_address_city_id = $event"
+      [country]="personal_data.registration_address_country_id"
+      [region]="personal_data.registration_address_region_id"
+      [city]="personal_data.registration_address_city_id"></location>
   </div>
   <label class="col-3">
     <input class="simple-input" type="text" placeholder="ул. Кирова д.2 кв.4"
-           [(ngModel)]="contract_data.registration_address.street">
+           [(ngModel)]="personal_data.registration_address_street">
   </label>
 </div>
 <div class="row">
   <label class="col-3">
     Почтовый адрес <fa class="ico-duplicate" name="angle-double-down"></fa>
     <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" placeholder="Индекс"
-           [(ngModel)]="contract_data.postal_address.postcode">
+           [(ngModel)]="personal_data.postal_address.postcode">
   </label>
   <div class="col-9">
     <location
-      (countryOut)="contract_data.postal_address.country = $event"
-      (regionOut)="contract_data.postal_address.region = $event"
-      (cityOut)="contract_data.postal_address.city = $event"
-      [country]="contract_data.postal_address.country"
-      [region]="contract_data.postal_address.region"
-      [city]="contract_data.postal_address.city"></location>
+      (countryOut)="personal_data.postal_address._ountry_id = $event"
+      (regionOut)="personal_data.postal_address_region_id = $event"
+      (cityOut)="personal_data.postal_address_city_id = $event"
+      [country]="personal_data.postal_address_country_id"
+      [region]="personal_data.postal_address_region_id"
+      [city]="personal_data.postal_address_city_id"></location>
   </div>
   <label class="col-3">
     <input class="simple-input" type="text" placeholder="ул. Кирова д.2 кв.4"
-           [(ngModel)]="contract_data.postal_address.street">
+           [(ngModel)]="personal_data.postal_address_street">
   </label>
 </div>
 <div class="row">
   <label class="col-6">
     Номер свидетельства гос. регистрации ИП
     <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" placeholder="12345678912"
-           [(ngModel)]="contract_data.certificate_number">
+           [(ngModel)]="personal_data.certificate_number">
   </label>
   <label class="col-6">
     Дата государственной регистрации ИП
-    <ng2-datepicker [options]="options" [(ngModel)]="contract_data.certificate_date"></ng2-datepicker>
+    <ng2-datepicker [options]="options" [(ngModel)]="personal_data.certificate_date"></ng2-datepicker>
   </label>
 </div>
 <div class="row" *ngIf="status.residency=='russian_federation'">
   <label class="col-4">
     ИНН
     <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" placeholder="12345678912"
-           [(ngModel)]="contract_data.itn">
+           [(ngModel)]="personal_data.itn">
   </label>
   <label class="col-4">
     КПП
     <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" placeholder="12345678912"
-           [(ngModel)]="contract_data.iec">
+           [(ngModel)]="personal_data.iec">
   </label>
   <label class="col-4">
     ОГРН
     <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" placeholder="12345678912"
-           [(ngModel)]="contract_data.psrn">
+           [(ngModel)]="personal_data.psrn">
   </label>
 </div>
 <div class="row" *ngIf="status.residency=='other'">
   <label class="col-4">
     Номер налогоплательщика
     <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" placeholder="12345678912"
-           [(ngModel)]="contract_data.itn">
+           [(ngModel)]="personal_data.itn">
   </label>
 </div>
