@@ -15,7 +15,13 @@ function errorHandler(error) {
 @Injectable()
 export class AuthService {
   private loggedIn = false;
+  public _user_id:String;
   private _headers = new Headers();
+
+  get user_id():String {
+    if (!this._user_id) this._user_id = Cookie.get('user_id');
+    return this._user_id
+  }
 
   get headers(){
     if (_.isEmpty(this._headers.toJSON())){
@@ -40,6 +46,7 @@ export class AuthService {
       .map((res) => {
         Cookie.set('Authentication-Token', res.auth_token);
         Cookie.set('user_id', res.user_id);
+        this._user_id = null;
         result = res
       })
       .flatMap(() => this.getSelf())
