@@ -47,7 +47,6 @@ export class PersonalDataViewComponent implements OnInit {
         this.status.residency = user['residency'];
       });
     this.personalDataService.getPersonalData()
-      .map(personal_data => {personal_data['phones'] = []; return personal_data})
       .subscribe(personal_data => {
         this.personal_data = personal_data;
         console.log();

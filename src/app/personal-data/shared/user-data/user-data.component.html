@@ -75,7 +75,7 @@
     {{i==0 ? 'Телефоны': '&nbsp;'}}
     <input [disabled]="form_view" [textMask]="{mask: MASKS.phone, guide: false}" class="simple-input" type="text"
            placeholder="+7(923)600-11-12" [(ngModel)]="personal_data.phones[i]">
-    <fa *ngIf="i!=0" class="ico-close" name="times" (click)="removePhone(i)"></fa>
+    <fa *ngIf="i!=0 && !form_view" class="ico-close" name="times" (click)="removePhone(i)"></fa>
   </label>
   <label class="col-3" *ngIf="!form_view">
     &nbsp;
