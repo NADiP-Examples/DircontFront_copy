@@ -23,20 +23,22 @@ export class AuthService {
     return this._user_id
   }
 
+  // TODO: поправить логику установки Заголовков.
+  // Сейчас заголовки, это ОДИН заголовок Authentication-Token
   get headers(){
     if (_.isEmpty(this._headers.toJSON())){
       let token = Cookie.get('Authentication-Token');
-      this._headers.append('Authentication-Token', token);
+      if (token) this._headers.append('Authentication-Token', token);
     }
     return this._headers
   }
 
-  constructor(private http: Http, private router: Router) {
-    this.loggedIn = !!Cookie.get('Authentication-Token');
-  }
-
   public getHeaders(): Headers {
     return this.headers
+  }
+
+  constructor(private http: Http, private router: Router) {
+    this.loggedIn = !!Cookie.get('Authentication-Token');
   }
 
   login(email: string, password: string): Observable<any> {
@@ -46,7 +48,7 @@ export class AuthService {
       .map((res) => {
         Cookie.set('Authentication-Token', res.auth_token);
         Cookie.set('user_id', res.user_id);
-        this._user_id = null;
+        this._user_id = res.user_id;
         result = res
       })
       .flatMap(() => this.getSelf())
@@ -56,7 +58,6 @@ export class AuthService {
   }
 
   getSelf(): Observable<any> {
-    console.log('Auth getSelf');
     let token = Cookie.get('Authentication-Token');
     let user_id = Cookie.get('user_id');
 
@@ -127,6 +128,7 @@ export class AuthService {
     Cookie.delete('user_id');
     this.headers.delete('Authentication-Token');
     this.loggedIn = false;
+    this._user_id = null;
     this.router.navigate(['signin'])
   }
 
