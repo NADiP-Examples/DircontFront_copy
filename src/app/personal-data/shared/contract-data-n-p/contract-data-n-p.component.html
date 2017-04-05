@@ -26,7 +26,17 @@
   <label *ngIf="!form_view" class="col-3">
     Дата выдачи
     <ng2-datepicker [options]="options" [(ngModel)]="personal_data.passport_date"></ng2-datepicker>
-    <!--<input class="simple-input" type="text" placeholder="20.10.1980" [(ngModel)]="personal_data.passport.date">-->
+  </label>
+  <label class="col-3">
+    Дата Тестовая
+    <ng2-datepicker (ngModelChange)="onChange()" [(ngModel)]="test_date"></ng2-datepicker>
+    <button (click)="setDate()">SetDate</button>
+    <diV>
+      date: {{test_date.formatted}}
+    </diV>
+    <diV>
+      day: {{test_date.day}}
+    </diV>
   </label>
   <label *ngIf="form_view && personal_data.passport_date" class="col-3">
     Дата выдачи

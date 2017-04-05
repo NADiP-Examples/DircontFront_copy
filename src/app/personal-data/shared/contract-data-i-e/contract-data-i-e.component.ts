@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core'
-import { DatePickerOptions } from 'ng2-datepicker'
+import { DatePickerOptions } from 'app/ng2-datepicker/ng2-datepicker.module'
 
 import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.component'
 

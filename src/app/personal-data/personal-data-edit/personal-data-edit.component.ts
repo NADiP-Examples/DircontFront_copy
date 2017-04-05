@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { DateModel } from 'ng2-datepicker'
+import { DateModel, DatePickerOptions } from 'app/ng2-datepicker/ng2-datepicker.module'
 
 import { AuthService } from 'app/services/auth.service'
 import { PersonalDataService } from 'app/services/personal-data.service'
@@ -62,16 +62,19 @@ export class PersonalDataEditComponent implements OnInit {
 
   personal_data: Object = {
     phones: [''],
-    postal_address_country:'',
-    postal_address_region:'',
-    postal_address_city:'',
-    registration_address_country:'',
-    registration_address_region:'',
-    registration_address_city:'',
+    postal_address_country: '',
+    postal_address_region: '',
+    postal_address_city: '',
+    registration_address_country: '',
+    registration_address_region: '',
+    registration_address_city: '',
   };
 
   // Данные аккаунта
   user_data: Object = {};
+
+  options = new DatePickerOptions();
+
 
   confirm_rules: boolean = false;
 
@@ -88,7 +91,11 @@ export class PersonalDataEditComponent implements OnInit {
         this.status.residency = user['residency'] || RESIDENCES[0].value;
       });
     this.personalDataService.getPersonalData()
-      .subscribe(personal_data => {if(!_.isEmpty(personal_data))this.personal_data = personal_data});
+      .subscribe(personal_data => {
+        if (!_.isEmpty(personal_data)) this.personal_data = personal_data;
+        // if (this.personal_data['passport_date']) this.personal_data['passport_date'] = new Date(this.personal_data['passport_date']);
+        console.log("personal_data -->", personal_data);
+      });
   }
 
   showRules(event) {
@@ -98,10 +105,11 @@ export class PersonalDataEditComponent implements OnInit {
 
   save() {
     if (this.userDataComponent.validate() && this.contractDataNPComponent.validate()) {
-      console.log("Save personal data");
+      console.log("Save personal data", this.personal_data);
+      if (this.personal_data['passport_date']) this.personal_data['passport_date'] = this.personal_data['passport_date'].formatted;
       this.personalDataService.setPersonalData(this.personal_data, this.status)
         .subscribe(res => {
-          console.log("Response success send -->", res);
+          console.log("Response success send -->", res.json());
           this.router.navigate(['personal_data'])
         });
     } else {

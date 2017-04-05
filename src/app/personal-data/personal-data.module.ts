@@ -5,7 +5,8 @@ import { RouterModule } from '@angular/router'
 import { FormsModule } from '@angular/forms'
 import { Angular2FontAwesomeModule } from 'angular2-font-awesome/angular2-font-awesome'
 import { TextMaskModule } from 'angular2-text-mask'
-import { DatePickerModule } from 'ng2-datepicker'
+// import { DatePickerModule } from 'ng2-datepicker'
+import { DatePickerModule } from 'app/ng2-datepicker/ng2-datepicker.module'
 
 //custom Services
 import { PersonalDataService } from 'app/services/personal-data.service'

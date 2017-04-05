@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core'
-import { DatePickerOptions } from 'ng2-datepicker'
+import { Component, OnInit, Input, EventEmitter } from '@angular/core'
+import { DatePickerOptions, DateModel } from 'app/ng2-datepicker/ng2-datepicker.module'
+import * as moment from "moment";
 
 import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.component'
 
@@ -15,8 +16,9 @@ export class ContractDataNPComponent implements OnInit {
 
   MASKS = MASKS;
 
-  // date: DateModel;
   options: DatePickerOptions;
+
+  test_date:DateModel = new DateModel();
 
   constructor() {
     this.options = new DatePickerOptions(
@@ -28,6 +30,15 @@ export class ContractDataNPComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  setDate(){
+    // this.event.emit({type:'setDate', data: new Date('2015-10-10')});
+    this.test_date.formatted = '2000-02-10';
+  }
+
+  onChange(){
+    console.log("Change test_date");
   }
 
   validate(){
