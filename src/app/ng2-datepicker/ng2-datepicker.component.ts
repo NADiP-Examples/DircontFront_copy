@@ -121,12 +121,8 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
   minDate: moment.Moment | any;
   maxDate: moment.Moment | any;
 
-  private onTouchedCallback: () => void = () => {
-    console.log("touch")
-  };
-  private onChangeCallback: (_: any) => void = () => {
-    console.log("change")
-  };
+  private onTouchedCallback: () => void = () => {};
+  private onChangeCallback: (_: any) => void = () => {};
 
   constructor(@Inject(ElementRef) public el: ElementRef) {
     this.opened = false;
@@ -166,7 +162,6 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
   }
 
   set value(date: string) {
-    console.log("Set value");
     if (!date) {
       return;
     }
@@ -348,7 +343,6 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
   }
 
   writeValue(date: string) {
-    console.log('writeValue');
     if (!date) {
       return;
     }

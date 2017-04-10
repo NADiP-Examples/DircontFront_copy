@@ -38,7 +38,6 @@ export  class isHasId implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> | boolean {
     return this.personalDataService.getSelf().map(user => {
-      console.log('isHasId | user -->', user);
       if (user['personal_id']) {
         return true
       }

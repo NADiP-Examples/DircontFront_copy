@@ -17,28 +17,39 @@ export class PersonalDataService {
   constructor(private http: Http, private authService: AuthService, private router: Router) {
   }
 
-  getSelf():Observable<any> {
+  getSelf(): Observable<any> {
     let headers = this.authService.getHeaders();
     return this.http.get(`${environment.api_url}/user/${this.authService.user_id}`, { headers }).map(data => data.json())
   }
 
-  getPersonalData():Observable<any> {
+  getPersonalData(): Observable<any> {
     let headers = this.authService.getHeaders();
     return this.http.get(`${environment.api_url}/user/${this.authService.user_id}/profile`, { headers }).map(data => data.json())
   }
 
-  setPersonalData(data, status):Observable<any> {
+  setPersonalData(data, status): Observable<any> {
     let headers = this.authService.getHeaders();
     return this.http.put(
       `${environment.api_url}/user/${this.authService.user_id}/profile/${status.residency}/${status.legal_status}`,
       this.transformPersonalData(data), { headers })
   }
 
-  transformPersonalData(data){
+  transformPersonalData(data) {
     // Remove empty phones
-    console.log("before phones -->", data.phones);
     data.phones = data.phones.filter(Boolean);
-    console.log("after phones -->", data.phones);
     return data
+  }
+
+  changeEmail() {
+
+  }
+
+  changePassword(current_password: string, new_password: string): Observable<any> {
+    let headers = this.authService.getHeaders();
+    let data = {
+      current_password: current_password,
+      new_password: new_password
+    };
+    return this.http.post(`${environment.api_url}/auth/change_password`, data, { headers }).map(data => data.json())
   }
 }

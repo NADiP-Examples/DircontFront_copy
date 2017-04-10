@@ -54,23 +54,33 @@
   </label>
 </div>
 <div class="row" hidden #changePasswordBlock>
-  <label class="col-3">
-    Смена пароля
-    <input #oldPasswordField class="simple-input" type="password" placeholder="старый пароль">
-  </label>
-  <label class="col-3">
-    &nbsp;
-    <input #newPasswordField class="simple-input" type="password" placeholder="новый пароль">
-  </label>
-  <label class="col-3">
-    &nbsp;
-    <input #confirmPasswordField class="simple-input" type="password" placeholder="подтвердите пароль">
-  </label>
-  <label class="col-3">
-    &nbsp;
-    <input type="button" class="btn btn-secondary simple-button" value="Подтвердить" #passwordConfirmButton
-           (click)="confirmPassword(passwordBlock, changePasswordBlock, oldPasswordField, newPasswordField, confirmPasswordField)">
-  </label>
+  <form #changePasswordForm="ngForm" novalidate class="mod-align-center">
+    <label class="col-3">
+      Смена пароля
+      <input class="simple-input" type="password" placeholder="старый пароль"
+             ngModel name="current_password" [ngClass]="{hasError: errors?.current_password}">
+      <div class="form-control-feedback error" *ngFor="let err of errors.current_password">{{ err | translate }}</div>
+    </label>
+    <label class="col-3">
+      &nbsp;
+      <input class="simple-input" type="password" placeholder="новый пароль"
+             ngModel name="new_password" [ngClass]="{hasError: errors?.new_password}">
+      <div class="form-control-feedback error" *ngFor="let err of errors.new_password">{{ err | translate }}</div>
+    </label>
+    <label class="col-3">
+      &nbsp;
+      <input class="simple-input" type="password" placeholder="подтвердите пароль"
+             ngModel name="confirm_password" [ngClass]="{hasError: errors?.confirm_password}">
+      <div class="form-control-feedback error" *ngFor="let err of errors.confirm_password">{{ err | translate }}</div>
+    </label>
+    <div class="col-2 ignore-label-events">
+      &nbsp;
+      <input type="button" class="btn btn-secondary simple-button" value="Подтвердить" #passwordConfirmButton
+             (click)="confirmPassword(passwordBlock, changePasswordBlock, changePasswordForm)">
+      <input type="button" class="btn btn-secondary simple-button" value="Отменить"
+             (click)="chancelChangePassword(passwordBlock, changePasswordBlock, changePasswordForm)">
+    </div>
+  </form>
 </div>
 <!--End Password-->
 <div class="row">

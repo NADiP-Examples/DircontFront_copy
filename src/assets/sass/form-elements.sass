@@ -65,6 +65,12 @@
 ng2-datepicker
   display: inline-block
 
+//hacks
+.ignore-label-events
+  pointer-events: none
+  input
+    pointer-events: auto
+
 //Validation errors
 .error
   color: red
@@ -72,5 +78,5 @@ ng2-datepicker
 .error-border
   border: 2px solid red
 
-input.ng-touched.ng-invalid, ng2-datepicker.ng-touched.ng-invalid
+input.ng-touched.ng-invalid, ng2-datepicker.ng-touched.ng-invalid, .hasError
   border: 2px solid red

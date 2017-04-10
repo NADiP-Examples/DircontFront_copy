@@ -9,6 +9,8 @@ import { NgModel, NgForm, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angul
 import { NotificationsService } from 'angular2-notifications';
 import { TranslateService } from 'ng2-translate'
 
+import { PersonalDataService } from 'app/services/personal-data.service'
+
 import * as _ from "lodash";
 
 import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.component'
@@ -37,7 +39,8 @@ export class UserDataComponent implements AfterViewInit {
 
   constructor(private parentForm: NgForm,
               private notify: NotificationsService,
-              private translateService: TranslateService,) {
+              private translateService: TranslateService,
+              private personalDataService: PersonalDataService) {
   }
 
   ngAfterViewInit() {
@@ -72,10 +75,42 @@ export class UserDataComponent implements AfterViewInit {
     changePasswordBlock.hidden = false;
   }
 
-  confirmPassword(passwordBlock, changePasswordBlock, oldPasswordField, newPasswordField, confirmPasswordField) {
+  confirmPassword(passwordBlock, changePasswordBlock, form) {
+    if (form.controls['new_password'].value == form.controls['confirm_password'].value) {
+      this.personalDataService.changePassword(form.controls['current_password'].value, form.controls['new_password'].value)
+        .subscribe(
+          (data) => {
+            // console.log("data -->", data);
+            this.notify.success("Успешно!", "Пароль изменен");
+            passwordBlock.hidden = false;
+            changePasswordBlock.hidden = true;
+            form.reset()
+          },
+          (error) => {
+            error = error.json();
+            if (error['message'] && error['message'] == 'Current password is incorrect')
+              error = {errors:{current_password: ['password is incorrect']}};
+            this.errors = error.errors ? error.errors : {};
+            // console.log('error -->', error)
+          })
+    } else {
+
+      // console.log('form invalid');
+      this.errors = {
+        new_password: ['Passwords do not match.'],
+        confirm_password: ['Passwords do not match.']
+      }
+      // for (let control_key in form.controls) {
+      //   let control = form.controls[control_key];
+      //   // console.log("control = ", control);
+      //   control.markAsTouched()
+    }
+  }
+  chancelChangePassword(passwordBlock, changePasswordBlock, form){
     passwordBlock.hidden = false;
     changePasswordBlock.hidden = true;
-    //TODO: Сделать смену пароля
+    form.reset();
+    this.errors = {};
   }
 
   removePhone(index) {

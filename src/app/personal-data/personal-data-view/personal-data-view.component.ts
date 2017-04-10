@@ -43,7 +43,6 @@ export class PersonalDataViewComponent implements OnInit {
 
   findObj(array:Array<any>, value): number{
     let obj = array.map((x) => x.value).indexOf(value);
-    console.log(obj);
     return obj
   }
 
@@ -57,7 +56,6 @@ export class PersonalDataViewComponent implements OnInit {
     this.personalDataService.getPersonalData()
       .subscribe(personal_data => {
         this.personal_data = personal_data;
-        console.log();
       });
   }
 

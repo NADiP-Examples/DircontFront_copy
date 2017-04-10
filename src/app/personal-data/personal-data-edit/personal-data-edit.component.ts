@@ -88,7 +88,6 @@ export class PersonalDataEditComponent implements OnInit {
       .subscribe(personal_data => {
         if (!_.isEmpty(personal_data)) this.personal_data = personal_data;
         // if (this.personal_data['passport_date']) this.personal_data['passport_date'] = new Date(this.personal_data['passport_date']);
-        console.log("personal_data -->", personal_data);
       });
   }
 
@@ -98,14 +97,9 @@ export class PersonalDataEditComponent implements OnInit {
   }
 
   save(form) {
-    console.log("form is valid: ", form.valid);
-
     if (form.valid) {
-      console.log('form.controls -->', form.controls);
-      console.log('model -->', this.personal_data);
       this.personalDataService.setPersonalData(this.personal_data, this.status)
         .subscribe(res => {
-          console.log("Response success send -->", res.json());
           this.router.navigate(['personal_data'])
         });
       return

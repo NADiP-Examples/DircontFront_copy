@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from 'ng2-translate';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { EqualValidator } from './directives/equal-validator.directive';
 
 // Custom Modules
 import { AuthModule } from './auth/auth.module';
@@ -29,6 +30,7 @@ import { isLoggedIn, isLoggedOut, isHasId }   from './services/guard.service';
     AppComponent,
     NotFoundComponent,
     CommonComponent,
+    EqualValidator
   ],
   // Набор классов представлений, которые должны использоваться в шаблонах компонентов из других модулей
   exports: [],
