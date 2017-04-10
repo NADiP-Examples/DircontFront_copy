@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { LEGAL_STATUSES, RESIDENCES } from 'app/personal-data/personal-data-edit/personal-data-edit.component'
+// import { LEGAL_STATUSES, RESIDENCES } from 'app/personal-data/personal-data-edit/personal-data-edit.component'
 
 @Component({
   selector: 'select-status',
@@ -8,16 +8,27 @@ import { LEGAL_STATUSES, RESIDENCES } from 'app/personal-data/personal-data-edit
 })
 export class SelectStatusComponent implements OnInit {
   @Input() status: Object;
+  @Input() loadComplete;
   tmp;
 
-  RESIDENCES = RESIDENCES.slice();
-  LEGAL_STATUSES = LEGAL_STATUSES.slice();
+  @Input() RESIDENCES;
+  @Input() LEGAL_STATUSES;
 
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnChanges(value){
+    console.log('CHANGE! value -->', value);
+    if (value['loadComplete']) this.onLoadComplete()
+  }
+
+  onLoadComplete(){
+    console.log('Load COmplete');
     if (this.status['residency'] == 'other') this.tmp = this.tmp ? this.tmp : this.LEGAL_STATUSES.splice(1, 1);
+  }
+
+  ngOnInit() {
+
   }
 
   changeResidence() {
