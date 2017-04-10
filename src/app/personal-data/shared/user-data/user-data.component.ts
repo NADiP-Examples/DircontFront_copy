@@ -57,22 +57,40 @@ export class UserDataComponent implements AfterViewInit {
     return index;
   }
 
-  changeEmail(emailField, emailChangeButton, emailConfirmButton) {
-    emailField.disabled = false;
-    emailChangeButton.hidden = true;
-    emailConfirmButton.hidden = false;
+  changeEmail(emailBlock, changeEmailBlock) {
+    emailBlock.hidden = true;
+    changeEmailBlock.hidden = false;
   }
 
-  confirmEmail(emailField, emailChangeButton, emailConfirmButton) {
-    emailField.disabled = true;
-    emailChangeButton.hidden = false;
-    emailConfirmButton.hidden = true;
-    //TODO: Отправить подтверждение изменения email
+  confirmEmail(emailBlock, changeEmailBlock, form) {
+    console.log('new_email = ', form.controls['new_email'].value);
+    this.personalDataService.changeEmail(form.controls['current_password'].value, form.controls['new_email'].value)
+      .subscribe(
+        (data) => {
+          // console.log("data -->", data);
+          this.notify.success("Подтвердите!", "Вам на почту отправлено письмо для подтверждения смены почты");
+          emailBlock.hidden = false;
+          changeEmailBlock.hidden = true;
+        },
+        (error) => {
+          error = error.json();
+          if (error['message'] && error['message'] == 'Current password is incorrect')
+            error = { errors: { current_password: ['password is incorrect'] } };
+          this.errors = error.errors ? error.errors : {};
+          // console.log('error -->', error)
+        })
+  }
+
+  chancelChangeEmail(emailBlock, changeEmailBlock, form) {
+    emailBlock.hidden = false;
+    changeEmailBlock.hidden = true;
+    // form.reset();
   }
 
   changePassword(passwordBlock, changePasswordBlock) {
     passwordBlock.hidden = true;
     changePasswordBlock.hidden = false;
+
   }
 
   confirmPassword(passwordBlock, changePasswordBlock, form) {
@@ -89,7 +107,7 @@ export class UserDataComponent implements AfterViewInit {
           (error) => {
             error = error.json();
             if (error['message'] && error['message'] == 'Current password is incorrect')
-              error = {errors:{current_password: ['password is incorrect']}};
+              error = { errors: { current_password: ['password is incorrect'] } };
             this.errors = error.errors ? error.errors : {};
             // console.log('error -->', error)
           })
@@ -106,7 +124,8 @@ export class UserDataComponent implements AfterViewInit {
       //   control.markAsTouched()
     }
   }
-  chancelChangePassword(passwordBlock, changePasswordBlock, form){
+
+  chancelChangePassword(passwordBlock, changePasswordBlock, form) {
     passwordBlock.hidden = false;
     changePasswordBlock.hidden = true;
     form.reset();

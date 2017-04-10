@@ -27,19 +27,41 @@
     </div>
   </label>
 </div>
-<div class="row">
+<!--Email-->
+<div class="row" #emailBlock>
   <label class="col-4">
     email
-    <input disabled #emailField class="simple-input" type="email" placeholder="example@mail.ru"
+    <input disabled class="simple-input" type="email" placeholder="example@mail.ru"
            [value]="user_data.email">
   </label>
   <label class="col-4 ignore-label-events">
     &nbsp;
-    <input type="button" class="btn btn-secondary simple-button" value="Изменить" #emailChangeButton
-           (click)="changeEmail(emailField, emailChangeButton, emailConfirmButton)">
-    <input hidden type="button" class="btn btn-secondary simple-button" value="Подтвердить" #emailConfirmButton
-           (click)="confirmEmail(emailField, emailChangeButton, emailConfirmButton)">
+    <input type="button" class="btn btn-secondary simple-button" value="Изменить"
+           (click)="changeEmail(emailBlock, changeEmailBlock)">
   </label>
+</div>
+<div class="row" hidden #changeEmailBlock>
+  <form #changeEmailForm="ngForm" novalidate class="mod-align-center">
+    <label class="col-4">
+      email
+      <input class="simple-input" type="email" placeholder="example@mail.ru"
+             [ngModel]="user_data.email" name="new_email">
+      <div class="form-control-feedback error" *ngFor="let err of errors.new_email">{{ err | translate }}</div>
+    </label>
+    <label class="col-4">
+      Текущий пароль
+      <input class="simple-input" type="password" placeholder="старый пароль"
+             ngModel name="current_password" [ngClass]="{hasError: errors?.current_password}">
+      <div class="form-control-feedback error" *ngFor="let err of errors.current_password">{{ err | translate }}</div>
+    </label>
+    <div class="col-3">
+      <input type="button" class="btn btn-secondary simple-button" value="Подтвердить"
+             (click)="confirmEmail(emailBlock, changeEmailBlock, changeEmailForm)">
+      <input type="button" class="btn btn-secondary simple-button" value="Отменить"
+             (click)="chancelChangeEmail(emailBlock, changeEmailBlock, changeEmailForm)">
+    </div>
+
+  </form>
 </div>
 <!--Password-->
 <div class="row" #passwordBlock>
