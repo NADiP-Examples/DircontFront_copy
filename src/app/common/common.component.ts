@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router'
+
+import { AuthService } from 'app/services/auth.service';
+import { PersonalDataService } from 'app/services/personal-data.service'
 
 @Component({
   selector: 'common',
@@ -7,5 +10,6 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./common.component.sass']
 })
 export class CommonComponent {
-  constructor(private AuthService: AuthService) {}
+  constructor(private authService: AuthService, private personalDataService: PersonalDataService) {
+  }
 }

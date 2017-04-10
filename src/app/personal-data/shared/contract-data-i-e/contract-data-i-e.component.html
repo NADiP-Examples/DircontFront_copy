@@ -1,0 +1,229 @@
+<div class="row">
+  <label class="col-4">
+    Фамилия ИП
+    <fa class="ico-duplicate" name="angle-double-down"
+        (click)="duplicateFIO()"></fa>
+    <input class="simple-input" type="text" placeholder="Иванов" required
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.contract_second_name"  name="contract_second_name" #contract_second_name="ngModel">
+    <div *ngIf="contract_second_name.touched && contract_second_name.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+  <label class="col-4">
+    Имя
+    <input class="simple-input" type="text" placeholder="Иван" required
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.contract_first_name" name="contract_first_name" #contract_first_name="ngModel">
+    <div *ngIf="contract_first_name.touched && contract_first_name.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+  <label class="col-4">
+    Отчество
+    <input class="simple-input" type="text" placeholder="Иванович" required
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.contract_patronymic" name="contract_patronymic" #contract_patronymic="ngModel">
+    <div *ngIf="contract_patronymic.touched && contract_patronymic.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+  <!--<label class="col-4">-->
+  <!--Имя-->
+  <!--<input [(ngModel)]="personal_data.contract_first_name"  [disabled]="form_view"class="simple-input" type="text" placeholder="Иван">-->
+  <!--</label>-->
+  <!--<label class="col-4">-->
+  <!--Отчество-->
+  <!--<input [(ngModel)]="personal_data.contract_patronymic" [disabled]="form_view" class="simple-input" type="text" placeholder="Иванович">-->
+  <!--</label>-->
+</div>
+<div class="row">
+  <label class="col-3">
+    Серия паспорта
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.passport_series ? 'не указано': '1234'}}"
+           [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
+           [(ngModel)]="personal_data.passport_series" name="passport_series" #passport_series="ngModel">
+    <div *ngIf="passport_series.touched && passport_series.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+  <label class="col-3">
+    Номер паспорта
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.passport_number ? 'не указано': '567890'}}"
+           [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
+           [(ngModel)]="personal_data.passport_number" name="passport_number" #passport_number="ngModel">
+    <div *ngIf="passport_number.touched && passport_number.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+  <label *ngIf="!form_view" class="col-3">
+    Дата выдачи
+    <ng2-datepicker [required]="true" [options]="options" [(ngModel)]="personal_data.passport_date" name="passport_date"></ng2-datepicker>
+  </label>
+  <label *ngIf="form_view" class="col-3">
+    Дата выдачи
+    <input disabled class="simple-input" type="text" [(ngModel)]="personal_data.passport_date" name="passport_date">
+  </label>
+  <label class="col-3">
+    Код подразделения
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.passport_division_code ? 'не указано': '321-654'}}"
+           [disabled]="form_view" [textMask]="{mask: MASKS.passport_division_code, guide: false}"
+           [(ngModel)]="personal_data.passport_division_code" name="passport_division_code"
+           #passport_division_code="ngModel">
+    <div *ngIf="passport_division_code.touched && passport_division_code.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+</div>
+<div class="row">
+  <label class="col-12">
+    Кем выдан
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.passport_issued_by ? 'не указано': 'УВД Центрального района Кемеровской области'}}"
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.passport_issued_by" name="passport_issued_by" #passport_issued_by="ngModel">
+  </label>
+  <div *ngIf="passport_issued_by.touched && passport_issued_by.errors?.required" class="error">
+    {{'Field may not be null.' | translate}}
+  </div>
+</div>
+<div class="row">
+  <label class="col-3">
+    Адрес регистрации
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.passport_issued_by ? 'не указано': 'Индекс'}}"
+           [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
+           [(ngModel)]="personal_data.registration_address_postcode" name="registration_address_postcode"
+           #registration_address_postcode="ngModel">
+    <div *ngIf="registration_address_postcode.touched && registration_address_postcode.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+
+  <div class="col-9" *ngIf="!form_view">
+    <location
+      (countryOut)="personal_data.registration_address_country_id = $event"
+      (regionOut)="personal_data.registration_address_region_id = $event"
+      (cityOut)="personal_data.registration_address_city_id = $event"
+      [country]="personal_data.registration_address_country ? personal_data.registration_address_country.id: ''"
+      [region]="personal_data.registration_address_region ? personal_data.registration_address_region.id: ''"
+      [city]="personal_data.registration_address_city ? personal_data.registration_address_city.id: ''"></location>
+  </div>
+  <div class="col-9" *ngIf="form_view">
+    <div class="row">
+      <label class="col-4">
+        Страна
+        <input disabled class="simple-input" type="text" name="registration_address_country"
+               [ngModel]="personal_data.registration_address_country ? personal_data.registration_address_country.title: ''">
+      </label>
+      <label class="col-4">
+        Регион
+        <input disabled class="simple-input" type="text" name="registration_address_region"
+               [ngModel]="personal_data.registration_address_region ? personal_data.registration_address_region.title: ''">
+      </label>
+      <label class="col-4">
+        Город
+        <input disabled class="simple-input" type="text" name="registration_address_city"
+               [ngModel]="personal_data.registration_address_city ? personal_data.registration_address_city.title: ''">
+      </label>
+    </div>
+  </div>
+  <label class="col-3">
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.registration_address_street ? 'не указано': 'ул. Кирова д.2 кв.4'}}"
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.registration_address_street" name="registration_address_street"
+           #registration_address_postcode="ngModel">
+    <div *ngIf="registration_address_postcode.touched && registration_address_postcode.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+</div>
+<div class="row">
+  <label class="col-3">
+    Почтовый адрес
+    <!--TODO: сделать дублирование адреса-->
+    <!--<fa class="ico-duplicate" name="angle-double-down"></fa>-->
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.postal_address_postcode ? 'не указано': 'Индекс'}}"
+           [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
+           [(ngModel)]="personal_data.postal_address_postcode" name="postal_address_postcode"
+           #postal_address_postcode="ngModel">
+    <div *ngIf="postal_address_postcode.touched && postal_address_postcode.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+  <div *ngIf="!form_view" class="col-9">
+    <location
+      (countryOut)="personal_data.postal_address_country_id = $event"
+      (regionOut)="personal_data.postal_address_region_id = $event"
+      (cityOut)="personal_data.postal_address_city_id = $event"
+      [country]="personal_data.postal_address_country ? personal_data.postal_address_country.id: ''"
+      [region]="personal_data.postal_address_region ? personal_data.postal_address_region.id: ''"
+      [city]="personal_data.postal_address_city ? personal_data.postal_address_city.id: ''"></location>
+  </div>
+  <div class="col-9" *ngIf="form_view">
+    <div class="row">
+      <label class="col-4">
+        Страна
+        <input disabled class="simple-input" type="text" name="postal_address_country"
+               [ngModel]="personal_data.postal_address_country ? personal_data.postal_address_country.title: ''">
+      </label>
+      <label class="col-4">
+        Регион
+        <input disabled class="simple-input" type="text" name="postal_address_region"
+               [ngModel]="personal_data.postal_address_region ? personal_data.postal_address_region.title: ''">
+      </label>
+      <label class="col-4">
+        Город
+        <input disabled class="simple-input" type="text" name="postal_address_city"
+               [ngModel]="personal_data.postal_address_city ? personal_data.postal_address_city.title: ''">
+      </label>
+    </div>
+  </div>
+  <label class="col-3">
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.postal_address_street ? 'не указано': 'ул. Кирова д.2 кв.4'}}"
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.postal_address_street" name="postal_address_street"
+           #postal_address_street="ngModel">
+    <div *ngIf="postal_address_street.touched && postal_address_street.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+</div>
+<div class="row">
+  <label class="col-5">
+    ИНН
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.itn ? 'не указано': '12345678912'}}"
+           [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
+           [(ngModel)]="personal_data.itn" name="itn" #itn="ngModel">
+    <div *ngIf="itn.touched && itn.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+  <label class="col-5">
+    КПП
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.iec ? 'не указано': '12345678912'}}"
+           [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
+           [(ngModel)]="personal_data.iec" name="iec" #iec="ngModel">
+    <div *ngIf="iec.touched && iec.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+  <label class="col-5">
+    ОГРНИП
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.iec ? 'не указано': '12345678912'}}"
+           [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
+           [(ngModel)]="personal_data.psrnsp" name="psrnsp" #psrnsp="ngModel">
+    <div *ngIf="psrnsp.touched && psrnsp.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+</div>

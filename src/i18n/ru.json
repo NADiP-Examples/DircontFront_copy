@@ -1,0 +1,23 @@
+{
+  "User is inactive": "Юзер неактиный! К вам на почту отправлено письмо со ссылкой на активацию.",
+  "Same email already exists.": "Такой email уже занят.",
+  "Validation failed": "Ошибка валидации!",
+  "Authentication failed": "Ошибка авторизации!",
+  "Account does not require confirmation": "Ваш аккаунт не подтвержден!",
+  "Confirmation failed": "Ошибка подтверждения!",
+  "User not found": "Такого пользователя не существует!",
+  "Access denied": "У Вас нет доступа для выполнения этого действия!",
+  "Not authenticated!": "Вы не авторизированы!",
+
+
+  "Not a valid string.": "Не валидная строчка.",
+  "Not a valid email address.": "Не валидный email.",
+  "Not a valid URL.": "Не валидная ссылка.",
+  "Host is not allowed.": "Не разрешенный хост.",
+  "Missing data for required field.": "Пропущенно значение для обязательного поля.",
+  "Invalid input type.": "Не валидное тип.",
+  "Field may not be null.": "Поле неможет быть пустое.",
+  "Invalid value.": "Не валидное значение.",
+  "Shorter than minimum length 3.": "Не менее трех символов.",
+  "Passwords do not match.": "Пароли не совпадают."
+}
