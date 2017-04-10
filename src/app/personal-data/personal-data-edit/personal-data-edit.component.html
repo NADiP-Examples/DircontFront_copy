@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-12">
-    <select-status [(status)]="status"></select-status>
+    <select-status [loadComplete]="loadComplete" [LEGAL_STATUSES]="LEGAL_STATUSES" [RESIDENCES]="RESIDENCES" [(status)]="status"></select-status>
   </div>
 </div>
 <form #personalDataForm="ngForm" novalidate>

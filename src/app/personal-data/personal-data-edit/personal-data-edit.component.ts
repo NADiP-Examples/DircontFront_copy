@@ -60,6 +60,11 @@ export class PersonalDataEditComponent implements OnInit {
     phones: [''],
   };
 
+  loadComplete:Boolean = false;
+
+  RESIDENCES=RESIDENCES;
+  LEGAL_STATUSES=LEGAL_STATUSES;
+
   // Данные аккаунта
   user_data: Object = {};
 
@@ -79,6 +84,21 @@ export class PersonalDataEditComponent implements OnInit {
         this.user_data = user;
         this.status.legal_status = user['legal_status'] || LEGAL_STATUSES[0].value;
         this.status.residency = user['residency'] || RESIDENCES[0].value;
+        // console.log(this.user_data['type']== 'partners');
+        this.loadComplete = true;
+        if (this.user_data['type'] == 'partners') {
+          this.LEGAL_STATUSES = [
+            {
+              value: 'natural_person',
+              print_name: 'Физ.лицо'
+            }
+          ];
+          this.RESIDENCES = [{
+            value: 'russian_federation',
+            print_name: 'Резидент РФ'
+          }];
+          console.log('PARTNER!!!');
+        }
       });
     this.personalDataService.getPersonalData()
       .map(personal_data => {
