@@ -5,6 +5,7 @@ import { Cookie } from 'ng2-cookies';
 import { Observable } from 'rxjs/Rx';
 // import { Headers } from '@angular/http'
 import 'rxjs/add/operator/toPromise'
+import * as _ from "lodash";
 
 import { AuthService } from './auth.service'
 
@@ -30,6 +31,14 @@ export class PersonalDataService {
     let headers = this.authService.getHeaders();
     return this.http.put(
       `${environment.api_url}/user/${this.authService.user_id}/profile/${status.residency}/${status.legal_status}`,
-      data, { headers })
+      this.transformPersonalData(data), { headers })
+  }
+
+  transformPersonalData(data){
+    // Remove empty phones
+    console.log("before phones -->", data.phones);
+    data.phones = data.phones.filter(Boolean);
+    console.log("after phones -->", data.phones);
+    return data
   }
 }

@@ -7,6 +7,7 @@ import { Angular2FontAwesomeModule } from 'angular2-font-awesome/angular2-font-a
 import { TextMaskModule } from 'angular2-text-mask'
 // import { DatePickerModule } from 'ng2-datepicker'
 import { DatePickerModule } from 'app/ng2-datepicker/ng2-datepicker.module'
+import { TranslateModule } from 'ng2-translate';
 
 //custom Services
 import { PersonalDataService } from 'app/services/personal-data.service'
@@ -35,6 +36,7 @@ import { BankDataComponent } from './shared/bank-data/bank-data.component'
     RouterModule.forChild(personalDataRoutes),
     TextMaskModule,
     DatePickerModule,
+    TranslateModule
   ],
   declarations: [
     PersonalDataEditComponent,

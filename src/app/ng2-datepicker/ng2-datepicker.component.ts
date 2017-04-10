@@ -104,12 +104,12 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
   providers: [CALENDAR_VALUE_ACCESSOR],
 })
 export class DatePickerComponent implements ControlValueAccessor, OnInit {
+  // @Input() _required;
   @Input() options: DatePickerOptions;
   @Input() inputEvents: EventEmitter<{ type: string, data: string | DateModel }>;
   @Output() outputEvents: EventEmitter<{ type: string, data: string | DateModel }>;
 
   date: DateModel;
-  date2: DateModel;
 
   opened: boolean;
   currentDate: moment.Moment;
@@ -141,13 +141,6 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
       formatted: null,
       momentObj: null
     });
-    this.date2 = new DateModel({
-      day: null,
-      month: null,
-      year: null,
-      formatted: null,
-      momentObj: null
-    });
 
     this.outputEvents = new EventEmitter<{ type: string, data: string | DateModel }>();
 
@@ -157,7 +150,7 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
 
     this.inputEvents.subscribe((event: { type: string, data: string | DateModel }) => {
       if (event.type === 'setDate') {
-        this.value = event.data as DateModel;
+        this.date = event.data as DateModel;
       } else if (event.type === 'default') {
         if (event.data === 'open') {
           this.open();
@@ -168,16 +161,16 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
     });
   }
 
-  // get value(): DateModel{
-  //   return this.date;
-  // }
+  get value(): string{
+    return this.date.formatted;
+  }
 
-  set value(date: DateModel) {
+  set value(date: string) {
     console.log("Set value");
     if (!date) {
       return;
     }
-    this.date = date;
+    this.date.formatted = date;
     this.onChangeCallback(date);
   }
 
@@ -237,24 +230,24 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
           }
         }
 
-        if (e.type === 'setDate') {
-          if (!(e.data instanceof Date)) {
-            throw new Error(`Input data must be an instance of Date!`);
-          }
-          const date: moment.Moment = Moment(e.data);
-          if (!date) {
-            throw new Error(`Invalid date: ${e.data}`);
-          }
-          this.value = {
-            day: date.format('DD'),
-            month: date.format('MM'),
-            year: date.format('YYYY'),
-            formatted: date.format(this.options.format),
-            momentObj: date
-          };
-          this.currentDate = date;
-          this.generateCalendar();
-        }
+        // if (e.type === 'setDate') {
+        //   if (!(e.data instanceof Date)) {
+        //     throw new Error(`Input data must be an instance of Date!`);
+        //   }
+        //   const date: moment.Moment = Moment(e.data);
+        //   if (!date) {
+        //     throw new Error(`Invalid date: ${e.data}`);
+        //   }
+        //   this.value = {
+        //     day: date.format('DD'),
+        //     month: date.format('MM'),
+        //     year: date.format('YYYY'),
+        //     formatted: date.format(this.options.format),
+        //     momentObj: date
+        //   };
+        //   this.currentDate = date;
+        //   this.generateCalendar();
+        // }
       });
     }
   }
@@ -310,13 +303,14 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
     }
 
     setTimeout(() => {
-      this.value = {
+      this.date = {
         day: date.format('DD'),
         month: date.format('MM'),
         year: date.format('YYYY'),
         formatted: date.format(this.options.format),
         momentObj: date
       };
+      this.value = this.date.formatted;
       this.generateCalendar();
 
       this.outputEvents.emit({ type: 'dateChanged', data: this.value });
@@ -330,7 +324,7 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
 
     setTimeout(() => {
       const date: moment.Moment = this.currentDate.year(year);
-      this.value = {
+      this.date = {
         day: date.format('DD'),
         month: date.format('MM'),
         year: date.format('YYYY'),
@@ -353,12 +347,25 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
     }
   }
 
-  writeValue(date: DateModel) {
+  writeValue(date: string) {
     console.log('writeValue');
     if (!date) {
       return;
     }
-    this.date = date;
+    this.date.formatted = date;
+    this.currentDate = this.toDate(date).momentObj;
+    this.generateCalendar();
+  }
+
+  toDate(date: String):DateModel{
+    let m_date = moment(date);
+    return {
+      day: m_date.format('DD'),
+      month: m_date.format('MM'),
+      year: m_date.format('YYYY'),
+      formatted: m_date.format(this.options.format),
+      momentObj: m_date
+    }
   }
 
   registerOnChange(fn: any) {
@@ -412,7 +419,7 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
   }
 
   clear() {
-    this.value = { day: null, month: null, year: null, momentObj: null, formatted: null };
+    this.date = { day: null, month: null, year: null, momentObj: null, formatted: null };
     this.close();
   }
 

@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core'
+import { Component, AfterViewInit, Input, ViewChildren, QueryList } from '@angular/core'
 import { DatePickerOptions, DateModel } from 'app/ng2-datepicker/ng2-datepicker.module'
-import * as moment from "moment";
+import { NgModel, NgForm, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.component'
 
@@ -10,7 +10,8 @@ import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.c
   styleUrls: ['contract-data-n-p.component.sass']
 })
 
-export class ContractDataNPComponent implements OnInit {
+export class ContractDataNPComponent implements AfterViewInit {
+  @ViewChildren(NgModel) controls: QueryList<NgModel>;
   @Input() personal_data: Object;
   @Input() form_view: Object;
 
@@ -18,31 +19,37 @@ export class ContractDataNPComponent implements OnInit {
 
   options: DatePickerOptions;
 
-  test_date:DateModel = new DateModel();
 
-  constructor() {
-    this.options = new DatePickerOptions(
-      {
-        format: 'YYYY-MM-DD',
-        autoApply: true,
-        locale: 'ru'
-      });
+  constructor(private parentForm: NgForm,) {
+    // this.options = new DatePickerOptions(
+    //   {
+    //     format: 'YYYY-MM-DD',
+    //     autoApply: true,
+    //     locale: 'ru'
+    //   });
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    this.controls.forEach((control: NgModel) => {
+      this.parentForm.addControl(control);
+    });
   }
 
-  setDate(){
-    // this.event.emit({type:'setDate', data: new Date('2015-10-10')});
-    this.test_date.formatted = '2000-02-10';
+  duplicateAddress(){
+    // this.personal_data['postal_address_postcode'] = this.personal_data['registration_address_postcode'];
+    // if (this.personal_data['registration_address_country']){
+    //   this.personal_data['postal_address_country'] = {};
+    //   this.personal_data['postal_address_country']['id'] = this.personal_data['registration_address_country']['id'];
+    // }
+    // if (this.personal_data['registration_address_region']){
+    //   this.personal_data['postal_address_region'] = {};
+    //   this.personal_data['postal_address_region']['id'] = this.personal_data['registration_address_region']['id'];
+    // }
+    // if (this.personal_data['registration_address_city']){
+    //   this.personal_data['postal_address_city'] = {};
+    //   this.personal_data['postal_address_city']['id'] = this.personal_data['registration_address_city']['id'];
+    // }
   }
 
-  onChange(){
-    console.log("Change test_date");
-  }
-
-  validate(){
-    return true
-  }
 
 }

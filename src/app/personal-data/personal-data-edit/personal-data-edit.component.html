@@ -3,45 +3,50 @@
     <select-status [(status)]="status"></select-status>
   </div>
 </div>
-<div class="row">
-  <div class="col-12">
-    <spoiler-block [header]="'Ваши данные'">
-      <user-data [user_data]="user_data" [personal_data]="personal_data"></user-data>
-    </spoiler-block>
-  </div>
-</div>
-<div class="row" *ngIf="status.residency == 'russian_federation' || status.legal_status=='legal_entity'">
-  <div class="col-12">
-    <spoiler-block [header]="'Данные для договора'">
-      <div [ngSwitch]="status.legal_status">
-        <contract-data-np *ngSwitchCase="'natural_person'"
-                          [personal_data]="personal_data"></contract-data-np>
-        <contract-data-ie *ngSwitchCase="'individual_entrepreneur'"
-                          [personal_data]="personal_data"></contract-data-ie>
-        <contract-data-le *ngSwitchCase="'legal_entity'"
-                          [status]="status"
-                          [personal_data]="personal_data"></contract-data-le>
-      </div>
-
-    </spoiler-block>
-  </div>
-</div>
-<div *ngIf="status.residency == 'russian_federation' &&
-(status.legal_status == 'individual_entrepreneur' || status.legal_status == 'legal_entity')"
-     class="row">
-  <div class="col-12">
-    <spoiler-block [header]="'Банковские реквизиты'">
-      <bank-data [personal_data]="personal_data"></bank-data>
-    </spoiler-block>
-  </div>
-</div>
-<div class="row">
-  <div class="col-12">
-    <div class="float-right" style="padding: 15px">
-      <input [(ngModel)]="confirm_rules" type="checkbox" class="simple-checkbox"> Я соглашаюсь с <a href="#"
-                                                                                                    (click)="showRules($event)">правилами</a>
-      <input type="submit" class="btn btn-secondary simple-button" style="display: inline-block" value="Сохранить"
-             (click)="save()">
+<form #personalDataForm="ngForm" novalidate>
+  <div class="row">
+    <div class="col-12">
+      <spoiler-block [header]="'Ваши данные'">
+        <user-data [user_data]="user_data" [personal_data]="personal_data"></user-data>
+      </spoiler-block>
     </div>
   </div>
-</div>
+  <div class="row" *ngIf="status.residency == 'russian_federation' || status.legal_status=='legal_entity'">
+    <div class="col-12">
+      <spoiler-block [header]="'Данные для договора'">
+        <div [ngSwitch]="status.legal_status">
+          <contract-data-np *ngSwitchCase="'natural_person'"
+                            [personal_data]="personal_data"></contract-data-np>
+          <contract-data-ie *ngSwitchCase="'individual_entrepreneur'"
+                            [personal_data]="personal_data"></contract-data-ie>
+          <contract-data-le *ngSwitchCase="'legal_entity'"
+                            [status]="status"
+                            [personal_data]="personal_data"></contract-data-le>
+        </div>
+
+      </spoiler-block>
+    </div>
+  </div>
+  <div *ngIf="status.residency == 'russian_federation' &&
+  (status.legal_status == 'individual_entrepreneur' || status.legal_status == 'legal_entity')"
+       class="row">
+    <div class="col-12">
+      <spoiler-block [header]="'Банковские реквизиты'">
+        <bank-data [personal_data]="personal_data"></bank-data>
+      </spoiler-block>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="float-right" style="padding: 15px">
+        <div style="display: inline-block" [ngClass]="{'error-border': !confirm_rules && conf.touched}">
+          <input class="simple-checkbox" type="checkbox" required #conf="ngModel"
+                 [(ngModel)]="confirm_rules" name="confirm_rules" >
+          Я соглашаюсь с <a href="#" (click)="showRules($event)">правилами</a>
+        </div>
+        <input type="submit" class="btn btn-secondary simple-button" style="display: inline-block" value="Сохранить"
+               (click)="$event.preventDefault();save(personalDataForm)">
+      </div>
+    </div>
+  </div>
+</form>

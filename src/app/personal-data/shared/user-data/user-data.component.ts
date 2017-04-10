@@ -1,11 +1,13 @@
 import {
   Component,
-  OnInit,
+  AfterViewInit,
   Input,
-  ViewChild,
-  ViewContainerRef,
+  ViewChildren,
+  QueryList
 } from '@angular/core';
+import { NgModel, NgForm, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
+import { TranslateService } from 'ng2-translate'
 
 import * as _ from "lodash";
 
@@ -23,41 +25,25 @@ import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.c
   templateUrl: './user-data.component.html',
   styleUrls: ['./user-data.component.sass']
 })
-export class UserDataComponent implements OnInit {
+export class UserDataComponent implements AfterViewInit {
+  @ViewChildren(NgModel) controls: QueryList<NgModel>;
   @Input() user_data: Object;
   @Input() personal_data: Object;
-  @Input() form_view:Boolean;
+  @Input() form_view: Boolean;
   // TODO: Create class ValidateErrors
   errors = {};
 
-  required_fields = [
-    'second_name', 'first_name', 'patronymic',
-  ];
-
   MASKS = MASKS;
 
-  constructor(private notify: NotificationsService) {
+  constructor(private parentForm: NgForm,
+              private notify: NotificationsService,
+              private translateService: TranslateService,) {
   }
 
-  ngOnInit() {
-
-  }
-
-  validate() {
-    let error_text = 'Поле неможет быть пустое.';
-    this.errors = {};
-    for (let field_name of this.required_fields){
-      if (!this.personal_data[field_name]){
-        // console.log(`field ${field_name} is empty`);
-        // if (!this.errors[field_name]){
-          this.errors[field_name]= [error_text];
-      }
-    }
-    if (!_.isEmpty(this.errors)) {
-      this.notify.error('Ошибка!', 'Данные заполнены не полностью');
-      return false
-    }
-    return true
+  ngAfterViewInit() {
+    this.controls.forEach((control: NgModel) => {
+      this.parentForm.addControl(control);
+    });
   }
 
   addPhone() {

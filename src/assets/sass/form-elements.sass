@@ -11,6 +11,8 @@
   margin-bottom: -1px
   &:disabled
     background-color: #c9c9c9
+  &:required
+    border: 1px solid  #{map_get($component_colors, border_required)}
 
 .simple-button
   display: block
@@ -60,10 +62,15 @@
     position: absolute
     right: 15px
     top: 10px
+ng2-datepicker
+  display: inline-block
 
 //Validation errors
 .error
   color: red
 
-.has-danger
-  border-color: red
+.error-border
+  border: 2px solid red
+
+input.ng-touched.ng-invalid, ng2-datepicker.ng-touched.ng-invalid
+  border: 2px solid red

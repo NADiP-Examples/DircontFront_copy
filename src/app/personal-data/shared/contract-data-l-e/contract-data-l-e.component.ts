@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core'
+import { Component, AfterViewInit, Input, ViewChildren, QueryList } from '@angular/core'
 import { DatePickerOptions } from 'app/ng2-datepicker/ng2-datepicker.module'
+import { NgModel, NgForm, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.component'
 
@@ -8,7 +9,8 @@ import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.c
   templateUrl: './contract-data-l-e.component.html',
   styleUrls: ['./contract-data-l-e.component.sass']
 })
-export class ContractDataLEComponent implements OnInit {
+export class ContractDataLEComponent implements AfterViewInit {
+  @ViewChildren(NgModel) controls: QueryList<NgModel>;
   @Input() personal_data: Object;
   @Input() status: Object;
   @Input() form_view: Object;
@@ -16,9 +18,21 @@ export class ContractDataLEComponent implements OnInit {
   options: DatePickerOptions;
   MASKS = MASKS;
 
-  constructor() {
+  constructor(private parentForm: NgForm,) {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    this.controls.forEach((control: NgModel) => {
+      this.parentForm.addControl(control);
+    });
+  }
+
+  duplicateFIO(){
+    this.personal_data['contract_first_name'] = this.personal_data['first_name'];
+    this.personal_data['contract_second_name'] = this.personal_data['second_name'];
+    this.personal_data['contract_patronymic'] = this.personal_data['patronymic'];
   }
 }

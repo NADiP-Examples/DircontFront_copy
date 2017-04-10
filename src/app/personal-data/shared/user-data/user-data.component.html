@@ -1,21 +1,30 @@
 <div class="row">
   <label class="col-4">
     Фамилия
-    <input class="simple-input" type="text" placeholder="Иванов" [disabled]="form_view"
-           [(ngModel)]="personal_data.second_name" [ngClass]="{'has-danger': errors.second_name}">
-    <div class="form-control-feedback error" *ngFor="let err of errors.second_name">{{ err }}</div>
+    <input class="simple-input" type="text" placeholder="Иванов" required
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.second_name" name="second_name" #second_name="ngModel">
+    <div *ngIf="second_name.touched && second_name.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
   </label>
   <label class="col-4">
     Имя
-    <input class="simple-input" type="text" placeholder="Иван" [disabled]="form_view"
-           [ngClass]="{'has-danger': errors.first_name}" [(ngModel)]="personal_data.first_name">
-    <div class="form-control-feedback error" *ngFor="let err of errors.first_name">{{ err }}</div>
+    <input class="simple-input" type="text" placeholder="Иван" required
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.first_name" name="first_name" #first_name="ngModel">
+    <div *ngIf="first_name.touched && first_name.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
   </label>
   <label class="col-4">
     Отчество
-    <input class="simple-input" type="text" placeholder="Иванович" [disabled]="form_view"
-           [ngClass]="{'has-danger': errors.patronymic}" [(ngModel)]="personal_data.patronymic">
-    <div class="form-control-feedback error" *ngFor="let err of errors.patronymic">{{ err }}</div>
+    <input class="simple-input" type="text" placeholder="Иванович" required
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.patronymic" name="patronymic" #patronymic="ngModel">
+    <div *ngIf="patronymic.touched && patronymic.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
   </label>
 </div>
 <div class="row">
@@ -65,10 +74,12 @@
 </div>
 <!--End Password-->
 <div class="row">
-  <label class="col-3" *ngIf="!form_view || personal_data.site">
+  <label class="col-3">
     Сайт
-    <input [(ngModel)]="personal_data.site" class="simple-input" type="text" placeholder="example.com"
-           [disabled]="form_view">
+    <input class="simple-input" type="text"
+           placeholder="{{form_view && !personal_data.site ? 'не указано': 'example.com'}}"
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.site" name="site">
   </label>
   <label *ngFor="let phone of personal_data.phones;let i = index;trackBy:customTrackBy" style="position: relative"
          class="col-3">

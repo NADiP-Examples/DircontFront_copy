@@ -6,6 +6,7 @@ import { Cookie } from 'ng2-cookies';
 
 import { AuthService } from 'app/services/auth.service'
 import { PersonalDataService } from 'app/services/personal-data.service'
+import {RESIDENCES, LEGAL_STATUSES} from 'app/personal-data/personal-data-edit/personal-data-edit.component'
 
 @Component({
   // selector: 'app-profile-view',
@@ -15,7 +16,8 @@ import { PersonalDataService } from 'app/services/personal-data.service'
 export class PersonalDataViewComponent implements OnInit {
 
   user_data: Object = {};
-
+  RESIDENCES = RESIDENCES;
+  LEGAL_STATUSES = LEGAL_STATUSES;
 
   personal_data: Object = {
     phones: [],
@@ -36,7 +38,13 @@ export class PersonalDataViewComponent implements OnInit {
     return `${this.personal_data['second_name']} ${this.personal_data['first_name']} ${this.personal_data['patronymic']}`
   }
 
-  constructor(private authService: AuthService, private personalDataService: PersonalDataService, private http: Http, private router: Router) {
+  constructor(private personalDataService: PersonalDataService, private router: Router) {
+  }
+
+  findObj(array:Array<any>, value): number{
+    let obj = array.map((x) => x.value).indexOf(value);
+    console.log(obj);
+    return obj
   }
 
   ngOnInit() {

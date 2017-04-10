@@ -10,21 +10,21 @@ export class SelectStatusComponent implements OnInit {
   @Input() status: Object;
   tmp;
 
-  RESIDENCES = RESIDENCES;
-  LEGAL_STATUSES = LEGAL_STATUSES;
+  RESIDENCES = RESIDENCES.slice();
+  LEGAL_STATUSES = LEGAL_STATUSES.slice();
 
   constructor() {
   }
 
   ngOnInit() {
-
+    if (this.status['residency'] == 'other') this.tmp = this.tmp ? this.tmp : this.LEGAL_STATUSES.splice(1, 1);
   }
 
   changeResidence() {
     // Немного костыльное решение -(
     if (this.status['residency'] == 'other') {
-      this.tmp = this.LEGAL_STATUSES.splice(1, 1);
       this.status['legal_status'] = 'natural_person';
+      this.tmp = this.LEGAL_STATUSES.splice(1, 1);
     }
     else {
       this.LEGAL_STATUSES.splice(1, 0, this.tmp[0]);
