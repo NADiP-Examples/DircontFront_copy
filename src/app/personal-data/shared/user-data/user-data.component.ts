@@ -5,11 +5,12 @@ import {
   ViewChildren,
   QueryList
 } from '@angular/core';
-import { NgModel, NgForm, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgModel, NgForm } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { TranslateService } from 'ng2-translate'
 
 import { PersonalDataService } from 'app/services/personal-data.service'
+import { AuthService } from 'app/services/auth.service'
 
 import * as _ from "lodash";
 
@@ -40,7 +41,7 @@ export class UserDataComponent implements AfterViewInit {
   constructor(private parentForm: NgForm,
               private notify: NotificationsService,
               private translateService: TranslateService,
-              private personalDataService: PersonalDataService) {
+              private authService: AuthService) {
   }
 
   ngAfterViewInit() {
@@ -64,10 +65,9 @@ export class UserDataComponent implements AfterViewInit {
 
   confirmEmail(emailBlock, changeEmailBlock, form) {
     console.log('new_email = ', form.controls['new_email'].value);
-    this.personalDataService.changeEmail(form.controls['current_password'].value, form.controls['new_email'].value)
+    this.authService.changeEmail(form.controls['current_password'].value, form.controls['new_email'].value)
       .subscribe(
-        (data) => {
-          // console.log("data -->", data);
+        () => {
           this.notify.success("Подтвердите!", "Вам на почту отправлено письмо для подтверждения смены почты");
           emailBlock.hidden = false;
           changeEmailBlock.hidden = true;
@@ -94,10 +94,12 @@ export class UserDataComponent implements AfterViewInit {
   }
 
   confirmPassword(passwordBlock, changePasswordBlock, form) {
+    console.log(form.controls['old_password'].value);
+    console.log(form.controls['new_password'].value);
     if (form.controls['new_password'].value == form.controls['confirm_password'].value) {
-      this.personalDataService.changePassword(form.controls['current_password'].value, form.controls['new_password'].value)
+      this.authService.changePassword(form.controls['old_password'].value, form.controls['new_password'].value)
         .subscribe(
-          (data) => {
+          () => {
             // console.log("data -->", data);
             this.notify.success("Успешно!", "Пароль изменен");
             passwordBlock.hidden = false;
