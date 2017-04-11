@@ -18,7 +18,7 @@ export class SignupComponent {
   private email = '';
   private password = '';
   private password_double = '';
-  private role = 'admins_of_user';
+  private role = 'admin_of_user';
   private errors = {};
   private captcha_token;
   private env = environment;

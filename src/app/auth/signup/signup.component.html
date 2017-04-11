@@ -4,7 +4,7 @@
     <div class="col-md-4">
       <section class="auth-form">
         <form role="auth"  novalidate>
-          <h3>{{ role === 'admins_of_user' ? 'Зарегистрироваться' : 'Регистрация агента' }}</h3>
+          <h3>{{ role === 'admin_of_user' ? 'Зарегистрироваться' : 'Регистрация агента' }}</h3>
           <div class="form-group" [ngClass]="{'has-danger': errors.email}">
             <input type="email" [(ngModel)]="email" placeholder="Email" name="email" class="form-control input-lg" />
             <div class="form-control-feedback" *ngFor="let err of errors.email">{{ err | translate }}</div>

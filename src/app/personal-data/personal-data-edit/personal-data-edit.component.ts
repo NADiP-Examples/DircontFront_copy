@@ -84,9 +84,9 @@ export class PersonalDataEditComponent implements OnInit {
         this.user_data = user;
         this.status.legal_status = user['legal_status'] || LEGAL_STATUSES[0].value;
         this.status.residency = user['residency'] || RESIDENCES[0].value;
-        // console.log(this.user_data['type']== 'partners');
+        // console.log(this.user_data['type']== 'partner');
         this.loadComplete = true;
-        if (this.user_data['type'] == 'partners') {
+        if (this.user_data['type'] == 'partner') {
           this.LEGAL_STATUSES = [
             {
               value: 'natural_person',
