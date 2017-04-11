@@ -10,6 +10,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ResetPassComponent } from './resetpass/resetpass.component';
 import { ConfirmResetPassComponent } from './confirm_resetpass/confirm_resetpass.component';
 import { ActivateComponent } from './activate/activate.component'
+import { ConfirmChangeEmailComponent } from './confirm-change-email/confirm-change-email.component'
 
 import { authRoutes }   from './auth.routes';
 
@@ -27,6 +28,8 @@ import { authRoutes }   from './auth.routes';
     ActivateComponent,
     ResetPassComponent,
     ConfirmResetPassComponent,
+    ConfirmChangeEmailComponent
   ]
 })
-export class AuthModule { }
+export class AuthModule {
+}

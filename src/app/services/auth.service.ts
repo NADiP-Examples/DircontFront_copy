@@ -104,6 +104,31 @@ export class AuthService {
       .catch((error) => errorHandler(error));
   }
 
+  changePassword(current_password: string, new_password: string): Observable<any> {
+    let headers = this.headers;
+    console.log('current_password = ', current_password);
+    console.log('new_password = ', new_password);
+    let data = {
+      current_password, new_password
+    };
+    return this.http.post(`${environment.api_url}/auth/change_password`, data, { headers }).map(data => data.json())
+  }
+
+  changeEmail(current_password: string, new_email: string) {
+    let headers = this.headers;
+    let callback = `${environment.callback_url}/confirm_change_email`;
+    let data = {
+      current_password, new_email, callback
+    };
+    return this.http.post(`${environment.api_url}/auth/change_email`, data, { headers }).map(data => data.json())
+  }
+
+  confirmChangeEmail(key: string): Observable<any> {
+    let headers = this.headers;
+    let data = {key};
+    return this.http.post(`${environment.api_url}/auth/change_email/confirm`, data, { headers }).map(data => data.json())
+  }
+
   resetPass(email: string): Observable<any> {
     let callback = `${environment.callback_url}/confirm_reset_pass`;
     return this.http.post(`${environment.api_url}/auth/reset_password`, {email, callback}, {headers :this.headers})

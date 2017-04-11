@@ -39,26 +39,4 @@ export class PersonalDataService {
     data.phones = data.phones.filter(Boolean);
     return data
   }
-
-  changeEmail(current_password: string, new_email: string) {
-    let headers = this.authService.getHeaders();
-    let data = {
-      current_password, new_email
-    };
-    return this.http.post(`${environment.api_url}/auth/change_email`, data, { headers }).map(data => data.json())
-  }
-
-  confirmChangeEmail(key: string) {
-    let headers = this.authService.getHeaders();
-    let data = {key};
-    return this.http.post(`${environment.api_url}/auth/change_email/confirm`, data, { headers }).map(data => data.json())
-  }
-
-  changePassword(current_password: string, new_password: string): Observable<any> {
-    let headers = this.authService.getHeaders();
-    let data = {
-      current_password, new_password
-    };
-    return this.http.post(`${environment.api_url}/auth/change_password`, data, { headers }).map(data => data.json())
-  }
 }

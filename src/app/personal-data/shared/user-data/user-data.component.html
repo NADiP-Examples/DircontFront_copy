@@ -79,8 +79,8 @@
   <form #changePasswordForm="ngForm" novalidate class="mod-align-center">
     <label class="col-3">
       Смена пароля
-      <input class="simple-input" type="password" placeholder="старый пароль"
-             ngModel name="current_password" [ngClass]="{hasError: errors?.current_password}">
+      <input class="simple-input" type="password" placeholder="текущий пароль"
+             ngModel name="old_password" [ngClass]="{hasError: errors?.current_password}">
       <div class="form-control-feedback error" *ngFor="let err of errors.current_password">{{ err | translate }}</div>
     </label>
     <label class="col-3">
