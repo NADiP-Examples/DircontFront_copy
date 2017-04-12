@@ -1,6 +1,7 @@
 import {
   Component,
   AfterViewInit,
+  OnDestroy,
   Input,
   ViewChildren,
   QueryList
@@ -28,7 +29,7 @@ import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.c
   templateUrl: './user-data.component.html',
   styleUrls: ['./user-data.component.sass']
 })
-export class UserDataComponent implements AfterViewInit {
+export class UserDataComponent implements AfterViewInit, OnDestroy {
   @ViewChildren(NgModel) controls: QueryList<NgModel>;
   @Input() user_data: Object;
   @Input() personal_data: Object;
@@ -47,6 +48,12 @@ export class UserDataComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.controls.forEach((control: NgModel) => {
       this.parentForm.addControl(control);
+    });
+  }
+
+  ngOnDestroy() {
+    this.controls.forEach((control: NgModel) => {
+      this.parentForm.removeControl(control);
     });
   }
 
