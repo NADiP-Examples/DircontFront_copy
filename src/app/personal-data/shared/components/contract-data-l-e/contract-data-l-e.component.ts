@@ -1,8 +1,7 @@
 import { Component, AfterViewInit, Input, ViewChildren, QueryList } from '@angular/core'
-import { DatePickerOptions } from 'app/ng2-datepicker/ng2-datepicker.module'
 import { NgModel, NgForm, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.component'
+import { MASKS } from 'app/personal-data/global.data'
 
 @Component({
   selector: 'contract-data-le',
@@ -15,14 +14,11 @@ export class ContractDataLEComponent implements AfterViewInit {
   @Input() status: Object;
   @Input() form_view: Object;
 
-  options: DatePickerOptions;
   MASKS = MASKS;
 
   constructor(private parentForm: NgForm,) {
   }
 
-  ngOnInit() {
-  }
 
   ngAfterViewInit() {
     this.controls.forEach((control: NgModel) => {

@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
-import { AuthService } from 'app/services/auth.service';
-import { Validation } from 'app/services/validation.service';
+import { AuthService } from 'app/shared/services/auth.service';
+import { Validation } from 'app/shared/services/validation.service';
 import { NotificationsService } from 'angular2-notifications';
 import { TranslateService } from 'ng2-translate';
 import * as _ from "lodash";
@@ -8,7 +8,7 @@ import * as _ from "lodash";
 @Component({
   selector: 'signin',
   templateUrl: `./signin.component.html`,
-  styleUrls: ['../auth.component.css']
+  styleUrls: ['../auth.component.sass']
 })
 export class SigninComponent {
   private email = '';

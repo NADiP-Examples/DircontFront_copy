@@ -1,13 +1,20 @@
 import { Routes } from '@angular/router';
 
-import { NotFoundComponent } from './not-found/not-found.comnponent';
-import { CommonComponent } from './common/common.component';
+//Other routes
+import { authRoutes } from './auth/auth.routes'
+import { personalDataRoutes } from './personal-data/personal-data.routers'
 
-import { isLoggedIn }   from './services/guard.service';
+//Layout components - компоненты обертки (компоненты, в которы встраиваются текущие компоненты)
+import { CommonComponent } from './shared/layout_components/common/common.component';
+
+//Other components
+import { NotFoundComponent } from './not-found/not-found.comnponent';
+
+import { isLoggedIn }   from './shared/services/guard.service';
 
 export const appRoutes: Routes = [
-  {
-    path: '', canActivate: [isLoggedIn], redirectTo:'/personal_data', pathMatch: 'full'
-  },
+  { path: '', canActivate: [isLoggedIn], redirectTo: '/personal_data', pathMatch: 'full' },
+  { path: '', children: authRoutes }, //auth
+  { path: 'personal_data', canActivate: [isLoggedIn], component: CommonComponent, children: personalDataRoutes},
   { path: '**', component: NotFoundComponent }
 ];

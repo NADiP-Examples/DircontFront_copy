@@ -1,15 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
-import { Http, Response } from '@angular/http'
+import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { environment } from 'environments/environment';
-import { Cookie } from 'ng2-cookies';
 
-import { AuthService } from 'app/services/auth.service'
-import { PersonalDataService } from 'app/services/personal-data.service'
+import { PersonalDataService } from 'app/shared/services/personal-data.service'
 import {RESIDENCES, LEGAL_STATUSES} from 'app/personal-data/personal-data-edit/personal-data-edit.component'
 
 @Component({
-  // selector: 'app-profile-view',
   templateUrl: 'personal-data-view.component.html',
   styleUrls: ['personal-data-view.component.sass']
 })

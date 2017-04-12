@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Rx';
 import { Headers } from '@angular/http'
 import * as _ from "lodash";
 
-import { environment } from '../../environments/environment';
+import { environment } from 'environments/environment';
 
 function errorHandler(error) {
   return Observable.throw(error.json ? error.json() : error)

@@ -6,7 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from 'ng2-translate';
 import { SimpleNotificationsModule } from 'angular2-notifications';
-import { EqualValidator } from './directives/equal-validator.directive';
+import { EqualValidator } from './shared/directives/equal-validator.directive';
 
 // Custom Modules
 import { AuthModule } from './auth/auth.module';
@@ -17,11 +17,11 @@ import 'rxjs/Rx'; // Not delete!! It's need for correct work with Observable
 import { appRoutes } from './app.routes'
 
 import { AppComponent } from './app.component';
-import { CommonComponent } from './common/common.component';
+import { CommonComponent } from './shared/layout_components/common/common.component';
 import { NotFoundComponent } from './not-found/not-found.comnponent';
 
-import { AuthService } from './services/auth.service';
-import { isLoggedIn, isLoggedOut, isHasId }   from './services/guard.service';
+import { AuthService } from './shared/services/auth.service';
+import { isLoggedIn, isLoggedOut, isHasId }   from './shared/services/guard.service';
 
 
 @NgModule({

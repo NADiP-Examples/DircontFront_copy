@@ -1,6 +1,6 @@
 import { Component, ViewChild} from '@angular/core';
-import { AuthService } from 'app/services/auth.service';
-import { Validation } from 'app/services/validation.service';
+import { AuthService } from 'app/shared/services/auth.service';
+import { Validation } from 'app/shared/services/validation.service';
 import { NotificationsService } from 'angular2-notifications';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from 'ng2-translate';

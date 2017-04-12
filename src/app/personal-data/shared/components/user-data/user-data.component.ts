@@ -9,19 +9,11 @@ import { NgModel, NgForm } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { TranslateService } from 'ng2-translate'
 
-import { PersonalDataService } from 'app/services/personal-data.service'
-import { AuthService } from 'app/services/auth.service'
+import { AuthService } from 'app/shared/services/auth.service'
 
-import * as _ from "lodash";
+// import * as _ from "lodash";
 
-import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.component'
-
-// interface IFormData {
-//   first_name: string,
-//   second_name: string,
-//   patronymic: string,
-//   phones: string[]
-// }
+import { MASKS } from 'app/personal-data/global.data'
 
 @Component({
   selector: 'user-data',

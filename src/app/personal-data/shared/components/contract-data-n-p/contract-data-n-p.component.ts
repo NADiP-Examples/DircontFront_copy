@@ -1,8 +1,7 @@
 import { Component, AfterViewInit, Input, ViewChildren, QueryList } from '@angular/core'
-import { DatePickerOptions, DateModel } from 'app/ng2-datepicker/ng2-datepicker.module'
-import { NgModel, NgForm, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgModel, NgForm } from '@angular/forms';
 
-import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.component'
+import { MASKS } from 'app/personal-data/global.data'
 
 @Component({
   selector: 'contract-data-np',
@@ -17,7 +16,6 @@ export class ContractDataNPComponent implements AfterViewInit {
 
   MASKS = MASKS;
 
-  options: DatePickerOptions;
 
 
   constructor(private parentForm: NgForm,) {

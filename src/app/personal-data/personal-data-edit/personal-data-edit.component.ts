@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
-import { DateModel, DatePickerOptions } from 'app/ng2-datepicker/ng2-datepicker.module'
+import { Component, OnInit } from '@angular/core'
 import { NotificationsService } from 'angular2-notifications';
 
-import { PersonalDataService } from 'app/services/personal-data.service'
+import { PersonalDataService } from 'app/shared/services/personal-data.service'
 import * as _ from "lodash";
 
 import { Router } from "@angular/router";
@@ -32,15 +31,6 @@ export const RESIDENCES = [
     print_name: 'Иное'
   },
 ];
-
-export const MASKS = {
-  //+7(923)600-11-12
-  phone: ['+', '7', '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
-  passport_division_code: [/[\d]/, /[\d]/, /[\d]/, '-', /[\d]/, /[\d]/, /[\d]/],
-  only_number: [/[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/,],
-  card: [/[\d]/, /[\d]/, /[\d]/, /[\d]/, '-', /[\d]/, /[\d]/, /[\d]/, /[\d]/, '-', /[\d]/, /[\d]/, /[\d]/, /[\d]/,
-    '-', /[\d]/, /[\d]/, /[\d]/, /[\d]/, '-', /[\d]/, /[\d]/, /[\d]/, /[\d]/,]
-};
 
 @Component({
   // selector: 'app-profile-edit',

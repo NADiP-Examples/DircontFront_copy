@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, Input, ViewChildren, QueryList } from '@angular/core'
-import { NgModel, NgForm, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgModel, NgForm } from '@angular/forms';
 
-import { MASKS } from 'app/personal-data/personal-data-edit/personal-data-edit.component'
+import { MASKS } from 'app/personal-data/global.data'
 
 @Component({
   selector: 'bank-data',
@@ -15,9 +15,6 @@ export class BankDataComponent implements AfterViewInit {
 
   constructor(private parentForm: NgForm,) { }
   MASKS = MASKS;
-
-  ngOnInit() {
-  }
 
   ngAfterViewInit() {
     this.controls.forEach((control: NgModel) => {

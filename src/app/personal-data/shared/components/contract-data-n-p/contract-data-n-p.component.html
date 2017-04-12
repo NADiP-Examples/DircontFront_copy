@@ -32,8 +32,7 @@
   </label>
   <label *ngIf="!form_view" class="col-3">
     Дата выдачи
-    <ng2-datepicker [options]="options"
-                    [(ngModel)]="personal_data.passport_date" name="passport_date">
+    <ng2-datepicker [(ngModel)]="personal_data.passport_date" name="passport_date">
     </ng2-datepicker>
   </label>
   <label *ngIf="form_view" class="col-3">

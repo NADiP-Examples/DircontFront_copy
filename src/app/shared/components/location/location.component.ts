@@ -4,7 +4,7 @@ import { Headers } from '@angular/http';
 import * as _ from "lodash";
 
 import { Observable } from 'rxjs/Rx';
-import { AuthService } from 'app/services/auth.service'
+import { AuthService } from 'app/shared/services/auth.service'
 import { environment } from 'environments/environment';
 
 
