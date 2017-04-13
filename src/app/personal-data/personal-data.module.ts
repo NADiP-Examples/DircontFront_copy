@@ -33,7 +33,7 @@ import { BankDataComponent } from './shared/components/bank-data/bank-data.compo
     CommonModule,
     FormsModule,
     Angular2FontAwesomeModule,
-    RouterModule.forChild(personalDataRoutes),
+    RouterModule,
     TextMaskModule,
     DatePickerModule,
     TranslateModule

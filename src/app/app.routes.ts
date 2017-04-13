@@ -15,6 +15,11 @@ import { isLoggedIn }   from './shared/services/guard.service';
 export const appRoutes: Routes = [
   { path: '', canActivate: [isLoggedIn], redirectTo: '/personal_data', pathMatch: 'full' },
   { path: '', children: authRoutes }, //auth
-  { path: 'personal_data', canActivate: [isLoggedIn], component: CommonComponent, children: personalDataRoutes},
+  {
+    path: 'personal_data', canActivate: [isLoggedIn], component: CommonComponent, children: [
+    { path: '', children: personalDataRoutes },
+    //  any routes with CommonComponent
+  ]
+  },
   { path: '**', component: NotFoundComponent }
 ];

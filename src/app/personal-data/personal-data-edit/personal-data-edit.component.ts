@@ -74,7 +74,6 @@ export class PersonalDataEditComponent implements OnInit {
         this.user_data = user;
         this.status.legal_status = user['legal_status'] || LEGAL_STATUSES[0].value;
         this.status.residency = user['residency'] || RESIDENCES[0].value;
-        // console.log(this.user_data['type']== 'partner');
         this.loadComplete = true;
         if (this.user_data['type'] == 'partner') {
           this.LEGAL_STATUSES = [
@@ -87,7 +86,6 @@ export class PersonalDataEditComponent implements OnInit {
             value: 'russian_federation',
             print_name: 'Резидент РФ'
           }];
-          console.log('PARTNER!!!');
         }
       });
     this.personalDataService.getPersonalData()
@@ -103,6 +101,7 @@ export class PersonalDataEditComponent implements OnInit {
 
   showRules(event) {
     event.preventDefault();
+    //TODO: Show Rules
     console.log("Show Rules here");
   }
 
@@ -115,10 +114,8 @@ export class PersonalDataEditComponent implements OnInit {
       return
     }
     this.notify.error('Внимание!', 'Не все поля заполнены или вы не согласились с правилами');
-    // if (!this.confirm_rules) this.notify.error('Ошибка!', 'Вы должны согласиться с правилами');
     for (let control_key in form.controls) {
       let control = form.controls[control_key];
-      // console.log("control = ", control);
       control.markAsTouched()
     }
 

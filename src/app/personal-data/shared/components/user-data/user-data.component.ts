@@ -56,7 +56,6 @@ export class UserDataComponent implements AfterViewInit {
   }
 
   confirmEmail(emailBlock, changeEmailBlock, form) {
-    console.log('new_email = ', form.controls['new_email'].value);
     this.authService.changeEmail(form.controls['current_password'].value, form.controls['new_email'].value)
       .subscribe(
         () => {
@@ -69,7 +68,6 @@ export class UserDataComponent implements AfterViewInit {
           if (error['message'] && error['message'] == 'Current password is incorrect')
             error = { errors: { current_password: ['password is incorrect'] } };
           this.errors = error.errors ? error.errors : {};
-          // console.log('error -->', error)
         })
   }
 
@@ -86,13 +84,10 @@ export class UserDataComponent implements AfterViewInit {
   }
 
   confirmPassword(passwordBlock, changePasswordBlock, form) {
-    console.log(form.controls['old_password'].value);
-    console.log(form.controls['new_password'].value);
     if (form.controls['new_password'].value == form.controls['confirm_password'].value) {
       this.authService.changePassword(form.controls['old_password'].value, form.controls['new_password'].value)
         .subscribe(
           () => {
-            // console.log("data -->", data);
             this.notify.success("Успешно!", "Пароль изменен");
             passwordBlock.hidden = false;
             changePasswordBlock.hidden = true;
@@ -103,19 +98,13 @@ export class UserDataComponent implements AfterViewInit {
             if (error['message'] && error['message'] == 'Current password is incorrect')
               error = { errors: { current_password: ['password is incorrect'] } };
             this.errors = error.errors ? error.errors : {};
-            // console.log('error -->', error)
           })
     } else {
 
-      // console.log('form invalid');
       this.errors = {
         new_password: ['Passwords do not match.'],
         confirm_password: ['Passwords do not match.']
       }
-      // for (let control_key in form.controls) {
-      //   let control = form.controls[control_key];
-      //   // console.log("control = ", control);
-      //   control.markAsTouched()
     }
   }
 

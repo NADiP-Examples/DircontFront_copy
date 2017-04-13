@@ -16,7 +16,6 @@ export class ConfirmChangeEmailComponent {
     this.activatedRoute.queryParams.subscribe(params => {
       // let email = params['email'];
       let key = params['key'];
-      console.log('key = ', key);
       if (key)
         this.authService.confirmChangeEmail(key).subscribe(
           () => this.notify.success('Успешно!', 'Email изменен'),

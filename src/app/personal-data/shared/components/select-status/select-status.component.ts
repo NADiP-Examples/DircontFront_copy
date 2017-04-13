@@ -1,12 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-// import { LEGAL_STATUSES, RESIDENCES } from 'app/personal-data/personal-data-edit/personal-data-edit.component'
+import { Component, OnInit, OnChanges, Input} from '@angular/core';
 
 @Component({
   selector: 'select-status',
   templateUrl: 'select-status.component.html',
   styleUrls: ['select-status.component.sass']
 })
-export class SelectStatusComponent implements OnInit {
+export class SelectStatusComponent implements OnInit, OnChanges {
   @Input() status: Object;
   @Input() loadComplete;
   tmp;
@@ -18,12 +17,11 @@ export class SelectStatusComponent implements OnInit {
   }
 
   ngOnChanges(value){
-    console.log('CHANGE! value -->', value);
     if (value['loadComplete']) this.onLoadComplete()
   }
 
   onLoadComplete(){
-    console.log('Load COmplete');
+    // console.log('Load Complete');
     if (this.status['residency'] == 'other') this.tmp = this.tmp ? this.tmp : this.LEGAL_STATUSES.splice(1, 1);
   }
 

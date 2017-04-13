@@ -106,8 +106,6 @@ export class AuthService {
 
   changePassword(current_password: string, new_password: string): Observable<any> {
     let headers = this.headers;
-    console.log('current_password = ', current_password);
-    console.log('new_password = ', new_password);
     let data = {
       current_password, new_password
     };
