@@ -16,8 +16,8 @@ export const appRoutes: Routes = [
   { path: '', canActivate: [isLoggedIn], redirectTo: '/personal_data', pathMatch: 'full' },
   { path: '', children: authRoutes }, //auth
   {
-    path: 'personal_data', canActivate: [isLoggedIn], component: CommonComponent, children: [
-    { path: '', children: personalDataRoutes },
+    path: '', canActivate: [isLoggedIn], component: CommonComponent, children: [
+    { path: 'personal_data', children: personalDataRoutes },
     //  any routes with CommonComponent
   ]
   },

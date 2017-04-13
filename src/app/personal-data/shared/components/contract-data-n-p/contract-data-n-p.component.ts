@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Input, ViewChildren, QueryList } from '@angular/core'
+import { Component, AfterViewInit, OnDestroy, Input, ViewChildren, QueryList } from '@angular/core'
 import { NgModel, NgForm } from '@angular/forms';
 
 import { MASKS } from 'app/personal-data/global.data'
@@ -9,7 +9,7 @@ import { MASKS } from 'app/personal-data/global.data'
   styleUrls: ['contract-data-n-p.component.sass']
 })
 
-export class ContractDataNPComponent implements AfterViewInit {
+export class ContractDataNPComponent implements AfterViewInit, OnDestroy {
   @ViewChildren(NgModel) controls: QueryList<NgModel>;
   @Input() personal_data: Object;
   @Input() form_view: Object;
@@ -30,6 +30,12 @@ export class ContractDataNPComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.controls.forEach((control: NgModel) => {
       this.parentForm.addControl(control);
+    });
+  }
+
+  ngOnDestroy() {
+    this.controls.forEach((control: NgModel) => {
+      this.parentForm.removeControl(control);
     });
   }
 
