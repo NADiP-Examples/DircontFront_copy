@@ -5,30 +5,8 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" [routerLink]="['']">Dircont</a>
-
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="nav nav-pills nav-fill top-menu">
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/personal_data']" [routerLinkActive]="['active']">Личные данные</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/employees']" [routerLinkActive]="['active']">Сотрудники</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/map']" [routerLinkActive]="['active']">Карта компетенций</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/black-white-list']" [routerLinkActive]="['active']">Черно-белый список
-          поставщиков</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/tariffs']" [routerLinkActive]="['active']">Тарифы, реестр сделок,
-          оплата</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/faq']" [routerLinkActive]="['active']">ЧаВо</a>
-      </li>
-    </ul>
+    <top-menu [menu_items]="top_menu_items" [menu_disabled]="disabled"></top-menu>
     <button class="btn btn-primary" (click)="authService.logout()">
       <span class="glyphicon glyphicon-log-out"></span> Выйти
     </button>
@@ -43,23 +21,7 @@
 
   <div class="row">
     <div class="col-2">
-      <ul class="nav flex-column left-menu">
-        <li class="nav-item header">
-          Реестры:
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Клиентов</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Партнеров</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Поступлений и выплат</a>
-        </li>
-        <!--<li class="nav-item">-->
-          <!--<a class="nav-link disabled" href="#">Disabled</a>-->
-        <!--</li>-->
-      </ul>
+      <left-menu [menu_items]="left_menu_items" [menu_disabled]="disabled" ></left-menu>
     </div>
     <div class="col-10">
       <router-outlet></router-outlet>

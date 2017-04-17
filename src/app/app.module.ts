@@ -22,6 +22,8 @@ import { NotFoundComponent } from './not-found/not-found.comnponent';
 
 import { AuthService } from './shared/services/auth.service';
 import { isLoggedIn, isLoggedOut, isHasId }   from './shared/services/guard.service';
+import { TopMenuComponent } from './shared/components/top-menu/top-menu.component';
+import { LeftMenuComponent } from './shared/components/left-menu/left-menu.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { isLoggedIn, isLoggedOut, isHasId }   from './shared/services/guard.serv
     AppComponent,
     NotFoundComponent,
     CommonComponent,
-    EqualValidator
+    EqualValidator,
+    TopMenuComponent,
+    LeftMenuComponent
   ],
   // Набор классов представлений, которые должны использоваться в шаблонах компонентов из других модулей
   exports: [],
