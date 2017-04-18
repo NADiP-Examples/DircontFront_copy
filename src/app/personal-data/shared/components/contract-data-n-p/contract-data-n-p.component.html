@@ -18,17 +18,23 @@
 <div class="row">
   <label class="col-3">
     Серия паспорта
-    <input class="simple-input" type="text"
+    <input class="simple-input" type="text" [required]="personal_data._type == 'partner'"
            placeholder="{{form_view && !personal_data.passport_series ? 'не указано': '1234'}}"
            [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
-           [(ngModel)]="personal_data.passport_series" name="passport_series">
+           [(ngModel)]="personal_data.passport_series" name="passport_series" #passport_series="ngModel">
+    <div *ngIf="passport_series.touched && passport_series.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
   </label>
   <label class="col-3">
     Номер паспорта
-    <input class="simple-input" type="text"
+    <input class="simple-input" type="text" [required]="personal_data._type == 'partner'"
            placeholder="{{form_view && !personal_data.passport_number ? 'не указано': '567890'}}"
            [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
-           [(ngModel)]="personal_data.passport_number" name="passport_number">
+           [(ngModel)]="personal_data.passport_number" name="passport_number" #passport_number="ngModel">
+    <div *ngIf="passport_number.touched && passport_number.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
   </label>
   <label *ngIf="!form_view" class="col-3">
     Дата выдачи
@@ -50,15 +56,22 @@
 <div class="row">
   <label class="col-12">
     Кем выдан
-    <input class="simple-input" type="text"
+    <input class="simple-input" type="text" [required]="personal_data._type == 'partner'"
            placeholder="{{form_view && !personal_data.passport_issued_by ? 'не указано': 'УВД Центрального района Кемеровской области'}}"
            [disabled]="form_view"
-           [(ngModel)]="personal_data.passport_issued_by" name="passport_issued_by">
+           [(ngModel)]="personal_data.passport_issued_by" name="passport_issued_by" #passport_issued_by="ngModel">
+    <div *ngIf="passport_issued_by.touched && passport_issued_by.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
   </label>
+</div>
+<div class="header mod-align-center">
+  <div class="text"> Адрес регистрации/проживания</div>
+  <div class="border"></div>
 </div>
 <div class="row">
   <label class="col-3">
-    Адрес регистрации
+   Индекс
     <input class="simple-input" type="text"
            placeholder="{{form_view && !personal_data.registration_address_postcode ? 'не указано': 'Индекс'}}"
            [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
@@ -92,17 +105,25 @@
       </label>
     </div>
   </div>
-  <label class="col-3">
+  <label class="col-6">
+    Улица/дом/корпус/квартира
     <input class="simple-input" type="text"
            placeholder="{{form_view && !personal_data.registration_address_street ? 'не указано': 'ул. Кирова д.2 кв.4'}}"
            [disabled]="form_view"
            [(ngModel)]="personal_data.registration_address_street" name="registration_address_street">
   </label>
 </div>
+<div class="header mod-align-center">
+  <div class="text">
+    Почтовый адрес
+    <fa class="ico-duplicate" name="angle-double-down"
+        (click)="duplicateAddress()"></fa>
+  </div>
+  <div class="border"></div>
+</div>
 <div class="row">
   <label class="col-3">
-    Почтовый адрес
-    <!--<fa class="ico-duplicate" name="angle-double-down" (click)="duplicateAddress()"></fa>-->
+    Индекс
     <input class="simple-input" type="text"
            placeholder="{{form_view && !personal_data.postal_address_postcode ? 'не указано': 'Индекс'}}"
            [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
@@ -136,7 +157,8 @@
       </label>
     </div>
   </div>
-  <label class="col-3">
+  <label class="col-6">
+    Улица/дом/корпус/квартира
     <input class="simple-input" type="text"
            placeholder="{{form_view && !personal_data.postal_address_street ? 'не указано': 'ул. Кирова д.2 кв.4'}}"
            [disabled]="form_view"
@@ -144,18 +166,46 @@
   </label>
 </div>
 <div class="row">
-  <label class="col-5">
+  <label class="col-4">
     ИНН
-    <input class="simple-input" type="text"
-           placeholder="{{form_view && !personal_data.itn ? 'не указано': '12345678912'}}"
+    <input class="simple-input" type="text" [required]="personal_data._type == 'partner'"
+           placeholder="{{form_view && !personal_data.itn ? 'не указано': '123456789012'}}"
+           [rangeLength]="[12, 12]"
            [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
-           [(ngModel)]="personal_data.itn" name="itn">
+           [(ngModel)]="personal_data.itn" name="itn" #itn="ngModel">
+    <div class="error" *ngIf="itn.touched && itn.errors?.rangeLength">12{{ 'digits.' | translate}}</div>
+    <div *ngIf="itn.touched && itn.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
   </label>
-  <label class="col-5">
+  <label class="col-4">
     Номер банковской карты
-    <input class="simple-input" type="text"
+    <input class="simple-input" type="text" [required]="personal_data._type == 'partner'"
            placeholder="{{form_view && !personal_data.bankcard_number ? 'не указано': '4444-4444-4444-4446-444'}}"
            [disabled]="form_view" [textMask]="{mask: MASKS.card, guide: false}"
-           [(ngModel)]="personal_data.bankcard_number" name="bankcard_number">
+           [(ngModel)]="personal_data.bankcard_number" name="bankcard_number" #bankcard_number="ngModel">
+    <div *ngIf="bankcard_number.touched && bankcard_number.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+  <label class="col-4">
+    Название банка-эмитента карты
+    <input class="simple-input" type="text" [required]="personal_data._type == 'partner'"
+           placeholder="{{form_view && !personal_data.bankcard_bank_name ? 'не указано': 'АО «Альфа-Банк», г. Москва'}}"
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.bankcard_bank_name" name="bankcard_bank_name" #bankcard_bank_name="ngModel">
+    <div *ngIf="bankcard_bank_name.touched && bankcard_bank_name.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+  <label *ngIf="personal_data._type == 'partner'" class="col-4">
+    СНИЛС
+    <input class="simple-input" type="text" [required]="personal_data._type == 'partner'"
+           placeholder="12345678912"
+           [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
+           [(ngModel)]="personal_data.snils" name="snils" #snils="ngModel">
+    <div *ngIf="snils.touched && snils.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
   </label>
 </div>

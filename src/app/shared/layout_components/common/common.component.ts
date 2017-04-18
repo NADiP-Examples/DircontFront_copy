@@ -27,7 +27,7 @@ export class CommonComponent {
 
     this.personalDataService.getSelf()
       .subscribe(user => {
-        console.log('user.type = ', user['type']);
+        // console.log('user.type = ', user['type']);
         this.top_menu_items = TOP_MENU_ITEMS[user['type']];
         this.left_menu_items = LEFT_MENU_ITEMS[user['type']];
         this.disabled = !user['personal_id'];

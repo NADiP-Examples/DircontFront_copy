@@ -3,11 +3,11 @@
         <div class="btn-group" data-toggle="buttons">
           <label class="btn btn-primary active">
             <input readonly type="radio">
-            {{status.residency}}
+            {{status.residency.print_name}}
           </label>
           <label class="btn btn-primary">
             <input readonly type="radio">
-            {{status.legal_status}}
+            {{status.legal_status.print_name}}
           </label>
         </div>
   </div>
@@ -30,10 +30,10 @@
       </spoiler-block>
     </div>
   </div>
-  <div class="row" *ngIf="status.residency == 'russian_federation' || status.legal_status=='legal_entity'">
+  <div class="row" *ngIf="status.residency.value == 'russian_federation' || status.legal_status.value=='legal_entity'">
     <div class="col-12">
       <spoiler-block [header]="'Данные для договора'">
-        <div [ngSwitch]="status.legal_status">
+        <div [ngSwitch]="status.legal_status.value">
           <contract-data-np *ngSwitchCase="'natural_person'" [form_view]="true"
                             [personal_data]="personal_data"></contract-data-np>
           <contract-data-ie *ngSwitchCase="'individual_entrepreneur'" [form_view]="true"
@@ -46,12 +46,16 @@
       </spoiler-block>
     </div>
   </div>
-  <div *ngIf="status.residency == 'russian_federation' &&
-  (status.legal_status == 'individual_entrepreneur' || status.legal_status == 'legal_entity')"
+  <div *ngIf="status.residency.value == 'russian_federation' &&
+  (status.legal_status.value == 'individual_entrepreneur' || status.legal_status.value == 'legal_entity')"
        class="row">
     <div class="col-12">
-      <spoiler-block [header]="'Банковские реквизиты'">
-        <bank-data [personal_data]="personal_data" [form_view]="true"></bank-data>
+      <spoiler-block
+        [header]="status.legal_status.value == 'legal_entity'?'Банковские реквизиты': 'банковские реквизиты или номер банковской карты'">
+        <div [ngSwitch]="status.legal_status.value">
+          <bank-data-ie [form_view]="true" *ngSwitchCase="'individual_entrepreneur'" [personal_data]="personal_data"></bank-data-ie>
+          <bank-data-le [form_view]="true" *ngSwitchCase="'legal_entity'" [personal_data]="personal_data"></bank-data-le>
+        </div>
       </spoiler-block>
     </div>
   </div>

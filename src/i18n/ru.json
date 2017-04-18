@@ -16,8 +16,11 @@
   "Host is not allowed.": "Не разрешенный хост.",
   "Missing data for required field.": "Пропущенно значение для обязательного поля.",
   "Invalid input type.": "Не валидное тип.",
+  "Invalid url.": "Не правильный адрес",
   "Field may not be null.": "Поле неможет быть пустое.",
   "Invalid value.": "Не валидное значение.",
   "Shorter than minimum length 3.": "Не менее трех символов.",
-  "Passwords do not match.": "Пароли не совпадают."
+  "Passwords do not match.": "Пароли не совпадают.",
+  "digits.": "цифр.",
+  "digits.": "цифр."
 }

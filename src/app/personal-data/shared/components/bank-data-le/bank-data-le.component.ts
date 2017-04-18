@@ -4,11 +4,11 @@ import { NgModel, NgForm } from '@angular/forms';
 import { MASKS } from 'app/personal-data/global.data'
 
 @Component({
-  selector: 'bank-data',
-  templateUrl: './bank-data.component.html',
-  styleUrls: ['./bank-data.component.sass']
+  selector: 'bank-data-le',
+  templateUrl: './bank-data-le.component.html',
+  styleUrls: ['./bank-data-le.component.sass']
 })
-export class BankDataComponent implements AfterViewInit, OnDestroy {
+export class BankDataComponentLE implements AfterViewInit, OnDestroy {
   @ViewChildren(NgModel) controls: QueryList<NgModel>;
   @Input() personal_data;
   @Input() form_view: Object;

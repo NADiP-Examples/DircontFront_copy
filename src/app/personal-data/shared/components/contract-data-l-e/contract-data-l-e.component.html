@@ -1,7 +1,7 @@
 <div class="row">
   <label class="col-6">
-    Название организации
-    <input class="simple-input" type="text" placeholder="ОАО" required
+    Организационно-правовая форма
+    <input class="simple-input" type="text" placeholder="ООО" required
            [disabled]="form_view"
            [(ngModel)]="personal_data.organization_type" name="organization_type" #organization_type="ngModel">
     <div *ngIf="organization_type.touched && organization_type.errors?.required" class="error">
@@ -9,7 +9,7 @@
     </div>
   </label>
   <label class="col-6">
-    &nbsp;
+    Полное название организации
     <input class="simple-input" type="text" placeholder="СтройКопай" required
            [(ngModel)]="personal_data.organization_name" name="organization_name" #organization_name="ngModel">
     <div *ngIf="organization_name.touched && organization_name.errors?.required" class="error">
@@ -18,7 +18,7 @@
   </label>
 </div>
 <div class="header mod-align-center">
-  <div class="text">Данные сотрудника уполномоченного на подписание договора</div>
+  <div class="text">Данные об уполномоченном на подписание договора</div>
   <div class="border"></div>
 </div>
 <div class="row">
@@ -44,12 +44,12 @@
   </label>
   <label class="col-4">
     Отчество
-    <input class="simple-input" type="text" placeholder="Иванович" required
+    <input class="simple-input" type="text" placeholder="Иванович"
            [disabled]="form_view"
            [(ngModel)]="personal_data.contract_patronymic" name="contract_patronymic" #contract_patronymic="ngModel">
-    <div *ngIf="contract_patronymic.touched && contract_patronymic.errors?.required" class="error">
-      {{'Field may not be null.' | translate}}
-    </div>
+    <!--<div *ngIf="contract_patronymic.touched && contract_patronymic.errors?.required" class="error">-->
+      <!--{{'Field may not be null.' | translate}}-->
+    <!--</div>-->
   </label>
 </div>
 <div class="row">
@@ -70,13 +70,17 @@
     </div>
   </label>
 </div>
+<!--<div class="header mod-align-center">-->
+  <!--<div class="text">Данные об организации</div>-->
+  <!--<div class="border"></div>-->
+<!--</div>-->
 <div class="header mod-align-center">
-  <div class="text">Данные об организации</div>
+  <div class="text">Адрес регистрации/проживания</div>
   <div class="border"></div>
 </div>
 <div class="row">
   <label class="col-3">
-    Адрес регистрации
+    Индекс
     <input class="simple-input" type="text" required
            placeholder="{{form_view && !personal_data.passport_issued_by ? 'не указано': 'Индекс'}}"
            [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
@@ -115,7 +119,8 @@
       </label>
     </div>
   </div>
-  <label class="col-3">
+  <label class="col-6">
+    Улица/дом/корпус/квартира
     <input class="simple-input" type="text" required
            placeholder="{{form_view && !personal_data.registration_address_street ? 'не указано': 'ул. Кирова д.2 кв.4'}}"
            [disabled]="form_view"
@@ -126,9 +131,13 @@
     </div>
   </label>
 </div>
+<div class="header mod-align-center">
+  <div class="text">Почтовый адрес</div>
+  <div class="border"></div>
+</div>
 <div class="row">
   <label class="col-3">
-    Почтовый адрес
+    Индекс
     <!--TODO: сделать дублирование адреса-->
     <!--<fa class="ico-duplicate" name="angle-double-down"></fa>-->
     <input class="simple-input" type="text" required
@@ -168,7 +177,8 @@
       </label>
     </div>
   </div>
-  <label class="col-3">
+  <label class="col-6">
+    Улица/дом/корпус/квартира
     <input class="simple-input" type="text" required
            placeholder="{{form_view && !personal_data.postal_address_street ? 'не указано': 'ул. Кирова д.2 кв.4'}}"
            [disabled]="form_view"
@@ -181,7 +191,7 @@
 </div>
 <div class="row">
   <label class="col-6">
-    Номер свидетельства гос. регистрации ИП
+    Номер свидетельства гос. регистрации юр.лица
     <input [textMask]="{mask: MASKS.only_number, guide: false}" class="simple-input" type="text" required
            placeholder="12345678912"
            [(ngModel)]="personal_data.certificate_number" name="certificate_number" #certificate_number="ngModel">
@@ -190,25 +200,38 @@
     </div>
   </label>
   <label class="col-6">
-    Дата государственной регистрации ИП
+    Дата государственной регистрации юр.лица
     <ng2-datepicker [required]="true" [(ngModel)]="personal_data.certificate_date"
                     name="certificate_date"></ng2-datepicker>
   </label>
 </div>
 <div class="row">
-  <label class="col-5">
+  <label *ngIf="status.residency!='other'" class="col-5">
     ИНН
     <input class="simple-input" type="text" required
-           placeholder="{{form_view && !personal_data.itn ? 'не указано': '12345678912'}}"
+           placeholder="{{form_view && !personal_data.itn ? 'не указано': '1234567890'}}"
+           [rangeLength]="[10, 10]"
            [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
            [(ngModel)]="personal_data.itn" name="itn" #itn="ngModel">
     <div *ngIf="itn.touched && itn.errors?.required" class="error">
       {{'Field may not be null.' | translate}}
     </div>
+    <div class="error" *ngIf="itn.touched && itn.errors?.rangeLength">10{{ 'digits.' | translate}}</div>
+  </label>
+  <label *ngIf="status.residency=='other'" class="col-5">
+    ИНН или номер налогоплательщика
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.itn ? 'не указано': '1234567890'}}"
+           [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
+           [(ngModel)]="personal_data.itn" name="itn" #itn="ngModel">
+    <div *ngIf="itn.touched && itn.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+    <!--<div class="error" *ngIf="itn.touched && itn.errors?.rangeLength">10{{ 'digits.' | translate}}</div>-->
   </label>
   <label class="col-5">
     КПП
-    <input class="simple-input" type="text" required
+    <input class="simple-input" type="text" [required]="status.residency!='other'"
            placeholder="{{form_view && !personal_data.iec ? 'не указано': '12345678912'}}"
            [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
            [(ngModel)]="personal_data.iec" name="iec" #iec="ngModel">
@@ -218,24 +241,26 @@
   </label>
   <label class="col-5">
     ОГРН
-    <input class="simple-input" type="text" required
-           placeholder="{{form_view && !personal_data.iec ? 'не указано': '12345678912'}}"
+    <input class="simple-input" type="text" [required]="status.residency!='other'"
+           placeholder="{{form_view && !personal_data.iec ? 'не указано': '1234567890123'}}"
+           [rangeLength]="[13, 13]"
            [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
            [(ngModel)]="personal_data.psrn" name="psrn" #psrn="ngModel">
     <div *ngIf="psrn.touched && psrn.errors?.required" class="error">
       {{'Field may not be null.' | translate}}
     </div>
+    <div class="error" *ngIf="psrn.touched && psrn.errors?.rangeLength">13{{ 'digits.' | translate}}</div>
   </label>
 </div>
-<div class="row" *ngIf="status.residency=='other'">
-  <label class="col-4">
-    Номер налогоплательщика
-    <input class="simple-input" type="text" required
-           placeholder="12345678912"
-           [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
-           [(ngModel)]="personal_data.itn" name="itn" #itn="ngModel">
-    <div *ngIf="itn.touched && itn.errors?.required" class="error">
-      {{'Field may not be null.' | translate}}
-    </div>
-  </label>
-</div>
+<!--<div class="row" *ngIf="status.residency=='other'">-->
+  <!--<label class="col-4">-->
+    <!--Номер налогоплательщика-->
+    <!--<input class="simple-input" type="text" required-->
+           <!--placeholder="12345678912"-->
+           <!--[disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"-->
+           <!--[(ngModel)]="personal_data.itn" name="itn" #itn="ngModel">-->
+    <!--<div *ngIf="itn.touched && itn.errors?.required" class="error">-->
+      <!--{{'Field may not be null.' | translate}}-->
+    <!--</div>-->
+  <!--</label>-->
+<!--</div>-->

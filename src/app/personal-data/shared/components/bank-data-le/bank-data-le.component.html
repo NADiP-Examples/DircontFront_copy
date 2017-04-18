@@ -13,45 +13,36 @@
     БИК банка
     <input class="simple-input" type="text"
            placeholder="{{form_view && !personal_data.bank_bic ? 'не указано': '044525593'}}"
+           [rangeLength]="[9, 9]"
            [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
            [(ngModel)]="personal_data.bank_bic" name="bank_bic" #bank_bic="ngModel">
     <div *ngIf="bank_bic.touched && bank_bic.errors?.required" class="error">
       {{'Field may not be null.' | translate}}
     </div>
+    <div class="error" *ngIf="bank_bic.touched && bank_bic.errors?.rangeLength">9{{ 'digits.' | translate}}</div>
   </label>
   <label class="col-6">
     Корреспондентский счет
     <input class="simple-input" type="text"
            placeholder="{{form_view && !personal_data.bank_corresponding_account ? 'не указано': '30101810900000000181'}}"
+           [rangeLength]="[20, 20]"
            [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
            [(ngModel)]="personal_data.bank_corresponding_account" name="bank_corresponding_account" #bank_corresponding_account="ngModel">
     <div *ngIf="bank_corresponding_account.touched && bank_corresponding_account.errors?.required" class="error">
       {{'Field may not be null.' | translate}}
     </div>
+    <div class="error" *ngIf="bank_corresponding_account.touched && bank_corresponding_account.errors?.rangeLength">20{{ 'digits.' | translate}}</div>
   </label>
   <label class="col-6">
     Расчетный счет
     <input class="simple-input" type="text"
            placeholder="{{form_view && !personal_data.bank_current_account ? 'не указано': '30101810900000000181'}}"
+           [rangeLength]="[20, 20]"
            [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
            [(ngModel)]="personal_data.bank_current_account" name="bank_current_account" #bank_current_account="ngModel">
     <div *ngIf="bank_current_account.touched && bank_current_account.errors?.required" class="error">
       {{'Field may not be null.' | translate}}
     </div>
+    <div class="error" *ngIf="bank_current_account.touched && bank_current_account.errors?.rangeLength">20{{ 'digits.' | translate}}</div>
   </label>
-  <!--<label class="col-6">-->
-    <!--БИК банка-->
-    <!--<input [(ngModel)]="personal_data.bank_bic" [disabled]="form_view" class="simple-input" type="text"-->
-           <!--placeholder="044525593">-->
-  <!--</label>-->
-  <!--<label class="col-6">-->
-    <!--Корреспондентский счет-->
-    <!--<input [(ngModel)]="personal_data.bank_corresponding_account" [disabled]="form_view" class="simple-input"-->
-           <!--type="text" placeholder="30101810900000000181">-->
-  <!--</label>-->
-  <!--<label class="col-6">-->
-    <!--Расчетный счет-->
-    <!--<input [(ngModel)]="personal_data.bank_current_account" [disabled]="form_view" class="simple-input" type="text"-->
-           <!--placeholder="11234567891234567890">-->
-  <!--</label>-->
 </div>

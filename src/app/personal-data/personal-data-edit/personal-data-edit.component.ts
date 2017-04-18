@@ -42,12 +42,15 @@ export class PersonalDataEditComponent implements OnInit {
   // @ViewChild(UserDataComponent) userDataComponent;
   // @ViewChild(ContractDataNPComponent) contractDataNPComponent;
   status = {
-    legal_status: LEGAL_STATUSES[0].value,
-    residency: RESIDENCES[0].value,
+    legal_status: LEGAL_STATUSES[0],
+    residency: RESIDENCES[0],
   };
 
   personal_data: Object = {
-    phones: [''],
+    // phones: [''],
+    // registration_address_country:{
+    //   id: 1
+    // }
   };
 
   loadComplete:Boolean = false;
@@ -74,7 +77,6 @@ export class PersonalDataEditComponent implements OnInit {
         this.user_data = user;
         this.status.legal_status = user['legal_status'] || LEGAL_STATUSES[0].value;
         this.status.residency = user['residency'] || RESIDENCES[0].value;
-        this.loadComplete = true;
         if (this.user_data['type'] == 'partner') {
           this.LEGAL_STATUSES = [
             {
@@ -87,22 +89,38 @@ export class PersonalDataEditComponent implements OnInit {
             print_name: 'Резидент РФ'
           }];
         }
+        this.personalDataService.getPersonalData()
+          .map(personal_data => {
+            personal_data['phones'] = _.isEmpty(personal_data['phones']) ? [''] : personal_data['phones'];
+            personal_data['_type'] = this.user_data['type'];
+            // console.log('personal_data = ', personal_data);
+            return personal_data
+          })
+          .subscribe(personal_data => {
+            if (!_.isEmpty(personal_data)) this.personal_data = personal_data;
+            this.loadComplete = true;
+            // if (this.personal_data['passport_date']) this.personal_data['passport_date'] = new Date(this.personal_data['passport_date']);
+          });
       });
-    this.personalDataService.getPersonalData()
-      .map(personal_data => {
-        personal_data['phones'] = _.isEmpty(personal_data['phones']) ? [''] : personal_data['phones'];
-        return personal_data
-      })
-      .subscribe(personal_data => {
-        if (!_.isEmpty(personal_data)) this.personal_data = personal_data;
-        // if (this.personal_data['passport_date']) this.personal_data['passport_date'] = new Date(this.personal_data['passport_date']);
-      });
+
   }
 
   showRules(event) {
     event.preventDefault();
     //TODO: Show Rules
     console.log("Show Rules here");
+  }
+
+  onChangedResidence(event){
+    // console.log('onChangedResidence event = ', event);
+    if (event == 'russian_federation') {
+      if (!(this.personalDataService['registration_address_country'] && this.personalDataService['registration_address_country']['id'])){
+        this.personal_data['registration_address_country'] = {id:1}
+      }
+      if (!(this.personalDataService['postal_address_country'] && this.personalDataService['postal_address_country']['id'])){
+        this.personal_data['postal_address_country'] = {id:1}
+      }
+    }
   }
 
   save(form) {

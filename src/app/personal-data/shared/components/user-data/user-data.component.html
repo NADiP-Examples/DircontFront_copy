@@ -19,7 +19,7 @@
   </label>
   <label class="col-4">
     Отчество
-    <input class="simple-input" type="text" placeholder="Иванович" required
+    <input class="simple-input" type="text" placeholder="Иванович" [required]="personal_data._type == 'partner'"
            [disabled]="form_view"
            [(ngModel)]="personal_data.patronymic" name="patronymic" #patronymic="ngModel">
     <div *ngIf="patronymic.touched && patronymic.errors?.required" class="error">
@@ -41,7 +41,7 @@
   </label>
 </div>
 <div class="row" hidden #changeEmailBlock>
-  <form #changeEmailForm="ngForm" novalidate class="mod-align-center">
+  <form #changeEmailForm="ngForm" novalidate class="mod-align-center" autocomplete="off">
     <label class="col-4">
       email
       <input class="simple-input" type="email" placeholder="example@mail.ru"
@@ -76,7 +76,7 @@
   </label>
 </div>
 <div class="row" hidden #changePasswordBlock>
-  <form #changePasswordForm="ngForm" novalidate class="mod-align-center">
+  <form #changePasswordForm="ngForm" novalidate class="mod-align-center" autocomplete="off">
     <label class="col-3">
       Смена пароля
       <input class="simple-input" type="password" placeholder="текущий пароль"
@@ -106,12 +106,13 @@
 </div>
 <!--End Password-->
 <div class="row">
-  <label class="col-3">
+  <label class="col-3" *ngIf="personal_data._type != 'partner'">
     Сайт
-    <input class="simple-input" type="text"
+    <input class="simple-input" type="text" pattern="^([a-zA-Zа-яА-я0-9]([a-zA-Zа-яА-я0-9\-]{0,61}[a-zA-Zа-яА-я0-9])?\.)+[a-zA-Zа-яА-я]{2,8}$"
            placeholder="{{form_view && !personal_data.site ? 'не указано': 'example.com'}}"
            [disabled]="form_view"
-           [(ngModel)]="personal_data.site" name="site">
+           [(ngModel)]="personal_data.site" name="site" #site="ngModel">
+    <div class="form-control-feedback error" *ngIf="site.touched && site.errors">{{'Invalid url.' | translate}}</div>
   </label>
   <label *ngFor="let phone of personal_data.phones;let i = index;trackBy:customTrackBy" style="position: relative"
          class="col-3">

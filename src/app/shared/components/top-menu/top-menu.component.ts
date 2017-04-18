@@ -18,7 +18,7 @@ export class TopMenuComponent implements OnChanges {
   }
 
   ngOnChanges(value){
-    console.log('ngOnChange value = ',value);
+    // console.log('ngOnChange value = ',value);
   }
 
 }

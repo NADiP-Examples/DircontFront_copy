@@ -40,19 +40,20 @@ export class ContractDataNPComponent implements AfterViewInit, OnDestroy {
   }
 
   duplicateAddress(){
-    // this.personal_data['postal_address_postcode'] = this.personal_data['registration_address_postcode'];
-    // if (this.personal_data['registration_address_country']){
-    //   this.personal_data['postal_address_country'] = {};
-    //   this.personal_data['postal_address_country']['id'] = this.personal_data['registration_address_country']['id'];
-    // }
-    // if (this.personal_data['registration_address_region']){
-    //   this.personal_data['postal_address_region'] = {};
-    //   this.personal_data['postal_address_region']['id'] = this.personal_data['registration_address_region']['id'];
-    // }
-    // if (this.personal_data['registration_address_city']){
-    //   this.personal_data['postal_address_city'] = {};
-    //   this.personal_data['postal_address_city']['id'] = this.personal_data['registration_address_city']['id'];
-    // }
+    this.personal_data['postal_address_postcode'] = this.personal_data['registration_address_postcode'];
+    this.personal_data['postal_address_street'] = this.personal_data['registration_address_street'];
+
+
+    if (this.personal_data['registration_address_country_id']){
+      // console.log('country.id = ', this.personal_data['registration_address_country_id'])
+      this.personal_data['postal_address_country'] = {id: this.personal_data['registration_address_country_id']}
+    }
+    if (this.personal_data['registration_address_region_id']){
+      this.personal_data['postal_address_region'] = {id: this.personal_data['registration_address_region_id']}
+    }
+    if (this.personal_data['registration_address_city_id']){
+      this.personal_data['postal_address_city'] = {id: this.personal_data['registration_address_city_id']}
+    }
   }
 
 
