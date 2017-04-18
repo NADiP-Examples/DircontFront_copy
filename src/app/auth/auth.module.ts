@@ -12,14 +12,12 @@ import { ConfirmResetPassComponent } from './confirm_resetpass/confirm_resetpass
 import { ActivateComponent } from './activate/activate.component'
 import { ConfirmChangeEmailComponent } from './confirm-change-email/confirm-change-email.component'
 
-import { authRoutes }   from './auth.routes';
-
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     ReCaptchaModule,
-    RouterModule.forChild(authRoutes),
+    RouterModule,
     TranslateModule
   ],
   declarations: [

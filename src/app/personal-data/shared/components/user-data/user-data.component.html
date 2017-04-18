@@ -1,0 +1,128 @@
+<div class="row">
+  <label class="col-4">
+    Фамилия
+    <input class="simple-input" type="text" placeholder="Иванов" required
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.second_name" name="second_name" #second_name="ngModel">
+    <div *ngIf="second_name.touched && second_name.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+  <label class="col-4">
+    Имя
+    <input class="simple-input" type="text" placeholder="Иван" required
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.first_name" name="first_name" #first_name="ngModel">
+    <div *ngIf="first_name.touched && first_name.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+  <label class="col-4">
+    Отчество
+    <input class="simple-input" type="text" placeholder="Иванович" [required]="personal_data._type == 'partner'"
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.patronymic" name="patronymic" #patronymic="ngModel">
+    <div *ngIf="patronymic.touched && patronymic.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+</div>
+<!--Email-->
+<div class="row" #emailBlock>
+  <label class="col-4">
+    email
+    <input disabled class="simple-input" type="email" placeholder="example@mail.ru"
+           [value]="user_data.email">
+  </label>
+  <label class="col-4 ignore-label-events">
+    &nbsp;
+    <input type="button" class="btn btn-secondary simple-button" value="Изменить"
+           (click)="changeEmail(emailBlock, changeEmailBlock)">
+  </label>
+</div>
+<div class="row" hidden #changeEmailBlock>
+  <form #changeEmailForm="ngForm" novalidate class="mod-align-center" autocomplete="off">
+    <label class="col-4">
+      email
+      <input class="simple-input" type="email" placeholder="example@mail.ru"
+             [ngModel]="user_data.email" name="new_email">
+      <div class="form-control-feedback error" *ngFor="let err of errors.new_email">{{ err | translate }}</div>
+    </label>
+    <label class="col-4">
+      Текущий пароль
+      <input class="simple-input" type="password" placeholder="старый пароль"
+             ngModel name="current_password" [ngClass]="{hasError: errors?.current_password}">
+      <div class="form-control-feedback error" *ngFor="let err of errors.current_password">{{ err | translate }}</div>
+    </label>
+    <div class="col-3">
+      <input type="button" class="btn btn-secondary simple-button" value="Подтвердить"
+             (click)="confirmEmail(emailBlock, changeEmailBlock, changeEmailForm)">
+      <input type="button" class="btn btn-secondary simple-button" value="Отменить"
+             (click)="chancelChangeEmail(emailBlock, changeEmailBlock, changeEmailForm)">
+    </div>
+
+  </form>
+</div>
+<!--Password-->
+<div class="row" #passwordBlock>
+  <label class="col-4">
+    Пароль
+    <input disabled class="simple-input" type="password" value="******">
+  </label>
+  <label class="col-4 ignore-label-events">
+    &nbsp;
+    <input type="button" class="btn btn-secondary simple-button" value="Изменить"
+           (click)="changePassword(passwordBlock, changePasswordBlock)">
+  </label>
+</div>
+<div class="row" hidden #changePasswordBlock>
+  <form #changePasswordForm="ngForm" novalidate class="mod-align-center" autocomplete="off">
+    <label class="col-3">
+      Смена пароля
+      <input class="simple-input" type="password" placeholder="текущий пароль"
+             ngModel name="old_password" [ngClass]="{hasError: errors?.current_password}">
+      <div class="form-control-feedback error" *ngFor="let err of errors.current_password">{{ err | translate }}</div>
+    </label>
+    <label class="col-3">
+      &nbsp;
+      <input class="simple-input" type="password" placeholder="новый пароль"
+             ngModel name="new_password" [ngClass]="{hasError: errors?.new_password}">
+      <div class="form-control-feedback error" *ngFor="let err of errors.new_password">{{ err | translate }}</div>
+    </label>
+    <label class="col-3">
+      &nbsp;
+      <input class="simple-input" type="password" placeholder="подтвердите пароль"
+             ngModel name="confirm_password" [ngClass]="{hasError: errors?.confirm_password}">
+      <div class="form-control-feedback error" *ngFor="let err of errors.confirm_password">{{ err | translate }}</div>
+    </label>
+    <div class="col-2 ignore-label-events">
+      &nbsp;
+      <input type="button" class="btn btn-secondary simple-button" value="Подтвердить" #passwordConfirmButton
+             (click)="confirmPassword(passwordBlock, changePasswordBlock, changePasswordForm)">
+      <input type="button" class="btn btn-secondary simple-button" value="Отменить"
+             (click)="chancelChangePassword(passwordBlock, changePasswordBlock, changePasswordForm)">
+    </div>
+  </form>
+</div>
+<!--End Password-->
+<div class="row">
+  <label class="col-3" *ngIf="personal_data._type != 'partner'">
+    Сайт
+    <input class="simple-input" type="text" pattern="^([a-zA-Zа-яА-я0-9]([a-zA-Zа-яА-я0-9\-]{0,61}[a-zA-Zа-яА-я0-9])?\.)+[a-zA-Zа-яА-я]{2,8}$"
+           placeholder="{{form_view && !personal_data.site ? 'не указано': 'example.com'}}"
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.site" name="site" #site="ngModel">
+    <div class="form-control-feedback error" *ngIf="site.touched && site.errors">{{'Invalid url.' | translate}}</div>
+  </label>
+  <label *ngFor="let phone of personal_data.phones;let i = index;trackBy:customTrackBy" style="position: relative"
+         class="col-3">
+    {{i==0 ? 'Телефоны': '&nbsp;'}}
+    <input [disabled]="form_view" [textMask]="{mask: MASKS.phone, guide: false}" class="simple-input" type="text"
+           placeholder="8 923 600 11 12" [(ngModel)]="personal_data.phones[i]">
+    <fa *ngIf="i!=0 && !form_view" class="ico-close" name="times" (click)="removePhone(i)"></fa>
+  </label>
+  <label class="col-3" *ngIf="!form_view">
+    &nbsp;
+    <fa class="ico-add" name="plus-square-o" (click)="addPhone()"></fa>
+  </label>
+</div>

@@ -1,15 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
-import { Http, Response } from '@angular/http'
+import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { environment } from 'environments/environment';
-import { Cookie } from 'ng2-cookies';
 
-import { AuthService } from 'app/services/auth.service'
-import { PersonalDataService } from 'app/services/personal-data.service'
+import { PersonalDataService } from 'app/shared/services/personal-data.service'
 import {RESIDENCES, LEGAL_STATUSES} from 'app/personal-data/personal-data-edit/personal-data-edit.component'
 
 @Component({
-  // selector: 'app-profile-view',
   templateUrl: 'personal-data-view.component.html',
   styleUrls: ['personal-data-view.component.sass']
 })
@@ -30,8 +25,8 @@ export class PersonalDataViewComponent implements OnInit {
   };
 
   status = {
-    legal_status: '',
-    residency: '',
+    legal_status: {},
+    residency: {},
   };
 
   get full_name() {
@@ -41,10 +36,10 @@ export class PersonalDataViewComponent implements OnInit {
   constructor(private personalDataService: PersonalDataService, private router: Router) {
   }
 
-  findObj(array:Array<any>, value): number{
-    let obj = array.map((x) => x.value).indexOf(value);
-    return obj
-  }
+  // findObj(array:Array<any>, value): number{
+  //   let obj = array.map((x) => x.value).indexOf(value);
+  //   return obj
+  // }
 
   ngOnInit() {
     this.personalDataService.getSelf()
@@ -52,10 +47,13 @@ export class PersonalDataViewComponent implements OnInit {
         this.user_data = user;
         this.status.legal_status = user['legal_status'];
         this.status.residency = user['residency'];
+        this.status.legal_status = LEGAL_STATUSES.find(status => status.value == user['legal_status']) || LEGAL_STATUSES[0];
+        this.status.residency = RESIDENCES.find(resid => resid.value ==user['residency']) || RESIDENCES[0];
       });
     this.personalDataService.getPersonalData()
       .subscribe(personal_data => {
         this.personal_data = personal_data;
+        this.personal_data['_type'] = this.user_data['type'];
       });
   }
 

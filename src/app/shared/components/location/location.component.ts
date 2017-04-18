@@ -4,7 +4,7 @@ import { Headers } from '@angular/http';
 import * as _ from "lodash";
 
 import { Observable } from 'rxjs/Rx';
-import { AuthService } from 'app/services/auth.service'
+import { AuthService } from 'app/shared/services/auth.service'
 import { environment } from 'environments/environment';
 
 
@@ -31,15 +31,18 @@ export class LocationComponent {
   @Input()
   set country(country: Number) {
     this._country = country;
+    this.changeCountry()
   }
   @Input()
   set region(region: Number) {
     this._region = region;
+    this.changeRegion()
   }
 
   @Input()
   set city(city: Number) {
     this._city = city;
+    this.changeCity()
   }
 
   @Output() countryOut = new EventEmitter<Number>();
@@ -51,7 +54,7 @@ export class LocationComponent {
     this.getCountries().subscribe(countries => {
       this._countries = countries;
       this.initCountry();
-      if (this._hasRegions) this.getCities(this._region, true).subscribe(cities => this._cities = cities);
+      if (this._hasRegions && this._region) this.getCities(this._region, true).subscribe(cities => this._cities = cities);
     });
   }
 
@@ -87,7 +90,7 @@ export class LocationComponent {
     this._cities = [];
 
     this.outData();
-    this.getCities(this._region, true).subscribe(cities => this._cities = cities);
+    if (this._region)this.getCities(this._region, true).subscribe(cities => this._cities = cities);
   }
 
   private changeCity(): void {

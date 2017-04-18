@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
-import { DateModel, DatePickerOptions } from 'app/ng2-datepicker/ng2-datepicker.module'
+import { Component, OnInit } from '@angular/core'
 import { NotificationsService } from 'angular2-notifications';
 
-import { PersonalDataService } from 'app/services/personal-data.service'
+import { PersonalDataService } from 'app/shared/services/personal-data.service'
 import * as _ from "lodash";
 
 import { Router } from "@angular/router";
@@ -33,15 +32,6 @@ export const RESIDENCES = [
   },
 ];
 
-export const MASKS = {
-  //+7(923)600-11-12
-  phone: ['+', '7', '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
-  passport_division_code: [/[\d]/, /[\d]/, /[\d]/, '-', /[\d]/, /[\d]/, /[\d]/],
-  only_number: [/[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/, /[\d]/,],
-  card: [/[\d]/, /[\d]/, /[\d]/, /[\d]/, '-', /[\d]/, /[\d]/, /[\d]/, /[\d]/, '-', /[\d]/, /[\d]/, /[\d]/, /[\d]/,
-    '-', /[\d]/, /[\d]/, /[\d]/, /[\d]/, '-', /[\d]/, /[\d]/, /[\d]/, /[\d]/,]
-};
-
 @Component({
   // selector: 'app-profile-edit',
   templateUrl: 'personal-data-edit.component.html',
@@ -52,12 +42,15 @@ export class PersonalDataEditComponent implements OnInit {
   // @ViewChild(UserDataComponent) userDataComponent;
   // @ViewChild(ContractDataNPComponent) contractDataNPComponent;
   status = {
-    legal_status: LEGAL_STATUSES[0].value,
-    residency: RESIDENCES[0].value,
+    legal_status: LEGAL_STATUSES[0],
+    residency: RESIDENCES[0],
   };
 
   personal_data: Object = {
-    phones: [''],
+    // phones: [''],
+    // registration_address_country:{
+    //   id: 1
+    // }
   };
 
   loadComplete:Boolean = false;
@@ -84,9 +77,7 @@ export class PersonalDataEditComponent implements OnInit {
         this.user_data = user;
         this.status.legal_status = user['legal_status'] || LEGAL_STATUSES[0].value;
         this.status.residency = user['residency'] || RESIDENCES[0].value;
-        // console.log(this.user_data['type']== 'partners');
-        this.loadComplete = true;
-        if (this.user_data['type'] == 'partners') {
+        if (this.user_data['type'] == 'partner') {
           this.LEGAL_STATUSES = [
             {
               value: 'natural_person',
@@ -97,23 +88,39 @@ export class PersonalDataEditComponent implements OnInit {
             value: 'russian_federation',
             print_name: 'Резидент РФ'
           }];
-          console.log('PARTNER!!!');
         }
+        this.personalDataService.getPersonalData()
+          .map(personal_data => {
+            personal_data['phones'] = _.isEmpty(personal_data['phones']) ? [''] : personal_data['phones'];
+            personal_data['_type'] = this.user_data['type'];
+            // console.log('personal_data = ', personal_data);
+            return personal_data
+          })
+          .subscribe(personal_data => {
+            if (!_.isEmpty(personal_data)) this.personal_data = personal_data;
+            this.loadComplete = true;
+            // if (this.personal_data['passport_date']) this.personal_data['passport_date'] = new Date(this.personal_data['passport_date']);
+          });
       });
-    this.personalDataService.getPersonalData()
-      .map(personal_data => {
-        personal_data['phones'] = _.isEmpty(personal_data['phones']) ? [''] : personal_data['phones'];
-        return personal_data
-      })
-      .subscribe(personal_data => {
-        if (!_.isEmpty(personal_data)) this.personal_data = personal_data;
-        // if (this.personal_data['passport_date']) this.personal_data['passport_date'] = new Date(this.personal_data['passport_date']);
-      });
+
   }
 
   showRules(event) {
     event.preventDefault();
+    //TODO: Show Rules
     console.log("Show Rules here");
+  }
+
+  onChangedResidence(event){
+    // console.log('onChangedResidence event = ', event);
+    if (event == 'russian_federation') {
+      if (!(this.personalDataService['registration_address_country'] && this.personalDataService['registration_address_country']['id'])){
+        this.personal_data['registration_address_country'] = {id:1}
+      }
+      if (!(this.personalDataService['postal_address_country'] && this.personalDataService['postal_address_country']['id'])){
+        this.personal_data['postal_address_country'] = {id:1}
+      }
+    }
   }
 
   save(form) {
@@ -125,10 +132,8 @@ export class PersonalDataEditComponent implements OnInit {
       return
     }
     this.notify.error('Внимание!', 'Не все поля заполнены или вы не согласились с правилами');
-    // if (!this.confirm_rules) this.notify.error('Ошибка!', 'Вы должны согласиться с правилами');
     for (let control_key in form.controls) {
       let control = form.controls[control_key];
-      // console.log("control = ", control);
       control.markAsTouched()
     }
 

@@ -1,0 +1,84 @@
+<div *ngIf="!form_view" class="btn-group" data-toggle="buttons">
+  <label class="btn btn-primary" (click)="toggle_bank_data()" [ngClass]="{active: bank_data_select == 'requisites'}">
+    Реквизиты
+  </label>
+  <label class="btn btn-primary" (click)="toggle_bank_data()" [ngClass]="{active: bank_data_select == 'card'}">
+    Карта
+  </label>
+</div>
+<div class="row" *ngIf="(bank_data_select == 'requisites' && !form_view) || (form_view && personal_data.bank_name)">
+  <label class="col-6">
+    Название банка
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.bank_name ? 'не указано': 'АО «Альфа-Банк», г. Москва'}}"
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.bank_name" name="bank_name" #bank_name="ngModel">
+    <div *ngIf="bank_name.touched && bank_name.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+  <label class="col-6">
+    БИК банка
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.bank_bic ? 'не указано': '044525593'}}"
+           [rangeLength]="[9, 9]"
+           [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
+           [(ngModel)]="personal_data.bank_bic" name="bank_bic" #bank_bic="ngModel">
+    <div *ngIf="bank_bic.touched && bank_bic.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+    <div class="error" *ngIf="bank_bic.touched && bank_bic.errors?.rangeLength">9{{ 'digits.' | translate}}</div>
+  </label>
+  <label class="col-6">
+    Корреспондентский счет
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.bank_corresponding_account ? 'не указано': '30101810900000000181'}}"
+           [rangeLength]="[20, 20]"
+           [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
+           [(ngModel)]="personal_data.bank_corresponding_account" name="bank_corresponding_account"
+           #bank_corresponding_account="ngModel">
+    <div *ngIf="bank_corresponding_account.touched && bank_corresponding_account.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+    <div class="error" *ngIf="bank_corresponding_account.touched && bank_corresponding_account.errors?.rangeLength">
+      20{{ 'digits.' | translate}}
+    </div>
+  </label>
+  <label class="col-6">
+    Расчетный счет
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.bank_current_account ? 'не указано': '30101810900000000181'}}"
+           [rangeLength]="[20, 20]"
+           [disabled]="form_view" [textMask]="{mask: MASKS.only_number, guide: false}"
+           [(ngModel)]="personal_data.bank_current_account" name="bank_current_account" #bank_current_account="ngModel">
+    <div *ngIf="bank_current_account.touched && bank_current_account.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+    <div class="error" *ngIf="bank_current_account.touched && bank_current_account.errors?.rangeLength">
+      20{{ 'digits.' | translate}}
+    </div>
+  </label>
+</div>
+<div class="row" *ngIf="(bank_data_select == 'card' && !form_view) || (form_view && personal_data.bankcard_number)">
+  <label class="col-4">
+    Номер банковской карты
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.bankcard_number ? 'не указано': '4444-4444-4444-4446-444'}}"
+           [disabled]="form_view" [textMask]="{mask: MASKS.card, guide: false}"
+           [(ngModel)]="personal_data.bankcard_number" name="bankcard_number" #bankcard_number="ngModel">
+    <div *ngIf="bankcard_number.touched && bankcard_number.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+
+  <label class="col-4">
+    Название банка-эмитента карты
+    <input class="simple-input" type="text" required
+           placeholder="{{form_view && !personal_data.bankcard_bank_name ? 'не указано': 'АО «Альфа-Банк», г. Москва'}}"
+           [disabled]="form_view"
+           [(ngModel)]="personal_data.bankcard_bank_name" name="bankcard_bank_name" #bankcard_bank_name="ngModel">
+    <div *ngIf="bankcard_bank_name.touched && bankcard_bank_name.errors?.required" class="error">
+      {{'Field may not be null.' | translate}}
+    </div>
+  </label>
+</div>
