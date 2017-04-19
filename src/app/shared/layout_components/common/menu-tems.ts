@@ -60,4 +60,18 @@ export const LEFT_MENU_ITEMS = {
       label: 'Поступлений и выплат'
     },
   ],
+  partner: [
+    {
+      link: '',
+      label: 'Клиентов'
+    },
+    {
+      link: '',
+      label: 'Партнеров'
+    },
+    {
+      link: '',
+      label: 'Поступлений и выплат'
+    },
+  ],
 };

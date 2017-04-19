@@ -22,7 +22,7 @@
   </div>
 
 </div>
-<form #personalDataForm="ngForm" novalidate>
+<form #personalDataForm="ngForm" novalidate autocomplete="off">
   <div class="row">
     <div class="col-12">
       <spoiler-block [header]="'Ваши данные'">
@@ -62,7 +62,7 @@
   <div class="row">
     <div class="col-12">
       <div class="float-right" style="padding: 15px">
-        <input type="submit" class="btn btn-secondary simple-button" style="display: inline-block" value="Редактировать"
+        <input class="btn btn-secondary simple-button" style="display: inline-block" value="Редактировать"
                (click)="edit()">
       </div>
     </div>

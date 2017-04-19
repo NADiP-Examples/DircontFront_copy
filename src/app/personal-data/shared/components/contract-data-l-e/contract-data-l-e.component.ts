@@ -37,4 +37,21 @@ export class ContractDataLEComponent implements AfterViewInit, OnDestroy {
     this.personal_data['contract_second_name'] = this.personal_data['second_name'];
     this.personal_data['contract_patronymic'] = this.personal_data['patronymic'];
   }
+
+  duplicateAddress(){
+    this.personal_data['postal_address_postcode'] = this.personal_data['registration_address_postcode'];
+    this.personal_data['postal_address_street'] = this.personal_data['registration_address_street'];
+
+
+    if (this.personal_data['registration_address_country_id']){
+      // console.log('country.id = ', this.personal_data['registration_address_country_id'])
+      this.personal_data['postal_address_country'] = {id: this.personal_data['registration_address_country_id']}
+    }
+    if (this.personal_data['registration_address_region_id']){
+      this.personal_data['postal_address_region'] = {id: this.personal_data['registration_address_region_id']}
+    }
+    if (this.personal_data['registration_address_city_id']){
+      this.personal_data['postal_address_city'] = {id: this.personal_data['registration_address_city_id']}
+    }
+  }
 }
