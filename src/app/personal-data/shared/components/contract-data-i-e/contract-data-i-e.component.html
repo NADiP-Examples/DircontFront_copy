@@ -128,7 +128,7 @@
     </div>
   </div>
   <label class="col-6">
-    Улица/дом/корпус/квартира
+    Улица, дом, корпус, квартира
     <input class="simple-input" type="text" required
            placeholder="{{form_view && !personal_data.registration_address_street ? 'не указано': 'ул. Кирова д.2 кв.4'}}"
            [disabled]="form_view"
@@ -140,7 +140,11 @@
   </label>
 </div>
 <div class="header mod-align-center">
-  <div class="text">Почтовый адрес</div>
+  <div class="text">
+    Почтовый адрес
+    <fa class="ico-duplicate" name="angle-double-down"
+        (click)="duplicateAddress()"></fa>
+  </div>
   <div class="border"></div>
 </div>
 <div class="row">
@@ -186,7 +190,7 @@
     </div>
   </div>
   <label class="col-6">
-    Улица/дом/корпус/квартира
+    Улица, дом, корпус, квартира
     <input class="simple-input" type="text" required
            placeholder="{{form_view && !personal_data.postal_address_street ? 'не указано': 'ул. Кирова д.2 кв.4'}}"
            [disabled]="form_view"
