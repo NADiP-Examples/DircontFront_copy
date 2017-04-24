@@ -11,6 +11,7 @@ import { EqualValidator } from './shared/directives/equal-validator.directive';
 // Custom Modules
 import { AuthModule } from './auth/auth.module';
 import { PersonalDataModule } from './personal-data/personal-data.module'
+import { SharedModule } from 'app/shared/shared.module'
 
 import 'rxjs/Rx'; // Not delete!! It's need for correct work with Observable
 
@@ -22,8 +23,6 @@ import { NotFoundComponent } from './not-found/not-found.comnponent';
 
 import { AuthService } from './shared/services/auth.service';
 import { isLoggedIn, isLoggedOut, isHasId }   from './shared/services/guard.service';
-import { TopMenuComponent } from './shared/components/top-menu/top-menu.component';
-import { LeftMenuComponent } from './shared/components/left-menu/left-menu.component';
 
 
 @NgModule({
@@ -33,8 +32,6 @@ import { LeftMenuComponent } from './shared/components/left-menu/left-menu.compo
     NotFoundComponent,
     CommonComponent,
     EqualValidator,
-    TopMenuComponent,
-    LeftMenuComponent
   ],
   // Набор классов представлений, которые должны использоваться в шаблонах компонентов из других модулей
   exports: [],
@@ -45,6 +42,7 @@ import { LeftMenuComponent } from './shared/components/left-menu/left-menu.compo
     HttpModule,
     AuthModule,
     PersonalDataModule,
+    SharedModule,
     TranslateModule.forRoot(),
     SimpleNotificationsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
