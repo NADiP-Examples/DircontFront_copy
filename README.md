@@ -2,14 +2,19 @@
 
 ##Install
 1. Install nvm:
-  * sudo curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
-  * source ~/.bashrc
+
+        sudo curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+        source ~/.bashrc
+
 2. Install node 7.5:
-  * nvm install 7.5
-  * nvm use 7.5
-  * nvm alias default node
+
+        nvm install 7.5
+        nvm use 7.5
+        nvm alias default node
+
 3. Install angular-cli:
-  * npm install -g @angular/cli
+
+        npm install -g @angular/cli
   
 ## Install dependencies 
 `npm install`
