@@ -5,6 +5,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ResetPassComponent } from './resetpass/resetpass.component';
 import { ConfirmResetPassComponent } from './confirm_resetpass/confirm_resetpass.component';
 import { ActivateComponent } from './activate/activate.component'
+import { InviteComponent } from './invite/invite.component'
 import { ConfirmChangeEmailComponent } from './confirm-change-email/confirm-change-email.component'
 
 import { isLoggedOut }   from 'app/shared/services/guard.service';
@@ -20,4 +21,5 @@ export const authRoutes: Routes = [
   { path: 'reset_pass', canActivate: [isLoggedOut], component: ResetPassComponent },
   { path: 'confirm_reset_pass', canActivate: [isLoggedOut], component: ConfirmResetPassComponent },
   { path: 'confirm_change_email', component: ConfirmChangeEmailComponent },
+  { path: 'invite', canActivate: [isLoggedOut], component: InviteComponent },
 ];
