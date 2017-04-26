@@ -1,14 +1,14 @@
-<div class="row">
+<div class="row employees-list">
   <div *ngIf="employees.length === 0">
     <h4 class="h4">Сотрудники отсутствуют</h4>
   </div>
-  <div>
+  <div  class="col-12">
     <employees_table (update)="updateList($event)" [employees]="employees" [isArchived]="false"></employees_table>
   </div>
-  <div>
+  <div class="col-12">
     <button type="submit" (click)="openModal()" class="btn btn-lg btn-primary pull-right">Добавить сотрудника</button>
   </div>
-  <div style="padding-top: 15px">
+  <div class="col-12" style="padding-top: 15px">
     <spoiler-block [header]="'Сотрудники в архиве'">
       <employees_table (update)="updateList($event)" [employees]="employees" [isArchived]="true"></employees_table>
     </spoiler-block>
