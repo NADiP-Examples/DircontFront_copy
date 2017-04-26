@@ -146,6 +146,25 @@ export class AuthService {
       .catch((error) => errorHandler(error));
   }
 
+  inviteUser(email: string): Observable<any> {
+    let callback = `${environment.callback_url}/invite`;
+    return this.http.post(`${environment.api_url}/auth/invite/send`, {email, callback}, {headers :this.headers})
+      .map(res => res.json())
+      .catch((error) => errorHandler(error));
+  }
+
+  inviteConfirmUser(email: string, key: string): Observable<any> {
+    return this.http.post(`${environment.api_url}/auth/invite/confirm`, {email, key}, {headers :this.headers})
+      .map(res => res.json())
+      .map((res) => {
+        Cookie.set('Authentication-Token', res.auth_token);
+        Cookie.set('user_id', res.user_id);
+      })
+      .flatMap(() => this.getSelf())
+      .map(() => this.router.navigate(['personal_data']))
+      .catch((error) => errorHandler(error));
+  }
+
   logout(): void {
     Cookie.delete('Authentication-Token');
     Cookie.delete('user_id');
