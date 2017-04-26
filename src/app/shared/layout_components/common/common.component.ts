@@ -5,6 +5,7 @@ import { AuthService } from 'app/shared/services/auth.service';
 import { PersonalDataService } from 'app/shared/services/personal-data.service'
 
 import { TOP_MENU_ITEMS, LEFT_MENU_ITEMS } from './menu-tems'
+import { ROLES } from 'app/CONSTANTS'
 
 @Component({
   selector: 'common',
@@ -14,7 +15,9 @@ import { TOP_MENU_ITEMS, LEFT_MENU_ITEMS } from './menu-tems'
 export class CommonComponent {
   top_menu_items = TOP_MENU_ITEMS.unknown;
   left_menu_items = LEFT_MENU_ITEMS.unknown;
+  ROLES = ROLES;
   disabled = false;
+  user = {};
 
   constructor(private router: Router,
               private authService: AuthService,
@@ -28,6 +31,7 @@ export class CommonComponent {
     this.personalDataService.getSelf()
       .subscribe(user => {
         // console.log('user.type = ', user['type']);
+        this.user = user;
         this.top_menu_items = TOP_MENU_ITEMS[user['type']];
         this.left_menu_items = LEFT_MENU_ITEMS[user['type']];
         this.disabled = !user['personal_id'];

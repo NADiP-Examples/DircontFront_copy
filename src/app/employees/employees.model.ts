@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Rx';
 import { AuthService } from 'app/shared/services/auth.service'
 import { Validation } from 'app/shared/services/validation.service';
 
+import { ROLES } from 'app/CONSTANTS'
 
 interface IEmployee {
   id? : number;
@@ -45,15 +46,7 @@ export class Employee implements IEmployee {
     {title: 'в архиве', value: 'in_archive'}
   ];
 
-  static ROLES = [
-    {title: 'Агент/Партнер', value: 'partner'},
-    {title: 'АП(администратор пользователя)', value: 'admin_of_user'},
-    {title: 'АН(администратор направления)', value: 'admin_of_direction'},
-    {title: 'Оператор', value: 'operator'},
-    {title: 'Бухгалтер', value: 'accountant'},
-    {title: 'Эксперт', value: 'expert'},
-    {title: 'АТП(администратор тех поддержки)', value: 'superuser'}
-  ];
+  static ROLES = ROLES;
 
   constructor(data: IEmployee = {}) {
     this.id = _.isNumber(data.id) ? data.id : undefined;
@@ -77,7 +70,7 @@ export class Employee implements IEmployee {
     let headers = authService.getHeaders();
     return http.get(`${environment.api_url}/user/${authService.user_id}/employees`, { headers })
       .map(data => data.json())
-      .map(employees => employees.map(e => new Employee(e.node)));
+      .map(employees => employees.children.map(e => new Employee(e.node)));
   }
 
   private getRoleName(): string {
