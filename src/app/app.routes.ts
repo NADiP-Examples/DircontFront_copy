@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 //Other routes
 import { authRoutes } from './auth/auth.routes'
 import { personalDataRoutes } from './personal-data/personal-data.routers'
+import { adminRoutes } from './admin/admin.routers'
 
 //Layout components - компоненты обертки (компоненты, в которы встраиваются текущие компоненты)
 import { CommonComponent } from './shared/layout_components/common/common.component';
@@ -21,5 +22,6 @@ export const appRoutes: Routes = [
     //  any routes with CommonComponent
   ]
   },
+  { path: 'admin', children: adminRoutes },
   { path: '**', component: NotFoundComponent }
 ];
