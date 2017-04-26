@@ -14,7 +14,7 @@ export class OrderByPipe implements PipeTransform {
 
     obj.sort((a, b) => {
       let [s1, s2] = orderType === 'ASC' ? [-1,1] : [1,-1];
-      return _.get(a, orderFields) < _.get(b, orderFields) ? s1 : _.get(a, orderFields) > _.get(b, orderFields) ? s2 : 0;
+      return _.get(a, orderFields) < _.get(b, orderFields) ? s1 : _.get(a, orderFields) > _.get(b, orderFields) ? s2 : 0
     });
     return obj;
   }
