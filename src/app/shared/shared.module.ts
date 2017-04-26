@@ -9,6 +9,8 @@ import { LeftMenuComponent } from './components/left-menu/left-menu.component'
 import { TopMenuComponent } from './components/top-menu/top-menu.component'
 import { Angular2FontAwesomeModule } from 'angular2-font-awesome/angular2-font-awesome'
 
+import { TitleFromPipe } from 'app/shared/pipes/titleFrom'
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -20,14 +22,15 @@ import { Angular2FontAwesomeModule } from 'angular2-font-awesome/angular2-font-a
     SpoilerBlockComponent,
     LocationComponent,
     LeftMenuComponent,
-    TopMenuComponent
+    TopMenuComponent,
+    TitleFromPipe
   ],
   declarations: [
     SpoilerBlockComponent,
     LocationComponent,
     LeftMenuComponent,
     TopMenuComponent,
-
+    TitleFromPipe
   ]
 })
 export class SharedModule {
