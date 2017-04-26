@@ -86,7 +86,7 @@ export class Employee implements IEmployee {
   }
   //
   private getFullName(): string {
-    return `${this.profile.second_name} ${this.profile.first_name[0]}.${this.profile.patronymic[0]}`
+    return `${this.profile.second_name} ${this.profile.first_name[0]}.${this.profile.patronymic ? this.profile.patronymic[0]:''}`
   }
 
   private getCompanyName(): string {

@@ -68,7 +68,7 @@ export class Validation {
     if (type_errors.length) errors.type = type_errors;
     if (second_name_errors.length) errors.second_name = second_name_errors;
     if (first_name_errors.length) errors.first_name = first_name_errors;
-    if (patronymic_errors.length) errors.patronymic = patronymic_errors;
+    if (patronymic && patronymic.length > 255) errors.patronymic = [`Поле не должно превышать 255 симполов.`];
 
     return errors
   }
