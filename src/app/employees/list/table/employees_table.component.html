@@ -2,30 +2,35 @@
   <table class="table table-bordered table-employees">
     <thead>
       <tr>
-        <td role="button" (click)="sort('type')">
+        <th rowspan="2" role="button" (click)="sort('type')">
           Роль
-          <span class="fa" [ngClass]="{'fa-sort-asc': sortData === 'type', 'fa-sort-desc': sortData === '-type'}"></span>
-        </td>
-        <td>Компания</td>
-        <td>Направление</td>
-        <td role="button" (click)="sort('profile.second_name')">
+          <span class="fa fa-sort" [ngClass]="{'fa-sort-asc': sortData === 'type', 'fa-sort-desc': sortData === '-type'}"></span>
+        </th>
+        <th rowspan="2">Компания</th>
+        <th rowspan="2">Направление</th>
+        <th rowspan="2" role="button" (click)="sort('profile.second_name')">
           ФИО
-          <span class="fa" [ngClass]="{'fa-sort-asc': sortData === 'profile.second_name', 'fa-sort-desc': sortData === '-profile.second_name'}"></span>
-        </td>
-        <td>Статус</td>
-        <td>Права на торги</td>
-        <td>Права на KK</td>
-        <td>Торгов</td>
-        <td>Стоимость услуг</td>
+          <span class="fa fa-sort" [ngClass]="{'fa-sort-asc': sortData === 'profile.second_name', 'fa-sort-desc': sortData === '-profile.second_name'}"></span>
+        </th>
+        <th rowspan="2">Статус</th>
+        <th colspan="2">Права на</th>
+        <th rowspan="2">Торгов</th>
+        <th rowspan="2">Стоимость услуг</th>
+      </tr>
+      <tr>
+        <th>Торги</th>
+        <th>КК</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let employee of _employees | orderBy: sortData">
         <td>{{ employee.getRoleName() }}</td>
         <td>{{ employee.getCompanyName() }}</td>
-        <td>направление не выбрано</td>
+        <td>
+          <a href="/employees">направление не выбрано</a>
+        </td>
         <td style="max-width: 175px; min-width: 175px;word-wrap: break-word;">
-          <span>{{ employee.getFullName() }} &nbsp;</span>
+          <a  href="/employees">{{ employee.getFullName() }}</a>&nbsp;
           <span class="fa fa-vcard-o" aria-hidden="true"></span>
           <span class="fa fa-comments-o" aria-hidden="true"></span>
           <span class="fa fa-book" aria-hidden="true"></span>
