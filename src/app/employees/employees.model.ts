@@ -90,6 +90,15 @@ export class Employee implements IEmployee {
     return company
   }
 
+  private getProfileInfo(): string {
+    let template = `<div>Email: ${this.email}</div>`;
+    if (_.isArray(this.profile.phones)) {
+      let phones = this.profile.phones.map(phone => `<div>&nbsp;${phone}</div>`);
+      template = `${template} <div>Телефон:<div>${phones.join('')}`
+    }
+    return template
+  }
+
   public invite(injector: Injector): Observable<any> {
     this.errors = {};
 
