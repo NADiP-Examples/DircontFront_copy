@@ -1,0 +1,57 @@
+<div *ngIf="_employees.length > 0">
+  <table class="table table-bordered table-employees">
+    <thead>
+      <tr>
+        <td role="button" (click)="sort('type')">
+          Роль
+          <span class="fa" [ngClass]="{'fa-sort-asc': sortData === 'type', 'fa-sort-desc': sortData === '-type'}"></span>
+        </td>
+        <td>Компания</td>
+        <td>Направление</td>
+        <td role="button" (click)="sort('profile.second_name')">
+          ФИО
+          <span class="fa" [ngClass]="{'fa-sort-asc': sortData === 'profile.second_name', 'fa-sort-desc': sortData === '-profile.second_name'}"></span>
+        </td>
+        <td>Статус</td>
+        <td>Права на торги</td>
+        <td>Права на KK</td>
+        <td>Торгов</td>
+        <td>Стоимость услуг</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of _employees | orderBy: sortData">
+        <td>{{ employee.getRoleName() }}</td>
+        <td>{{ employee.getCompanyName() }}</td>
+        <td>направление не выбрано</td>
+        <td style="max-width: 175px; min-width: 175px;word-wrap: break-word;">
+          <span>{{ employee.getFullName() }} &nbsp;</span>
+          <span class="fa fa-vcard-o" aria-hidden="true"></span>
+          <span class="fa fa-comments-o" aria-hidden="true"></span>
+          <span class="fa fa-book" aria-hidden="true"></span>
+        </td>
+        <td  style="min-width: 190px; max-width: 190px;">
+          <select class="simple-select" [(ngModel)]="employee.status" (change)="switchStatus(employee)">
+            <option *ngFor="let status of STATUSES" [ngValue]="status.value">{{status.title}}</option>
+          </select>
+        </td>
+        <td>
+            <span class="fa fa-2x" (click)="employee.bidding_rights = !employee.bidding_rights"
+                  [ngClass]="{'fa-plus-circle': !employee.bidding_rights, 'fa-minus-circle': employee.bidding_rights}"></span>
+        </td>
+        <td>
+            <span class="fa fa-2x" (click)="employee.kk_rights = !employee.kk_rights"
+                  [ngClass]="{'fa-plus-circle': !employee.kk_rights, 'fa-minus-circle': employee.kk_rights}"></span>
+        </td>
+        <td>
+          <span>0</span>
+          <span class="fa fa-calendar"></span>
+        </td>
+        <td>
+          <span>0</span>
+          <span class="fa fa-calendar"></span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,20 +1,21 @@
 <div class="row user-info">
   <div class="col-6">
-        <div class="btn-group" data-toggle="buttons">
-          <label class="btn btn-primary active">
-            <input readonly type="radio">
-            {{status.residency.print_name}}
-          </label>
-          <label class="btn btn-primary">
-            <input readonly type="radio">
-            {{status.legal_status.print_name}}
-          </label>
-        </div>
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-primary active">
+        <input readonly type="radio">
+        {{user_data.residency | titleFrom: RESIDENCES}}
+      </label>
+      <label class="btn btn-primary">
+        <input readonly type="radio">
+        {{user_data.legal_status | titleFrom: LEGAL_STATUSES}}
+      </label>
+    </div>
   </div>
   <div class="col-4">
     <span>{{full_name}}</span>
     <div>
-      <fa name="file-text-o"></fa><a href="" (click)="$event.preventDefault();">Скачать договор</a>
+      <fa name="file-text-o"></fa>
+      <a href="" (click)="$event.preventDefault();">Скачать договор</a>
     </div>
   </div>
   <div class="col-2">
@@ -30,10 +31,11 @@
       </spoiler-block>
     </div>
   </div>
-  <div class="row" *ngIf="status.residency.value == 'russian_federation' || status.legal_status.value=='legal_entity'">
+  {{user_data.legal_status}}
+  <div class="row" *ngIf="user_data.residency == 'russian_federation' || user_data.legal_status == 'legal_entity'">
     <div class="col-12">
       <spoiler-block [header]="'Данные для договора'">
-        <div [ngSwitch]="status.legal_status.value">
+        <div [ngSwitch]="user_data.legal_status">
           <contract-data-np *ngSwitchCase="'natural_person'" [form_view]="true"
                             [personal_data]="personal_data"></contract-data-np>
           <contract-data-ie *ngSwitchCase="'individual_entrepreneur'" [form_view]="true"
@@ -46,15 +48,17 @@
       </spoiler-block>
     </div>
   </div>
-  <div *ngIf="status.residency.value == 'russian_federation' &&
-  (status.legal_status.value == 'individual_entrepreneur' || status.legal_status.value == 'legal_entity')"
+  <div *ngIf="user_data.residency == 'russian_federation' &&
+  (user_data.legal_status == 'individual_entrepreneur' || user_data.legal_status == 'legal_entity')"
        class="row">
     <div class="col-12">
       <spoiler-block
-        [header]="status.legal_status.value == 'legal_entity'?'Банковские реквизиты': 'банковские реквизиты или номер банковской карты'">
-        <div [ngSwitch]="status.legal_status.value">
-          <bank-data-ie [form_view]="true" *ngSwitchCase="'individual_entrepreneur'" [personal_data]="personal_data"></bank-data-ie>
-          <bank-data-le [form_view]="true" *ngSwitchCase="'legal_entity'" [personal_data]="personal_data"></bank-data-le>
+        [header]="user_data.legal_status == 'legal_entity'?'Банковские реквизиты': 'банковские реквизиты или номер банковской карты'">
+        <div [ngSwitch]="user_data.legal_status">
+          <bank-data-ie [form_view]="true" *ngSwitchCase="'individual_entrepreneur'"
+                        [personal_data]="personal_data"></bank-data-ie>
+          <bank-data-le [form_view]="true" *ngSwitchCase="'legal_entity'"
+                        [personal_data]="personal_data"></bank-data-le>
         </div>
       </spoiler-block>
     </div>

@@ -45,10 +45,10 @@ export class PersonalDataViewComponent implements OnInit {
     this.personalDataService.getSelf()
       .subscribe(user => {
         this.user_data = user;
-        this.status.legal_status = user['legal_status'];
-        this.status.residency = user['residency'];
-        this.status.legal_status = LEGAL_STATUSES.find(status => status.value == user['legal_status']) || LEGAL_STATUSES[0];
-        this.status.residency = RESIDENCES.find(resid => resid.value ==user['residency']) || RESIDENCES[0];
+        // this.status.legal_status = user['legal_status'];
+        // this.status.residency = user['residency'];
+        // this.status.legal_status = LEGAL_STATUSES.find(status => status.value == user['legal_status']) || LEGAL_STATUSES[0];
+        // this.status.residency = RESIDENCES.find(resid => resid.value ==user['residency']) || RESIDENCES[0];
       });
     this.personalDataService.getPersonalData()
       .subscribe(personal_data => {

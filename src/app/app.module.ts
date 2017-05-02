@@ -12,6 +12,7 @@ import { EqualValidator } from './shared/directives/equal-validator.directive';
 import { AuthModule } from './auth/auth.module';
 import { PersonalDataModule } from './personal-data/personal-data.module'
 import { SharedModule } from 'app/shared/shared.module'
+import { EmployeesModule } from 'app/employees/employees.module'
 
 import 'rxjs/Rx'; // Not delete!! It's need for correct work with Observable
 
@@ -43,6 +44,7 @@ import { isLoggedIn, isLoggedOut, isHasId }   from './shared/services/guard.serv
     AuthModule,
     PersonalDataModule,
     SharedModule,
+    EmployeesModule,
     TranslateModule.forRoot(),
     SimpleNotificationsModule.forRoot(),
     RouterModule.forRoot(appRoutes),

@@ -1,0 +1,70 @@
+<div class="row">
+  <div *ngIf="employees.length === 0">
+    <h4 class="h4">Сотрудники отсутствуют</h4>
+  </div>
+  <div>
+    <employees_table (update)="updateList($event)" [employees]="employees" [isArchived]="false"></employees_table>
+  </div>
+  <div>
+    <button type="submit" (click)="openModal()" class="btn btn-lg btn-primary pull-right">Добавить сотрудника</button>
+  </div>
+  <div style="padding-top: 15px">
+    <spoiler-block [header]="'Сотрудники в архиве'">
+      <employees_table (update)="updateList($event)" [employees]="employees" [isArchived]="true"></employees_table>
+    </spoiler-block>
+  </div>
+</div>
+
+
+<modal #invite_modal>
+  <modal-header>
+    <h4 class="modal-title">Добавить нового сотрудника</h4>
+  </modal-header>
+  <modal-body>
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group" [ngClass]="{'has-danger': user.errors.email}">
+          <label>Email</label>
+          <input type="email" [(ngModel)]="user.email" placeholder="ivanov@mail.com" class="form-control input-lg" />
+          <div class="form-control-feedback" *ngFor="let err of user.errors.email">{{ err | translate }}</div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="form-group" [ngClass]="{'has-danger': user.errors.type}">
+          <label>Роль</label>
+          <select class="simple-select" [(ngModel)]="user.type">
+            <option *ngFor="let role of ROLES" [ngValue]="role.value">{{role.title}}</option>
+          </select>
+
+          <div class="form-control-feedback" *ngFor="let err of user.errors.type">{{ err | translate }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group" [ngClass]="{'has-danger': user.errors.second_name}">
+          <label>Фамилия</label>
+          <input type="text" [(ngModel)]="user.profile.second_name" placeholder="Иванов" class="form-control input-lg" />
+          <div class="form-control-feedback" *ngFor="let err of user.errors.second_name">{{ err | translate }}</div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group" [ngClass]="{'has-danger': user.errors.first_name}">
+          <label>Имя</label>
+          <input type="text" [(ngModel)]="user.profile.first_name" placeholder="Иван" class="form-control input-lg" />
+          <div class="form-control-feedback" *ngFor="let err of user.errors.first_name">{{ err | translate }}</div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group" [ngClass]="{'has-danger': user.errors.patronymic}">
+          <label>Отчество</label>
+          <input type="text" [(ngModel)]="user.profile.patronymic" placeholder="Иванович" class="form-control input-lg" />
+          <div class="form-control-feedback" *ngFor="let err of user.errors.patronymic">{{ err | translate }}</div>
+        </div>
+      </div>
+    </div>
+  </modal-body>
+  <modal-footer>
+    <button type="submit" (click)="inviteEmployee()" class="btn btn-lg btn-primary">Отправить приглашение</button>
+  </modal-footer>
+</modal>

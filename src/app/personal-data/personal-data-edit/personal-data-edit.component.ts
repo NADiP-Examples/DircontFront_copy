@@ -9,26 +9,26 @@ import { Router } from "@angular/router";
 export let LEGAL_STATUSES = [
   {
     value: 'natural_person',
-    print_name: 'Физ.лицо'
+    title: 'Физ.лицо'
   },
   {
     value: 'individual_entrepreneur',
-    print_name: 'ИП'
+    title: 'ИП'
   },
   {
     value: 'legal_entity',
-    print_name: 'Юр.лицо'
+    title: 'Юр.лицо'
   },
 ];
 
 export const RESIDENCES = [
   {
     value: 'russian_federation',
-    print_name: 'Резидент РФ'
+    title: 'Резидент РФ'
   },
   {
     value: 'other',
-    print_name: 'Иное'
+    title: 'Иное'
   },
 ];
 
@@ -81,12 +81,12 @@ export class PersonalDataEditComponent implements OnInit {
           this.LEGAL_STATUSES = [
             {
               value: 'natural_person',
-              print_name: 'Физ.лицо'
+              title: 'Физ.лицо'
             }
           ];
           this.RESIDENCES = [{
             value: 'russian_federation',
-            print_name: 'Резидент РФ'
+            title: 'Резидент РФ'
           }];
         }
         this.personalDataService.getPersonalData()
@@ -125,6 +125,12 @@ export class PersonalDataEditComponent implements OnInit {
 
   save(form) {
     if (form.valid) {
+      //FIXME: Убрать этот костыль, когда будет готов нормальный LocationComponent
+      this.personal_data['postal_address_city_id'] = this.personal_data['postal_address_city_id'] ? this.personal_data['postal_address_city_id']: NaN;
+      this.personal_data['postal_address_region_id'] = this.personal_data['postal_address_region_id'] ? this.personal_data['postal_address_region_id']: NaN;
+      this.personal_data['registration_address_city_id'] = this.personal_data['registration_address_city_id'] ? this.personal_data['registration_address_city_id']: NaN;
+      this.personal_data['registration_address_region_id'] = this.personal_data['registration_address_region_id'] ? this.personal_data['registration_address_region_id']: NaN;
+
       this.personalDataService.setPersonalData(this.personal_data, this.status)
         .subscribe(res => {
           this.router.navigate(['personal_data'])
