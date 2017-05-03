@@ -8,6 +8,7 @@ import { ToolTipModule } from 'angular2-tooltip'
 
 import { EmployeesListComponent } from 'app/employees/list/employees_list.component';
 import { EmployeesTableComponent } from 'app/employees/list/table/employees_table.compoent'
+import { LogsModalComponent } from 'app/employees/list/logs_modal/logs_modal.component'
 
 import { OrderByPipe } from 'app/shared/pipes/orderBy';
 
@@ -23,6 +24,7 @@ import { OrderByPipe } from 'app/shared/pipes/orderBy';
   declarations: [
     EmployeesListComponent,
     EmployeesTableComponent,
+    LogsModalComponent,
     OrderByPipe
   ],
 })

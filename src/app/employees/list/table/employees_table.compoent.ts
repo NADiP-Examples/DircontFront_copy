@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter, Injector, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Injector, OnChanges, ViewChild } from '@angular/core';
 import { Employee } from '../../employees.model'
+import { LogsModalComponent } from '../logs_modal/logs_modal.component'
 
 
 @Component({
@@ -12,6 +13,9 @@ export class EmployeesTableComponent implements OnChanges  {
   public _employees: Array<Employee> = [];
   public STATUSES: Array<Object> = Employee.STATUSES;
   private sortData: string = '';
+
+  @ViewChild(LogsModalComponent)
+  private logs_component: LogsModalComponent;
 
   @Input()
   set employees(employees: Array<Employee>) {
@@ -38,6 +42,10 @@ export class EmployeesTableComponent implements OnChanges  {
 
   private employeesFilter(employees: Array<Employee>): Array<Employee> {
     return employees.filter(e => this._isArchived ? e.status === 'in_archive' : e.status !== 'in_archive')
+  }
+
+  private showLogs(employee: Employee): void {
+    this.logs_component.setLogs(employee);
   }
 
 }

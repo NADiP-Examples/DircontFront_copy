@@ -44,7 +44,6 @@ export class ContractDataIEComponent implements AfterViewInit, OnDestroy {
 
 
     if (this.personal_data['registration_address_country_id']){
-      // console.log('country.id = ', this.personal_data['registration_address_country_id'])
       this.personal_data['postal_address_country'] = {id: this.personal_data['registration_address_country_id']}
     }
     if (this.personal_data['registration_address_region_id']){

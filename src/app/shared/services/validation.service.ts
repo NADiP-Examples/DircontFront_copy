@@ -62,7 +62,6 @@ export class Validation {
     let type_errors = USER_TYPES.find(t => t === type) ? [] : ['Выбрана неверная роль пользователя'];
     let second_name_errors = Validation.ValidateField(second_name, 'фамилия');
     let first_name_errors = Validation.ValidateField(first_name, 'имя');
-    let patronymic_errors = Validation.ValidateField(patronymic, 'отчество');
 
     if (email_errors.length) errors.email = email_errors;
     if (type_errors.length) errors.type = type_errors;

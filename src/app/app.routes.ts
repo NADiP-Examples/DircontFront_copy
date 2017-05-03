@@ -12,8 +12,7 @@ import { CommonComponent } from './shared/layout_components/common/common.compon
 import { NotFoundComponent } from './not-found/not-found.comnponent';
 
 //Guards
-import { isLoggedIn }   from './shared/services/guard.service';
-import { isHasId }   from 'app/shared/services/guard.service';
+import { isLoggedIn, isHasId, isNotBlocked }   from 'app/shared/services/guard.service';
 
 export const appRoutes: Routes = [
   { path: '', canActivate: [isLoggedIn], redirectTo: '/personal_data', pathMatch: 'full' },
@@ -21,7 +20,7 @@ export const appRoutes: Routes = [
   {
     path: '', canActivate: [isLoggedIn], component: CommonComponent, children: [
     { path: 'personal_data', children: personalDataRoutes },
-    { path: 'employees', canActivate: [isHasId], children: employeesRoutes},
+    { path: 'employees', canActivate: [isHasId, isNotBlocked], children: employeesRoutes},
     //  any routes with CommonComponent
   ]
   },

@@ -93,7 +93,6 @@ export class PersonalDataEditComponent implements OnInit {
           .map(personal_data => {
             personal_data['phones'] = _.isEmpty(personal_data['phones']) ? [''] : personal_data['phones'];
             personal_data['_type'] = this.user_data['type'];
-            // console.log('personal_data = ', personal_data);
             return personal_data
           })
           .subscribe(personal_data => {
@@ -108,11 +107,9 @@ export class PersonalDataEditComponent implements OnInit {
   showRules(event) {
     event.preventDefault();
     //TODO: Show Rules
-    console.log("Show Rules here");
   }
 
   onChangedResidence(event){
-    // console.log('onChangedResidence event = ', event);
     if (event == 'russian_federation') {
       if (!(this.personalDataService['registration_address_country'] && this.personalDataService['registration_address_country']['id'])){
         this.personal_data['registration_address_country'] = {id:1}

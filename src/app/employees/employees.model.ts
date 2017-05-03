@@ -124,4 +124,11 @@ export class Employee implements IEmployee {
     let headers = authService.getHeaders();
     return http.put(`${environment.api_url}/user/${this.id}`, {status: this.status}, { headers })
   }
+
+  public getLogs(injector: Injector): Observable<any> {
+    let authService = injector.get(AuthService);
+    let http = injector.get(Http);
+    let headers = authService.getHeaders();
+    return http.get(`${environment.api_url}/user/${this.id}/status_log`, { headers }).map(data => data.json())
+  }
 }

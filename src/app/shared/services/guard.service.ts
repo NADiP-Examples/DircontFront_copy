@@ -46,3 +46,15 @@ export  class isHasId implements CanActivate {
     });
   }
 }
+
+@Injectable()
+export  class isNotBlocked implements CanActivate {
+  constructor (private router: Router, private personalDataService: PersonalDataService) {}
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> | boolean {
+    return this.personalDataService.getSelf().map(user => {
+      if (user.status === 'blocked') this.router.navigate(['personal_data']);
+      return user.status !== 'blocked'
+    });
+  }
+}
