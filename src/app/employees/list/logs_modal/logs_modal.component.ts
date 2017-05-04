@@ -31,6 +31,6 @@ export class LogsModalComponent  {
 
     let created_at = this.datePipe.transform(log.created_at, 'dd.MM.yyyy');
     let full_name = `${log.editor.profile.second_name} ${log.editor.profile.first_name[0]}.${log.editor.profile.patronymic ? log.editor.profile.patronymic[0]:''}`;
-    return `${full_name}, ${created_at}, ${STATUSES[log.prevStatus]} —> ${STATUSES[log.status]}`
+    return `${full_name}, ${created_at}, ${STATUSES[log.previous_status]} —> ${STATUSES[log.status]}`
   }
 }
