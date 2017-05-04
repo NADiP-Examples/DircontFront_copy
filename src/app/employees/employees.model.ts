@@ -70,7 +70,7 @@ export class Employee implements IEmployee {
     let headers = authService.getHeaders();
     return http.get(`${environment.api_url}/user/${authService.user_id}/employees`, { headers })
       .map(data => data.json())
-      .map(employees => employees.children.map(e => new Employee(e.node)));
+      .map(employees => employees.children ? employees.children.map(e => new Employee(e.node)) : []);
   }
 
   private getRoleName(): string {
