@@ -9,7 +9,8 @@ import { LeftMenuComponent } from './components/left-menu/left-menu.component'
 import { TopMenuComponent } from './components/top-menu/top-menu.component'
 import { Angular2FontAwesomeModule } from 'angular2-font-awesome/angular2-font-awesome'
 
-import { TitleFromPipe } from 'app/shared/pipes/titleFrom'
+import { TitleFromPipe } from 'app/shared/pipes/titleFrom';
+import { AdminLayoutComponent } from './layout_components/admin-layout/admin-layout.component'
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { TitleFromPipe } from 'app/shared/pipes/titleFrom'
     LocationComponent,
     LeftMenuComponent,
     TopMenuComponent,
-    TitleFromPipe
+    TitleFromPipe,
+    AdminLayoutComponent
   ]
 })
 export class SharedModule {

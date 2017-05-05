@@ -10,7 +10,7 @@
 
 export const TOP_MENU_ITEMS = {
   unknown: [],
-  admin_of_user: [
+  superuser: [
     {
       link: '/personal_data',
       label: 'Личные данные'
@@ -20,57 +20,43 @@ export const TOP_MENU_ITEMS = {
       label: 'Сотрудники'
     },
     {
-      link: '/black-white-list',
+      link: '/users',
+      label: 'Пользователи'
+    },
+    {
+      link: '',
       label: 'Черно-белый список'
     },
     {
-      link: '/faq',
+      link: '',
       label: 'ЧАВО'
     },
   ],
-  admin_of_direction: [
+  accountant: [
     {
       link: '/personal_data',
       label: 'Личные данные'
     },
     {
-      link: '/employees',
-      label: 'Сотрудники'
-    },
-    {
-      link: '/black-white-list',
+      link: '',
       label: 'Черно-белый список'
     },
     {
-      link: '/faq',
+      link: '',
       label: 'ЧАВО'
     },
   ],
-  operator: [
+  expert: [
     {
       link: '/personal_data',
       label: 'Личные данные'
     },
     {
-      link: '/black-white-list',
+      link: '',
       label: 'Черно-белый список'
     },
     {
-      link: '/faq',
-      label: 'ЧАВО'
-    },
-  ],
-  partner: [
-    {
-      link: '/personal_data',
-      label: 'Личные данные'
-    },
-    {
-      link: '/black-white-list',
-      label: 'Черно-белый список'
-    },
-    {
-      link: '/faq',
+      link: '',
       label: 'ЧАВО'
     },
   ]

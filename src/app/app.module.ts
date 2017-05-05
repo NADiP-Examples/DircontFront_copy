@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { PersonalDataModule } from './personal-data/personal-data.module'
 import { SharedModule } from 'app/shared/shared.module'
 import { EmployeesModule } from 'app/employees/employees.module'
+import { AdminModule } from 'app/admin/admin.module'
 
 import 'rxjs/Rx'; // Not delete!! It's need for correct work with Observable
 
@@ -45,6 +46,7 @@ import { isLoggedIn, isLoggedOut, isHasId }   from './shared/services/guard.serv
     PersonalDataModule,
     SharedModule,
     EmployeesModule,
+    AdminModule,
     TranslateModule.forRoot(),
     SimpleNotificationsModule.forRoot(),
     RouterModule.forRoot(appRoutes),

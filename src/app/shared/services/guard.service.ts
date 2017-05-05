@@ -46,3 +46,18 @@ export  class isHasId implements CanActivate {
     });
   }
 }
+
+@Injectable()
+export  class isAdmin implements CanActivate {
+  constructor (private router: Router, private personalDataService: PersonalDataService) {}
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> | boolean {
+    return this.personalDataService.getSelf().map(user => {
+      if (user['personal_id']) {
+        return true
+      }
+      this.router.navigate(['personal_data', 'edit']);
+      return false;
+    });
+  }
+}

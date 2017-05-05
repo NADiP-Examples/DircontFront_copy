@@ -8,6 +8,7 @@ import { employeesRoutes }   from 'app/employees/employees.routes';
 
 //Layout components - компоненты обертки (компоненты, в которы встраиваются текущие компоненты)
 import { CommonComponent } from './shared/layout_components/common/common.component';
+import { AdminLayoutComponent } from './shared/layout_components/admin-layout/admin-layout.component'
 
 //Other components
 import { NotFoundComponent } from './not-found/not-found.comnponent';
@@ -22,10 +23,10 @@ export const appRoutes: Routes = [
   {
     path: '', canActivate: [isLoggedIn], component: CommonComponent, children: [
     { path: 'personal_data', children: personalDataRoutes },
-    { path: 'employees', canActivate: [isHasId], children: employeesRoutes},
+    { path: 'employees', canActivate: [isHasId], children: employeesRoutes },
     //  any routes with CommonComponent
   ]
   },
-  { path: 'admin', children: adminRoutes },
+  { path: 'admin', component: AdminLayoutComponent, children: adminRoutes },
   { path: '**', component: NotFoundComponent }
 ];

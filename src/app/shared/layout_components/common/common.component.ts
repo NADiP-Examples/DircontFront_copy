@@ -8,7 +8,7 @@ import { TOP_MENU_ITEMS, LEFT_MENU_ITEMS } from './menu-tems'
 import { ROLES } from 'app/CONSTANTS'
 
 @Component({
-  selector: 'common',
+  // selector: 'common',
   templateUrl: './common.component.html',
   styleUrls: ['./common.component.sass']
 })
