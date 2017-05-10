@@ -24,13 +24,10 @@ export class CommonComponent {
               private personalDataService: PersonalDataService) {
 
     // TODO: Заменить костыль нормальным решением.
-    router.events.subscribe((val)=> {
-      if (val.url == '/personal_data') {this.disabled = false};
-    });
+    router.events.subscribe(val => this.disabled = val.url !== '/personal_data');
 
     this.personalDataService.getSelf()
       .subscribe(user => {
-        // console.log('user.type = ', user['type']);
         this.user = user;
         this.top_menu_items = TOP_MENU_ITEMS[user['type']];
         this.left_menu_items = LEFT_MENU_ITEMS[user['type']];

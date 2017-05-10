@@ -24,7 +24,7 @@ import { CommonComponent } from './shared/layout_components/common/common.compon
 import { NotFoundComponent } from './not-found/not-found.comnponent';
 
 import { AuthService } from './shared/services/auth.service';
-import { isLoggedIn, isLoggedOut, isHasId }   from './shared/services/guard.service';
+import { isLoggedIn, isLoggedOut, isHasId, isNotBlocked }   from './shared/services/guard.service';
 
 
 @NgModule({
@@ -57,7 +57,8 @@ import { isLoggedIn, isLoggedOut, isHasId }   from './shared/services/guard.serv
     AuthService,
     isLoggedIn,
     isLoggedOut,
-    isHasId
+    isHasId,
+    isNotBlocked
   ],
   // Корневой компонент, который вызывается по умолчанию при загрузке приложения
   bootstrap: [AppComponent]

@@ -22,7 +22,6 @@ export class SelectStatusComponent implements OnInit, OnChanges {
   }
 
   onLoadComplete(){
-    // console.log('Load Complete');
     if (this.status['residency'] == 'other') this.tmp = this.tmp ? this.tmp : this.LEGAL_STATUSES.splice(1, 1);
     this.onChangedResidence.emit(this.status['residency']);
   }

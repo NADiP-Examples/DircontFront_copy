@@ -1,0 +1,15 @@
+<modal #log_modal cssClass="log_modal">
+  <modal-header>
+    <h4 class="modal-title">История изменения статусов</h4>
+  </modal-header>
+  <modal-body>
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="text-center" *ngIf="_logs.length < 1">Данные отсутсвуют</h4>
+      </div>
+      <div class="col-md-12" *ngFor="let log of _logs; let i = index">
+        {{i+1}}) {{ formatLog(log) }}
+      </div>
+    </div>
+  </modal-body>
+</modal>

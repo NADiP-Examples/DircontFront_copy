@@ -8,6 +8,7 @@
   "User not found": "Такого пользователя не существует!",
   "Access denied": "У Вас нет доступа для выполнения этого действия!",
   "Not authenticated!": "Вы не авторизированы!",
+  "Your account has been deleted": "Ваш аккаунт удален руководителем",
 
 
   "Not a valid string.": "Не валидная строчка.",
@@ -21,6 +22,5 @@
   "Invalid value.": "Не валидное значение.",
   "Shorter than minimum length 3.": "Не менее трех символов.",
   "Passwords do not match.": "Пароли не совпадают.",
-  "digits.": "цифр.",
   "digits.": "цифр."
 }

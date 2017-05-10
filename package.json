@@ -24,6 +24,7 @@
     "angular2-notifications": "^0.4.53",
     "angular2-recaptcha": "^0.3.7",
     "angular2-text-mask": "^7.0.0",
+    "angular2-tooltip": "^3.1.0",
     "bootstrap": "^4.0.0-alpha.6",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",

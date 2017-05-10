@@ -70,7 +70,7 @@ export class Employee implements IEmployee {
     let headers = authService.getHeaders();
     return http.get(`${environment.api_url}/user/${authService.user_id}/employees`, { headers })
       .map(data => data.json())
-      .map(employees => employees.map(e => new Employee(e.node)));
+      .map(employees => employees.children ? employees.children.map(e => new Employee(e.node)) : []);
   }
 
   private getRoleName(): string {
@@ -88,6 +88,15 @@ export class Employee implements IEmployee {
     if (this.legal_status === 'individual_entrepreneur') company = `ИП ${this.profile.second_name}`;
     if (this.legal_status === 'legal_entity') company = `${this.profile.organization_type} ${this.profile.organization_name}`;
     return company
+  }
+
+  private getProfileInfo(): string {
+    let template = `<div>Email: ${this.email}</div>`;
+    if (_.isArray(this.profile.phones)) {
+      let phones = this.profile.phones.map(phone => `<div>&nbsp;${phone}</div>`);
+      template = `${template} <div>Телефон:<div>${phones.join('')}`
+    }
+    return template
   }
 
   public invite(injector: Injector): Observable<any> {
@@ -114,5 +123,12 @@ export class Employee implements IEmployee {
     let http = injector.get(Http);
     let headers = authService.getHeaders();
     return http.put(`${environment.api_url}/user/${this.id}`, {status: this.status}, { headers })
+  }
+
+  public getLogs(injector: Injector): Observable<any> {
+    let authService = injector.get(AuthService);
+    let http = injector.get(Http);
+    let headers = authService.getHeaders();
+    return http.get(`${environment.api_url}/user/${this.id}/status_log`, { headers }).map(data => data.json())
   }
 }
