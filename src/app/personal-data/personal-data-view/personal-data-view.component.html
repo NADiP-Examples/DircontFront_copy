@@ -15,7 +15,7 @@
     <span>{{full_name}}</span>
     <div>
       <fa name="file-text-o"></fa>
-      <a href="" (click)="$event.preventDefault();">Скачать договор</a>
+      <a [ngClass]="{disabled:!contractUrl}"  download href="{{contractUrl}}">Скачать договор</a>
     </div>
   </div>
   <div class="col-2">

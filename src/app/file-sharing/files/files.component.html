@@ -1,0 +1,13 @@
+<div class="row" style="padding-top: 15px">
+  <div class="col-12">
+    <h5>Шаблон Договора</h5>
+    <div>
+      <a download *ngIf="currentContractTemplate" href="{{currentContractTemplate}}">Загруженный шаблон</a>
+      <span *ngIf="!currentContractTemplate">
+        Шаблон не загружен
+      </span>
+    </div>
+    <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".doc,.docx">
+    <button (click)="fileUpload()" [disabled]="!file">Загрузить</button>
+  </div>
+</div>

@@ -4,10 +4,12 @@
           aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" [routerLink]="['']">Dircont</a>
+  <a class="navbar-brand" [routerLink]="['']">
+    {{user.type == 'superuser' || user.type == 'expert' || user.type == 'accountant'?'Admin':'Dircont'}}
+  </a>
   <button>{{user.type | titleFrom: ROLES}}</button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <top-menu style="width: 100%" [menu_items]="top_menu_items" [menu_disabled]="disabled"></top-menu>
+    <top-menu style="width: 100%" [menu_items]="top_menu_items" [menu_disabled]="menu_disabled"></top-menu>
     <button class="btn btn-primary" (click)="authService.logout()">
       Выйти
     </button>

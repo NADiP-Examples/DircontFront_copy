@@ -48,12 +48,17 @@ export class EmployeesListComponent {
     this.personalDataService.getSelf().subscribe(user => {
       if (user.type === 'admin_of_user') {
         this.ROLES = [
-          {title: 'АН(администратор направления)', value: 'admin_of_direction'},
-          {title: 'Оператор', value: 'operator'}
+          { title: 'АН(администратор направления)', value: 'admin_of_direction' },
+          { title: 'Оператор', value: 'operator' }
         ]
-      }
-      if (this.user.type === 'admin_of_direction') {
-        this.ROLES = [{title: 'Оператор', value: 'operator'}]
+      } else if (user.type === 'admin_of_direction') {
+        this.ROLES = [{ title: 'Оператор', value: 'operator' }]
+      } else if (user.type === 'superuser') {
+        console.log('!!!');
+        this.ROLES = [
+          { title: 'Бухгалтер', value: 'accountant' },
+          { title: 'Эксперт', value: 'expert' }
+        ]
       }
     })
   }

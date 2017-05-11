@@ -1,5 +1,8 @@
 <ul class="nav nav-pills nav-fill top-menu">
   <li *ngFor="let item of menu_items">
-    <a [ngClass]="{disabled:menu_disabled}" class="nav-link" [routerLink]="[item.link]" [routerLinkActive]="['active']">{{item.label}}</a>
+    <a [ngClass]="{disabled: (menu_disabled || item.link == 'disable')}" class="nav-link" [routerLink]="[item.link]" [routerLinkActive]="['active']">{{item.label}}</a>
+  </li>
+  <li>
+    disabled: {{menu_disabled}}
   </li>
 </ul>

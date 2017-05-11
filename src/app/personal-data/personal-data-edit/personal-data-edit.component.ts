@@ -42,8 +42,8 @@ export class PersonalDataEditComponent implements OnInit {
   // @ViewChild(UserDataComponent) userDataComponent;
   // @ViewChild(ContractDataNPComponent) contractDataNPComponent;
   status = {
-    legal_status: LEGAL_STATUSES[0],
-    residency: RESIDENCES[0],
+    legal_status: LEGAL_STATUSES[0].value,
+    residency: RESIDENCES[0].value,
   };
 
   personal_data: Object = {
@@ -77,7 +77,7 @@ export class PersonalDataEditComponent implements OnInit {
         this.user_data = user;
         this.status.legal_status = user['legal_status'] || LEGAL_STATUSES[0].value;
         this.status.residency = user['residency'] || RESIDENCES[0].value;
-        if (this.user_data['type'] == 'partner') {
+        if (this.user_data['type'] == 'partner' || this.user_data['type'] == 'superuser') {
           this.LEGAL_STATUSES = [
             {
               value: 'natural_person',
@@ -127,6 +127,12 @@ export class PersonalDataEditComponent implements OnInit {
       this.personal_data['postal_address_region_id'] = this.personal_data['postal_address_region_id'] ? this.personal_data['postal_address_region_id']: NaN;
       this.personal_data['registration_address_city_id'] = this.personal_data['registration_address_city_id'] ? this.personal_data['registration_address_city_id']: NaN;
       this.personal_data['registration_address_region_id'] = this.personal_data['registration_address_region_id'] ? this.personal_data['registration_address_region_id']: NaN;
+
+      if (this.status.legal_status == 'natural_person'){
+        this.personal_data['contract_first_name'] = this.personal_data['first_name'];
+        this.personal_data['contract_second_name'] = this.personal_data['second_name'];
+        this.personal_data['contract_patronymic'] = this.personal_data['patronymic'];
+      }
 
       this.personalDataService.setPersonalData(this.personal_data, this.status)
         .subscribe(res => {

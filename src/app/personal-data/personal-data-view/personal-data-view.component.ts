@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 
 import { PersonalDataService } from 'app/shared/services/personal-data.service'
-import {RESIDENCES, LEGAL_STATUSES} from 'app/personal-data/personal-data-edit/personal-data-edit.component'
+import { FilesService } from 'app/shared/services/files.service'
+import { RESIDENCES, LEGAL_STATUSES } from 'app/personal-data/personal-data-edit/personal-data-edit.component'
 
 @Component({
   templateUrl: 'personal-data-view.component.html',
@@ -16,12 +17,12 @@ export class PersonalDataViewComponent implements OnInit {
 
   personal_data: Object = {
     phones: [],
-    postal_address_country:'',
-    postal_address_region:'',
-    postal_address_city:'',
-    registration_address_country:'',
-    registration_address_region:'',
-    registration_address_city:'',
+    postal_address_country: '',
+    postal_address_region: '',
+    postal_address_city: '',
+    registration_address_country: '',
+    registration_address_region: '',
+    registration_address_city: '',
   };
 
   status = {
@@ -29,26 +30,25 @@ export class PersonalDataViewComponent implements OnInit {
     residency: {},
   };
 
+  contractUrl: string = '';
+
   get full_name() {
     return `${this.personal_data['second_name']} ${this.personal_data['first_name']} ${this.personal_data['patronymic']}`
   }
 
-  constructor(private personalDataService: PersonalDataService, private router: Router) {
+  constructor(private personalDataService: PersonalDataService,
+              private router: Router,
+              private fileService: FilesService) {
   }
-
-  // findObj(array:Array<any>, value): number{
-  //   let obj = array.map((x) => x.value).indexOf(value);
-  //   return obj
-  // }
 
   ngOnInit() {
     this.personalDataService.getSelf()
       .subscribe(user => {
         this.user_data = user;
-        // this.status.legal_status = user['legal_status'];
-        // this.status.residency = user['residency'];
-        // this.status.legal_status = LEGAL_STATUSES.find(status => status.value == user['legal_status']) || LEGAL_STATUSES[0];
-        // this.status.residency = RESIDENCES.find(resid => resid.value ==user['residency']) || RESIDENCES[0];
+        this.fileService.getContractUrl(user.id)
+          .subscribe(
+            data => this.contractUrl = data.url
+          )
       });
     this.personalDataService.getPersonalData()
       .subscribe(personal_data => {

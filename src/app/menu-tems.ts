@@ -20,11 +20,11 @@ export const TOP_MENU_ITEMS = {
       label: 'Сотрудники'
     },
     {
-      link: '/black-white-list',
+      link: 'disable',
       label: 'Черно-белый список'
     },
     {
-      link: '/faq',
+      link: 'disable',
       label: 'ЧАВО'
     },
   ],
@@ -38,11 +38,11 @@ export const TOP_MENU_ITEMS = {
       label: 'Сотрудники'
     },
     {
-      link: '/black-white-list',
+      link: 'disable',
       label: 'Черно-белый список'
     },
     {
-      link: '/faq',
+      link: 'disable',
       label: 'ЧАВО'
     },
   ],
@@ -52,11 +52,11 @@ export const TOP_MENU_ITEMS = {
       label: 'Личные данные'
     },
     {
-      link: '/black-white-list',
+      link: 'disable',
       label: 'Черно-белый список'
     },
     {
-      link: '/faq',
+      link: 'disable',
       label: 'ЧАВО'
     },
   ],
@@ -66,11 +66,61 @@ export const TOP_MENU_ITEMS = {
       label: 'Личные данные'
     },
     {
-      link: '/black-white-list',
+      link: 'disable',
       label: 'Черно-белый список'
     },
     {
-      link: '/faq',
+      link: 'disable',
+      label: 'ЧАВО'
+    },
+  ],
+  superuser: [
+    {
+      link: '/personal_data',
+      label: 'Личные данные'
+    },
+    {
+      link: '/employees',
+      label: 'Сотрудники'
+    },
+    {
+      link: 'disable',
+      label: 'Пользователи'
+    },
+    {
+      link: '/file-sharing',
+      label: 'Файлообменник'
+    },
+    {
+      link: 'disable',
+      label: 'ЧАВО'
+    },
+  ],
+  accountant: [
+    {
+      link: '/personal_data',
+      label: 'Личные данные'
+    },
+    {
+      link: 'disable',
+      label: 'Черно-белый список'
+    },
+    {
+      link: 'disable',
+      label: 'ЧАВО'
+    },
+  ],
+  expert: [
+    {
+      link: '/personal_data',
+      label: 'Личные данные'
+    },
+    {
+      link: 'disable',
+      label: 'Черно-белый список'
+    },
+    {
+      link: 'disable',
       label: 'ЧАВО'
     },
   ]
