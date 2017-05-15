@@ -54,7 +54,6 @@ export class EmployeesListComponent {
       } else if (user.type === 'admin_of_direction') {
         this.ROLES = [{ title: 'Оператор', value: 'operator' }]
       } else if (user.type === 'superuser') {
-        console.log('!!!');
         this.ROLES = [
           { title: 'Бухгалтер', value: 'accountant' },
           { title: 'Эксперт', value: 'expert' }

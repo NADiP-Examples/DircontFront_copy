@@ -31,7 +31,6 @@ export class CommonComponent {
         this.top_menu_items = TOP_MENU_ITEMS[user['type']];
         this.left_menu_items = LEFT_MENU_ITEMS[user['type']];
         this.menu_disabled = !user['personal_id'];
-        console.log('user[personal_id] = ', user['personal_id']);
       })
   }
 }

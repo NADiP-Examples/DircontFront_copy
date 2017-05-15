@@ -17,6 +17,10 @@
       <fa name="file-text-o"></fa>
       <a [ngClass]="{disabled:!contractUrl}"  download href="{{contractUrl}}">Скачать договор</a>
     </div>
+    <div *ngIf="user_data.type == 'partner'">
+      <fa name="file-text-o"></fa>
+      <a [ngClass]="{disabled:!cardUrl}"  download href="{{cardUrl}}">Скачать визитку</a>
+    </div>
   </div>
   <div class="col-2">
     ID: {{user_data.personal_id}}

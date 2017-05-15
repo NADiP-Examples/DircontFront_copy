@@ -31,6 +31,7 @@ export class PersonalDataViewComponent implements OnInit {
   };
 
   contractUrl: string = '';
+  cardUrl: string = '';
 
   get full_name() {
     return `${this.personal_data['second_name']} ${this.personal_data['first_name']} ${this.personal_data['patronymic']}`
@@ -45,10 +46,15 @@ export class PersonalDataViewComponent implements OnInit {
     this.personalDataService.getSelf()
       .subscribe(user => {
         this.user_data = user;
-        this.fileService.getContractUrl(user.id)
+        this.fileService.getDocumentUrl(user.id, 'contract')
           .subscribe(
             data => this.contractUrl = data.url
+          );
+        this.fileService.getDocumentUrl(user.id, 'business_card')
+          .subscribe(
+            data => this.cardUrl = data.url
           )
+
       });
     this.personalDataService.getPersonalData()
       .subscribe(personal_data => {

@@ -12,7 +12,7 @@ export class FilesService {
   constructor(private http: Http, private authService: AuthService,) {
   }
 
-  uploadContractTemplate(file, test?): Observable<any> {
+  uploadTemplate(file, type): Observable<any> {
     let formData: FormData = new FormData();
     formData.append('file', file, file.name);
     let headers = this.authService.getHeaders();
@@ -20,31 +20,25 @@ export class FilesService {
     headers.append('Enctype', 'multipart/form-data');
     headers.append('Accept', 'application/json');
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(`${environment.api_url}/upload/contract${test?'/test':''}`, formData, options).map(data => data.json())
+    // if (test) type='';
+    return this.http.post(`${environment.api_url}/upload/${type}`, formData, options).map(data => data.json())
   }
 
-  // testUploadContractTemplate(file): Observable<any> {
-  //   let formData: FormData = new FormData();
-  //   formData.append('file', file, file.name);
-  //   let headers = this.authService.getHeaders();
-  //
-  //   headers.append('Enctype', 'multipart/form-data');
-  //   headers.append('Accept', 'application/json');
-  //   let options = new RequestOptions({ headers: headers });
-  //   return this.http.post(`${environment.api_url}/upload/contract/test`, formData, options).map(data => data.json())
-  // }
-
-  getContractUrl(user_id): Observable<any> {
+  getDocumentUrl(user_id, type): Observable<any> {
     let headers = this.authService.getHeaders();
-    console.log("Headers = ", headers);
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(`${environment.api_url}/user/${user_id}/contract`, {1:1}, options).map(data => data.json())
+    return this.http.post(`${environment.api_url}/user/${user_id}/${type}`, {1:1}, options).map(data => data.json())
   }
 
-  getContractTemplateUrl(): Observable<any> {
+  getTemplateUrl(type): Observable<any> {
     let headers = this.authService.getHeaders();
-    console.log("Headers = ", headers);
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(`${environment.api_url}/upload/contract`, options).map(data => data.json())
+    return this.http.get(`${environment.api_url}/upload/${type}`, options).map(data => data.json())
+  }
+
+  getLegend(): Observable<any> {
+    let headers = this.authService.getHeaders();
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(`${environment.api_url}/upload/legend`, options).map(data => data.json())
   }
 }

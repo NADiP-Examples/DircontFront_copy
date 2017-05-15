@@ -2,12 +2,52 @@
   <div class="col-12">
     <h5>Шаблон Договора</h5>
     <div>
-      <a download *ngIf="currentContractTemplate" href="{{currentContractTemplate}}">Загруженный шаблон</a>
-      <span *ngIf="!currentContractTemplate">
+      <a download *ngIf="currentContractTemplateUrl" href="{{currentContractTemplateUrl}}">Загруженный шаблон</a>
+      <span *ngIf="!currentContractTemplateUrl">
         Шаблон не загружен
       </span>
     </div>
-    <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".doc,.docx">
-    <button (click)="fileUpload()" [disabled]="!file">Загрузить</button>
+    <input type="file" (change)="fileChange($event, 'contract')" accept=".doc,.docx">
+    <button (click)="fileUpload('contract')" [disabled]="!contractTemplateFile">Загрузить</button>
   </div>
+
+  <div class="col-12" style="padding-top: 20px">
+    <h5>Шаблон Визитки</h5>
+    <div>
+      <a download *ngIf="currentCardTemplateUrl" href="{{currentCardTemplateUrl}}">Загруженный шаблон</a>
+      <span *ngIf="!currentCardTemplateUrl">
+        Шаблон не загружен
+      </span>
+    </div>
+    <input type="file" (change)="fileChange($event, 'business_card')" accept=".doc,.docx">
+    <button (click)="fileUpload('business_card')" [disabled]="!cardTemplateFile">Загрузить</button>
+  </div>
+
+  <a href="" (click)="$event.preventDefault();showLegend()" style="display: block; padding: 15px 0">
+    Правила заполнения шаблона Договора/Визитки
+  </a>
 </div>
+<modal #doc_legend_modal>
+  <modal-header>
+    <h4 class="modal-title">Правила заполнения шаблона Договора/Визитки</h4>
+  </modal-header>
+  <modal-body>
+    <div class="row">
+      <div class="col-md-12">
+        Шаблон создается в формате docx. В шаблоне используется шаблонизатор
+        <a href="http://jinja.pocoo.org/docs/2.9/" target="_blank">jinja2</a>.<br>
+        Для вставки данных из Базы данных используются шаблонные теги:<br>
+        Пример: <code ngNonBindable>{{second_name}}</code> - для вставки Фамилии<br>
+        <h5>Список шаблонных переменных</h5>
+        <div class="variables-list">
+          <ul>
+            <li *ngFor="let value of contractLegend">
+              {{value}}
+            </li>
+          </ul>
+        </div>
+        Так же можно использовать логические и прочие теги шаблонизатора jinja2, подробнее в документации шаблонизатора.
+      </div>
+    </div>
+  </modal-body>
+</modal>
