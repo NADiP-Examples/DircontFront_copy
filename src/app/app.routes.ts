@@ -5,9 +5,11 @@ import { authRoutes } from './auth/auth.routes'
 import { personalDataRoutes } from './personal-data/personal-data.routers'
 import { employeesRoutes }   from 'app/employees/employees.routes';
 import { fileSharingRoutes } from 'app/file-sharing/file-sharing.routes'
+import { profileRoutes } from 'app/profile/profile.routers'
 
 //Layout components - компоненты обертки (компоненты, в которы встраиваются текущие компоненты)
 import { CommonComponent } from './shared/layout_components/common/common.component';
+import { DashboardLayoutComponent } from './shared/layout_components/dashboard_layout/dashboard_layout.component'
 
 //Other components
 import { NotFoundComponent } from './not-found/not-found.comnponent';
@@ -24,6 +26,11 @@ export const appRoutes: Routes = [
     { path: 'file-sharing', children: fileSharingRoutes },
     { path: 'employees', canActivate: [isHasId, isNotBlocked], children: employeesRoutes },
     //  any routes with CommonComponent
+  ]
+  },
+  {
+    path: '', component: DashboardLayoutComponent, children: [
+    { path: 'profile', children: profileRoutes },
   ]
   },
   { path: '**', component: NotFoundComponent }

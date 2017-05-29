@@ -7,6 +7,7 @@ import { SpoilerBlockComponent } from './components/spoiler-block/spoiler-block.
 import { LocationComponent } from './components/location/location.component'
 import { LeftMenuComponent } from './components/left-menu/left-menu.component'
 import { TopMenuComponent } from './components/top-menu/top-menu.component'
+import { StatusBar } from './components/status-bar/status-bar.component'
 import { Angular2FontAwesomeModule } from 'angular2-font-awesome/angular2-font-awesome'
 
 import { TitleFromPipe } from 'app/shared/pipes/titleFrom';
@@ -23,6 +24,7 @@ import { TitleFromPipe } from 'app/shared/pipes/titleFrom';
     LocationComponent,
     LeftMenuComponent,
     TopMenuComponent,
+    StatusBar,
     TitleFromPipe
   ],
   declarations: [
@@ -30,6 +32,7 @@ import { TitleFromPipe } from 'app/shared/pipes/titleFrom';
     LocationComponent,
     LeftMenuComponent,
     TopMenuComponent,
+    StatusBar,
     TitleFromPipe,
   ]
 })

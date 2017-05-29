@@ -1,0 +1,67 @@
+@import "assets/sass/parts/_test-reset"
+
+div
+  -webkit-transition: all 700ms ease-in
+  -moz-transition: all 700ms ease-in
+  -ms-transition: all 700ms ease-in
+  -o-transition: all 700ms ease-in
+  transition: all 700ms ease-in
+
+.info-block
+  +margin-bottom-20
+
+.icon-button
+  +bg-none
+  +bd-none
+  color: darken($color1, 70%)
+
+.icon-block
+  +inline-block
+  width: 25px
+  text-align: center
+  color: darken($color1, 70%)
+  font-size: 18px
+  margin-right: 5px
+
+h2
+  b
+    border-bottom: 2px solid $color3
+
+.passport-series
+  width: 60px!important
+
+.passport-num, .passport-code
+  width: 80px!important
+
+.passport-date
+  width: 150px
+
+.passport-place
+  +block
+  width: 70% !important
+
+.corporate-block
+  .info-block
+    border-left: 4px solid $color2
+    +pd-left-10
+    +margin-bottom-30
+
+.adress-place
+  +inline-block
+  width: 450px !important
+
+.advice
+  +pd-20
+  +pd-left-40
+  +margin-bottom-15
+  +margin-top-10
+  +caption-font-medium
+  background: lighten($color3,33%)
+  border: 1px dashed darken($color3,10%)
+  +inline-block
+  .fa
+    +absolute
+    margin: -5px -25px
+    font-size: 40px
+    color: $color3
+

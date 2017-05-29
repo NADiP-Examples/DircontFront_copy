@@ -1,0 +1,37 @@
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:300,400,500,700&amp;subset=cyrillic" rel="stylesheet">
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+  <div class="container">
+    <div class="col-3">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+              data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" [routerLink]="['']">Dircont</a>
+    </div>
+    <div class="col-5" id="navbarSupportedContent">
+    </div>
+    <div class="col-4">
+      <ul class="nav navbar-nav yellow-font">
+        <li class="active"><a class="yellow-font" href="#"><i class="fa fa-exclamation icon-block pointer yellow-font"></i></a><span class="num">2</span></li>
+        <li><a class="yellow-font" href="#"><i class="fa fa-envelope icon-block pointer yellow-font"></i></a><span class="num">8</span></li>
+        <li><i class="fa fa-user icon-block pointer yellow-font"></i> <a class="yellow-font" href="#">Иванов И.И.</a> / <a class="yellow-font" href="#">Партнер</a></li>
+        <li><i class="fa fa-sliders icon-block pointer yellow-font"></i></li>
+        <li><i class="fa fa-sign-out icon-block pointer yellow-font"></i></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <div class="row">
+    <!--<div class="col-2">-->
+      <!--<left-menu [menu_items]="left_menu_items" [menu_disabled]="disabled" ></left-menu>-->
+    <!--</div>-->
+    <div class="col-2 left-menu">
+      <left-menu style="width: 100%" [menu_items]="top_menu_items" [menu_disabled]="disabled"></left-menu>
+    </div>
+    <div class="col-10">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

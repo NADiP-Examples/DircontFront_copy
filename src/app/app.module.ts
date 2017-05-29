@@ -11,6 +11,7 @@ import { EqualValidator } from './shared/directives/equal-validator.directive';
 // Custom Modules
 import { AuthModule } from './auth/auth.module';
 import { PersonalDataModule } from './personal-data/personal-data.module'
+import { ProfileModule } from './profile/profile.module'
 import { SharedModule } from 'app/shared/shared.module'
 import { EmployeesModule } from 'app/employees/employees.module'
 import { FileSharingModule } from 'app/file-sharing/file-sharing.module'
@@ -21,6 +22,7 @@ import { appRoutes } from './app.routes'
 
 import { AppComponent } from './app.component';
 import { CommonComponent } from './shared/layout_components/common/common.component';
+import { DashboardLayoutComponent } from './shared/layout_components/dashboard_layout/dashboard_layout.component';
 import { NotFoundComponent } from './not-found/not-found.comnponent';
 
 import { AuthService } from './shared/services/auth.service';
@@ -33,6 +35,7 @@ import { isLoggedIn, isLoggedOut, isHasId, isNotBlocked }   from './shared/servi
     AppComponent,
     NotFoundComponent,
     CommonComponent,
+    DashboardLayoutComponent,
     EqualValidator,
   ],
   // Набор классов представлений, которые должны использоваться в шаблонах компонентов из других модулей
@@ -44,6 +47,7 @@ import { isLoggedIn, isLoggedOut, isHasId, isNotBlocked }   from './shared/servi
     HttpModule,
     AuthModule,
     PersonalDataModule,
+    ProfileModule,
     SharedModule,
     EmployeesModule,
     FileSharingModule,
