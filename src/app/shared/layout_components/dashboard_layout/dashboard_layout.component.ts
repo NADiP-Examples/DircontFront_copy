@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from 'app/shared/services/auth.service';
 
-import { TOP_MENU_ITEMS, LEFT_MENU_ITEMS } from './menu-tems';
+import { MENU_ITEMS } from 'app/menu-tems';
 import { ROLES } from 'app/CONSTANTS';
 
 @Component({
@@ -12,15 +12,13 @@ import { ROLES } from 'app/CONSTANTS';
   styleUrls: ['./dashboard_layout.component.sass']
 })
 export class DashboardLayoutComponent {
-  top_menu_items = TOP_MENU_ITEMS.admin_of_user;
-  left_menu_items = LEFT_MENU_ITEMS.unknown;
+  menu_items = MENU_ITEMS.admin_of_user;
   ROLES = ROLES;
   disabled = false;
   user = {};
 
   constructor(private router: Router,
-              private authService: AuthService,
-              ) {
+              private authService: AuthService,) {
 
     // this.personalDataService.getSelf()
     //   .subscribe(user => {

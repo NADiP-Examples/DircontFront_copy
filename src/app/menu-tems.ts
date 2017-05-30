@@ -8,23 +8,41 @@
 //    Оператор [operator]
 //
 
-export const TOP_MENU_ITEMS = {
+export const MENU_ITEMS = {
   unknown: [],
   admin_of_user: [
     {
       link: '/personal_data',
-      label: 'Личные данные'
+      label: 'Личные данные(Old)',
+    },
+    {
+      link: '/profile',
+      label: 'Личные данные',
+      sub_items: [{
+        link: '/profile/one',
+        label: 'Подпункт-1',
+      }, {
+        link: '/profile/two',
+        label: 'Подпункт-2',
+      }, {
+        link: '/profile/three',
+        label: 'Подпункт-3',
+      }]
     },
     {
       link: '/employees',
-      label: 'Сотрудники'
+      label: 'Сотрудники',
+      sub_items: [{
+        link: '/employees/tree',
+        label: 'Дерево сотрудников',
+      }, ]
     },
     {
-      link: 'disable',
+      link: '/black-white-list',
       label: 'Черно-белый список'
     },
     {
-      link: 'disable',
+      link: '/faq',
       label: 'ЧАВО'
     },
   ],
@@ -124,36 +142,4 @@ export const TOP_MENU_ITEMS = {
       label: 'ЧАВО'
     },
   ]
-};
-
-export const LEFT_MENU_ITEMS = {
-  unknown: [],
-  admin_of_user: [
-    {
-      link: '',
-      label: 'Клиентов'
-    },
-    {
-      link: '',
-      label: 'Партнеров'
-    },
-    {
-      link: '',
-      label: 'Поступлений и выплат'
-    },
-  ],
-  partner: [
-    {
-      link: '',
-      label: 'Клиентов'
-    },
-    {
-      link: '',
-      label: 'Партнеров'
-    },
-    {
-      link: '',
-      label: 'Поступлений и выплат'
-    },
-  ],
 };

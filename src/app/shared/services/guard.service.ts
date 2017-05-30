@@ -25,7 +25,7 @@ export class isLoggedOut implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> | boolean {
     if (this.AuthService.isLoggedIn()) {
-      this.router.navigate(['personal_data']);
+      this.router.navigate(['profile']);
       return false;
     }
     return true;
@@ -41,7 +41,7 @@ export  class isHasId implements CanActivate {
       if (user['personal_id']) {
         return true
       }
-      this.router.navigate(['personal_data', 'edit']);
+      this.router.navigate(['profile']);
       return false;
     });
   }
@@ -53,7 +53,7 @@ export  class isNotBlocked implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean> | boolean {
     return this.personalDataService.getSelf().map(user => {
-      if (user.status === 'blocked') this.router.navigate(['personal_data']);
+      if (user.status === 'blocked') this.router.navigate(['profile']);
       return user.status !== 'blocked'
     });
   }

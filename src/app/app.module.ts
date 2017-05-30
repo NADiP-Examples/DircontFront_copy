@@ -21,7 +21,6 @@ import 'rxjs/Rx'; // Not delete!! It's need for correct work with Observable
 import { appRoutes } from './app.routes'
 
 import { AppComponent } from './app.component';
-import { CommonComponent } from './shared/layout_components/common/common.component';
 import { DashboardLayoutComponent } from './shared/layout_components/dashboard_layout/dashboard_layout.component';
 import { NotFoundComponent } from './not-found/not-found.comnponent';
 
@@ -34,7 +33,6 @@ import { isLoggedIn, isLoggedOut, isHasId, isNotBlocked }   from './shared/servi
   declarations: [
     AppComponent,
     NotFoundComponent,
-    CommonComponent,
     DashboardLayoutComponent,
     EqualValidator,
   ],

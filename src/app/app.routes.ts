@@ -8,7 +8,6 @@ import { fileSharingRoutes } from 'app/file-sharing/file-sharing.routes'
 import { profileRoutes } from 'app/profile/profile.routers'
 
 //Layout components - компоненты обертки (компоненты, в которы встраиваются текущие компоненты)
-import { CommonComponent } from './shared/layout_components/common/common.component';
 import { DashboardLayoutComponent } from './shared/layout_components/dashboard_layout/dashboard_layout.component'
 
 //Other components
@@ -21,16 +20,12 @@ export const appRoutes: Routes = [
   { path: '', canActivate: [isLoggedIn], redirectTo: '/personal_data', pathMatch: 'full' },
   { path: '', children: authRoutes }, //auth
   {
-    path: '', canActivate: [isLoggedIn], component: CommonComponent, children: [
+    path: '', canActivate: [isLoggedIn], component: DashboardLayoutComponent, children: [
     { path: 'personal_data', children: personalDataRoutes },
+    { path: 'profile', children: profileRoutes },
     { path: 'file-sharing', children: fileSharingRoutes },
     { path: 'employees', canActivate: [isHasId, isNotBlocked], children: employeesRoutes },
-    //  any routes with CommonComponent
-  ]
-  },
-  {
-    path: '', component: DashboardLayoutComponent, children: [
-    { path: 'profile', children: profileRoutes },
+    //  any routes with DashboardLayoutComponent
   ]
   },
   { path: '**', component: NotFoundComponent }

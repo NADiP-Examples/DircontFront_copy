@@ -7,6 +7,7 @@ import { Headers } from '@angular/http'
 import * as _ from "lodash";
 
 import { environment } from 'environments/environment';
+import { REDIRECT_AFTER_LOGIN } from 'app/CONSTANTS'
 
 function errorHandler(error) {
   return Observable.throw(error.json ? error.json() : error)
@@ -15,18 +16,18 @@ function errorHandler(error) {
 @Injectable()
 export class AuthService {
   private loggedIn = false;
-  public _user_id:String;
+  public _user_id: String;
   private _headers = new Headers();
 
-  get user_id():String {
+  get user_id(): String {
     if (!this._user_id) this._user_id = Cookie.get('user_id');
     return this._user_id
   }
 
   // TODO: поправить логику установки Заголовков.
   // Сейчас заголовки, это ОДИН заголовок Authentication-Token
-  get headers(){
-    if (_.isEmpty(this._headers.toJSON())){
+  get headers() {
+    if (_.isEmpty(this._headers.toJSON())) {
       let token = Cookie.get('Authentication-Token');
       if (token) this._headers.append('Authentication-Token', token);
     }
@@ -52,7 +53,7 @@ export class AuthService {
         result = res
       })
       .flatMap(() => this.getSelf())
-      .map(() => this.router.navigate(['personal_data']))
+      .map(() => this.router.navigate([REDIRECT_AFTER_LOGIN]))
       .map(() => result)
       .catch((error) => errorHandler(error));
   }
@@ -67,8 +68,10 @@ export class AuthService {
     }
     this.loggedIn = true;
 
-    return this.http.get(`${environment.api_url}/user/${user_id}`, { headers :this.headers })
-      .map(res => {res.json()})
+    return this.http.get(`${environment.api_url}/user/${user_id}`, { headers: this.headers })
+      .map(res => {
+        res.json()
+      })
       .catch((error) => {
         this.logout();
         return errorHandler(error)
@@ -87,20 +90,23 @@ export class AuthService {
 
   activateUser(email: string): Observable<any> {
     let callback = `${environment.callback_url}/activate`;
-    return this.http.post(`${environment.api_url}/auth/activate_user`, {email, callback}, {headers :this.headers})
+    return this.http.post(`${environment.api_url}/auth/activate_user`, { email, callback }, { headers: this.headers })
       .map(res => res.json())
       .catch((error) => errorHandler(error));
   }
 
   activateConfirmUser(email: string, key: string): Observable<any> {
-    return this.http.post(`${environment.api_url}/auth/activate_user/confirm`, {email, key}, {headers :this.headers})
+    return this.http.post(`${environment.api_url}/auth/activate_user/confirm`, {
+      email,
+      key
+    }, { headers: this.headers })
       .map(res => res.json())
       .map((res) => {
         Cookie.set('Authentication-Token', res.auth_token);
         Cookie.set('user_id', res.user_id);
       })
       .flatMap(() => this.getSelf())
-      .map(() => this.router.navigate(['personal_data']))
+      .map(() => this.router.navigate([REDIRECT_AFTER_LOGIN]))
       .catch((error) => errorHandler(error));
   }
 
@@ -123,45 +129,49 @@ export class AuthService {
 
   confirmChangeEmail(key: string): Observable<any> {
     let headers = this.headers;
-    let data = {key};
+    let data = { key };
     return this.http.post(`${environment.api_url}/auth/change_email/confirm`, data, { headers }).map(data => data.json())
   }
 
   resetPass(email: string): Observable<any> {
     let callback = `${environment.callback_url}/confirm_reset_pass`;
-    return this.http.post(`${environment.api_url}/auth/reset_password`, {email, callback}, {headers :this.headers})
+    return this.http.post(`${environment.api_url}/auth/reset_password`, { email, callback }, { headers: this.headers })
       .map(res => res.json())
       .catch((error) => errorHandler(error));
   }
 
   resetPassConform(email: string, key: string, password: string): Observable<any> {
-    return this.http.post(`${environment.api_url}/auth/reset_password/confirm`, {email, key, password}, {headers :this.headers})
+    return this.http.post(`${environment.api_url}/auth/reset_password/confirm`, {
+      email,
+      key,
+      password
+    }, { headers: this.headers })
       .map(res => res.json())
       .map((res) => {
         Cookie.set('Authentication-Token', res.auth_token);
         Cookie.set('user_id', res.user_id);
       })
       .flatMap(() => this.getSelf())
-      .map(() => this.router.navigate(['personal_data']))
+      .map(() => this.router.navigate([REDIRECT_AFTER_LOGIN]))
       .catch((error) => errorHandler(error));
   }
 
   inviteUser(email: string): Observable<any> {
     let callback = `${environment.callback_url}/invite`;
-    return this.http.post(`${environment.api_url}/auth/invite/send`, {email, callback}, {headers :this.headers})
+    return this.http.post(`${environment.api_url}/auth/invite/send`, { email, callback }, { headers: this.headers })
       .map(res => res.json())
       .catch((error) => errorHandler(error));
   }
 
   inviteConfirmUser(email: string, key: string): Observable<any> {
-    return this.http.post(`${environment.api_url}/auth/invite/confirm`, {email, key}, {headers :this.headers})
+    return this.http.post(`${environment.api_url}/auth/invite/confirm`, { email, key }, { headers: this.headers })
       .map(res => res.json())
       .map((res) => {
         Cookie.set('Authentication-Token', res.auth_token);
         Cookie.set('user_id', res.user_id);
       })
       .flatMap(() => this.getSelf())
-      .map(() => this.router.navigate(['personal_data']))
+      .map(() => this.router.navigate([REDIRECT_AFTER_LOGIN]))
       .catch((error) => errorHandler(error));
   }
 

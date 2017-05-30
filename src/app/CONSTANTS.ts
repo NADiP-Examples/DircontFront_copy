@@ -33,3 +33,5 @@ export const RESIDENCES = [
     title: 'Иное'
   },
 ];
+
+export const REDIRECT_AFTER_LOGIN = 'profile';
