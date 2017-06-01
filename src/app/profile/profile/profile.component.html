@@ -24,19 +24,6 @@
       <div *ngIf="user_data_status === 'opened' || user_data_status === 'saved_animate'">
         <div class="animated fadeIn">
           <div class="info-block">
-            <h4>Резидентство:</h4>
-            <div class="radio">
-              <input class="hidden-xs-up" type="radio" id="resident-rf" value="russian_federation"
-                     [(ngModel)]="user.residency" name="residency" #residency="ngModel">
-              <label for="resident-rf" class="radio-label">Резидент РФ</label>
-            </div>
-            <div class="radio">
-              <input class="hidden-xs-up" type="radio" id="other" value="other"
-                     [(ngModel)]="user.residency" name="residency">
-              <label for="other" class="radio-label">Иное</label>
-            </div>
-          </div>
-          <div class="info-block">
             <h4>Контактная информация:</h4>
             <i class="fa fa-mobile icon-block"></i>
             <input placeholder="Номер телефона" type="tel">
@@ -80,14 +67,27 @@
 <div class="corporate-block animated fadeIn" *ngIf="company_visible">
   <div class="advice" *ngIf="company_data_status != 'saved' && adbice_company_visible">
     <i class="fa fa-exclamation animated jello"></i>
-    Отличная работа! Теперь расскажите подробнее о вашей компании!
+    Отличная работа! Теперь укажите данные для договора!
   </div>
-  <h4>Данные о компании:</h4>
+  <h4>Данные для договора:</h4>
   <!-- Status 2-1 -->
   <form novalidate class="animated" [ngClass]="{fadeOut:company_data_status === 'saved_animate'}"
         (animationend)="animationEnd()"
         #companyDataForm="ngForm" (submit)="$event.preventDefault();saveCompanyData(companyDataForm)">
     <div *ngIf="company_data_status != 'saved'" class="info-block">
+      <div class="info-block">
+        <h4>Резидентство:</h4>
+        <div class="radio">
+          <input class="hidden-xs-up" type="radio" id="resident-rf" value="russian_federation"
+                 [(ngModel)]="user.residency" name="residency" #residency="ngModel">
+          <label for="resident-rf" class="radio-label">Резидент РФ</label>
+        </div>
+        <div class="radio">
+          <input class="hidden-xs-up" type="radio" id="other" value="other"
+                 [(ngModel)]="user.residency" name="residency">
+          <label for="other" class="radio-label">Иное</label>
+        </div>
+      </div>
       <h4>Юридический статус:</h4>
       <div class="radio">
         <input (change)="selectLegalStatus('natural_person')" class="hidden-xs-up" type="radio" name="legal_status"
