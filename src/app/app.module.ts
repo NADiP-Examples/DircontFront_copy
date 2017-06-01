@@ -15,6 +15,7 @@ import { ProfileModule } from './profile/profile.module'
 import { SharedModule } from 'app/shared/shared.module'
 import { EmployeesModule } from 'app/employees/employees.module'
 import { FileSharingModule } from 'app/file-sharing/file-sharing.module'
+import { DesignDemoModule } from 'app/design-demo/design-demo.module'
 
 import 'rxjs/Rx'; // Not delete!! It's need for correct work with Observable
 
@@ -49,6 +50,7 @@ import { isLoggedIn, isLoggedOut, isHasId, isNotBlocked }   from './shared/servi
     SharedModule,
     EmployeesModule,
     FileSharingModule,
+    DesignDemoModule,
     TranslateModule.forRoot(),
     SimpleNotificationsModule.forRoot(),
     RouterModule.forRoot(appRoutes),

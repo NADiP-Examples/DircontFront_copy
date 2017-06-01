@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthService } from 'app/shared/services/auth.service';
 
@@ -17,8 +17,15 @@ export class DashboardLayoutComponent {
   disabled = false;
   user = {};
 
-  constructor(private router: Router,
+  constructor(private router: Router, private route: ActivatedRoute,
               private authService: AuthService,) {
+    this.route
+      .data
+      .subscribe(data => {
+        if (data['type'] == 'demo'){
+          this.menu_items = MENU_ITEMS.demo;
+        }
+      });
 
     // this.personalDataService.getSelf()
     //   .subscribe(user => {
